@@ -1,0 +1,2217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>QuickBite</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<style>
+
+/* ================= GLOBAL ================= */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#FFF8F0;
+color:#1F1F1F;
+overflow-x:hidden;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+.section{
+padding:80px 7%;
+}
+
+.section-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:35px;
+flex-wrap:wrap;
+gap:10px;
+}
+
+.section-header h2{
+font-size:2.5rem;
+font-weight:700;
+}
+
+.see-all{
+color:#C62828;
+font-weight:600;
+cursor:pointer;
+transition:0.3s;
+margin-left:auto;
+align-self:center;
+line-height:1;
+}
+
+
+.see-all:hover{
+opacity:0.7;
+}
+
+.red-btn{
+padding:13px 24px;
+border:none;
+border-radius:14px;
+background:#C62828;
+color:white;
+font-weight:600;
+cursor:pointer;
+transition:0.3s;
+}
+
+.red-btn:hover{
+background:#a51f1f;
+transform:translateY(-2px);
+}
+
+/* ================= NAVBAR ================= */
+
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 7%;
+GAP:25PX;
+background:#FFF8F0;
+position:sticky;
+top:0;
+z-index:1000;
+box-shadow:0 3px 12px rgba(0,0,0,0.04);
+}
+
+.logo{
+font-size:2rem;
+font-weight:800;
+color:#C62828;
+}
+
+.nav-right{
+display:flex;
+align-items:center;
+gap:26px;
+}
+
+.nav-right a{
+text-decoration:none;
+color:#1F1F1F;
+font-weight:500;
+transition:0.3s;
+}
+
+.nav-right a:hover{
+color:#C62828;
+}
+
+.icon{
+font-size:1.1rem;
+cursor:pointer;
+transition:0.3s;
+}
+
+.icon:hover{
+color:#C62828;
+}
+
+.sign-btn{
+padding:12px 24px;
+border:2px solid #C62828;
+background:none;
+border-radius:14px;
+color:#C62828;
+font-weight:600;
+cursor:pointer;
+transition:0.3s;
+}
+
+.sign-btn:hover{
+background:#C62828;
+color:white;
+}
+
+.sign-btn.hidden{
+display:none !important;
+}
+
+/* ================= DESKTOP PROFILE DROPDOWN ================= */
+
+.desktop-profile{
+position:relative;
+display:none;
+}
+
+.desktop-profile.active{
+display:block;
+}
+
+.desktop-profile-icon{
+width:42px;
+height:42px;
+border-radius:50%;
+background:rgba(198,40,40,0.08);
+border:2px solid #C62828;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+transition:0.3s;
+}
+
+.desktop-profile-icon i{
+font-size:1rem;
+color:#C62828;
+}
+
+.desktop-profile-icon:hover{
+background:rgba(198,40,40,0.15);
+transform:scale(1.05);
+}
+
+.desktop-dropdown{
+position:absolute;
+top:calc(100% + 14px);
+right:0;
+width:300px;
+background:white;
+border-radius:22px;
+box-shadow:0 20px 60px rgba(0,0,0,0.12);
+padding:20px;
+opacity:0;
+visibility:hidden;
+transform:translateY(-10px);
+transition:0.35s ease;
+z-index:3000;
+}
+
+.desktop-dropdown.active{
+opacity:1;
+visibility:visible;
+transform:translateY(0);
+}
+
+.dropdown-header{
+display:flex;
+align-items:center;
+gap:14px;
+padding-bottom:16px;
+}
+
+.dropdown-avatar{
+width:48px;
+height:48px;
+border-radius:50%;
+background:rgba(198,40,40,0.08);
+border:2px solid #C62828;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-shrink:0;
+}
+
+.dropdown-avatar i{
+font-size:1.2rem;
+color:#C62828;
+}
+
+.dropdown-info h4{
+font-size:0.95rem;
+font-weight:600;
+color:#1F1F1F;
+margin-bottom:2px;
+}
+
+.dropdown-info span{
+font-size:0.8rem;
+color:#888;
+}
+
+.dropdown-divider{
+height:1px;
+background:rgba(0,0,0,0.06);
+margin:4px 0;
+}
+
+.dropdown-menu{
+list-style:none;
+padding:8px 0;
+}
+
+.dropdown-menu li a{
+display:flex;
+align-items:center;
+gap:12px;
+padding:11px 14px;
+text-decoration:none;
+color:#1F1F1F;
+font-weight:500;
+font-size:0.9rem;
+border-radius:12px;
+transition:0.3s;
+}
+
+.dropdown-menu li a:hover{
+background:rgba(198,40,40,0.05);
+color:#C62828;
+}
+
+.dropdown-menu li a i{
+font-size:0.95rem;
+width:20px;
+text-align:center;
+color:#C62828;
+}
+
+.dropdown-logout{
+width:100%;
+padding:12px;
+border:2px solid #e53935;
+background:rgba(229,57,53,0.03);
+border-radius:12px;
+color:#e53935;
+font-weight:600;
+font-size:0.9rem;
+cursor:pointer;
+transition:0.3s;
+font-family:'Poppins',sans-serif;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:8px;
+margin-top:8px;
+}
+
+.dropdown-logout:hover{
+background:#e53935;
+color:white;
+}
+
+/* ================= MENU TOGGLE ================= */
+
+.menu-toggle{
+display:none;
+font-size:1.4rem;
+cursor:pointer;
+color:#1F1F1F;
+transition:0.3s;
+position:relative;
+width:24px;
+height:24px;
+}
+
+.menu-toggle .fa-bars,
+.menu-toggle .fa-xmark{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+transition:0.4s ease;
+}
+
+.menu-toggle .fa-xmark{
+opacity:0;
+transform:translate(-50%,-50%) rotate(-90deg);
+}
+
+.menu-toggle.active .fa-bars{
+opacity:0;
+transform:translate(-50%,-50%) rotate(90deg);
+}
+
+.menu-toggle.active .fa-xmark{
+opacity:1;
+transform:translate(-50%,-50%) rotate(0deg);
+}
+
+.menu-toggle:hover{
+color:#C62828;
+}
+
+/* ================= MOBILE DRAWER ================= */
+
+.mobile-overlay{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.5);
+backdrop-filter:blur(4px);
+-webkit-backdrop-filter:blur(4px);
+z-index:2000;
+opacity:0;
+visibility:hidden;
+transition:0.4s ease;
+}
+
+.mobile-overlay.active{
+opacity:1;
+visibility:visible;
+}
+
+.mobile-drawer{
+position:fixed;
+top:0;
+right:-100%;
+width:75%;
+max-width:340px;
+height:100%;
+background:#FFF8F0;
+z-index:2001;
+padding:30px 24px;
+overflow-y:auto;
+transition:0.45s cubic-bezier(0.4,0,0.2,1);
+box-shadow:-10px 0 40px rgba(0,0,0,0.15);
+display:flex;
+flex-direction:column;
+}
+
+.mobile-drawer.active{
+right:0;
+}
+
+.drawer-close{
+position:absolute;
+top:22px;
+right:22px;
+font-size:1.4rem;
+cursor:pointer;
+color:#1F1F1F;
+transition:0.3s;
+width:36px;
+height:36px;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:50%;
+background:rgba(0,0,0,0.04);
+}
+
+.drawer-close:hover{
+color:#C62828;
+background:rgba(198,40,40,0.08);
+}
+
+/* Profile Section */
+.drawer-profile{
+display:none;
+align-items:center;
+gap:14px;
+padding:20px 0 24px;
+border-bottom:1px solid rgba(0,0,0,0.06);
+margin-bottom:10px;
+margin-top:20px;
+}
+
+.drawer-profile.active{
+display:flex;
+}
+
+.drawer-profile img{
+width:56px;
+height:56px;
+border-radius:50%;
+object-fit:cover;
+border:3px solid #C62828;
+}
+
+.drawer-avatar{
+width:56px;
+height:56px;
+border-radius:50%;
+background:rgba(198,40,40,0.08);
+border:3px solid #C62828;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-shrink:0;
+}
+
+.drawer-avatar i{
+font-size:1.4rem;
+color:#C62828;
+}
+
+.drawer-profile-info h4{
+font-size:1rem;
+font-weight:600;
+color:#1F1F1F;
+margin-bottom:2px;
+}
+
+.drawer-profile-info span{
+font-size:0.82rem;
+color:#888;
+}
+
+/* Menu Items */
+.drawer-menu{
+list-style:none;
+padding:16px 0;
+flex:1;
+}
+
+.drawer-menu li{
+opacity:0;
+transform:translateY(12px);
+transition:0.35s ease;
+}
+
+.mobile-drawer.active .drawer-menu li{
+opacity:1;
+transform:translateY(0);
+}
+
+.drawer-menu li:nth-child(1){transition-delay:0.08s}
+.drawer-menu li:nth-child(2){transition-delay:0.12s}
+.drawer-menu li:nth-child(3){transition-delay:0.16s}
+.drawer-menu li:nth-child(4){transition-delay:0.20s}
+.drawer-menu li:nth-child(5){transition-delay:0.24s}
+.drawer-menu li:nth-child(6){transition-delay:0.28s}
+.drawer-menu li:nth-child(7){transition-delay:0.32s}
+.drawer-menu li:nth-child(8){transition-delay:0.36s}
+.drawer-menu li:nth-child(9){transition-delay:0.40s}
+.drawer-menu li:nth-child(10){transition-delay:0.44s}
+
+.drawer-menu li a{
+display:flex;
+align-items:center;
+gap:14px;
+padding:14px 16px;
+text-decoration:none;
+color:#1F1F1F;
+font-weight:500;
+font-size:0.95rem;
+border-radius:14px;
+transition:0.3s ease;
+}
+
+.drawer-menu li a:hover,
+.drawer-menu li a.active-link{
+background:rgba(198,40,40,0.06);
+color:#C62828;
+}
+
+.drawer-menu li a i{
+font-size:1.1rem;
+width:22px;
+text-align:center;
+color:#C62828;
+}
+
+.drawer-divider{
+height:1px;
+background:rgba(0,0,0,0.06);
+margin:8px 16px;
+}
+
+/* Auth Buttons */
+.drawer-auth{
+padding:16px 0;
+display:flex;
+flex-direction:column;
+gap:12px;
+}
+
+.drawer-auth .drawer-signin{
+width:100%;
+padding:14px;
+border:2px solid #C62828;
+background:none;
+border-radius:14px;
+color:#C62828;
+font-weight:600;
+font-size:0.95rem;
+cursor:pointer;
+transition:0.3s;
+font-family:'Poppins',sans-serif;
+}
+
+.drawer-auth .drawer-signin:hover{
+background:#C62828;
+color:white;
+}
+
+.drawer-auth .drawer-login{
+width:100%;
+padding:14px;
+border:none;
+border-radius:14px;
+background:#C62828;
+color:white;
+font-weight:600;
+font-size:0.95rem;
+cursor:pointer;
+transition:0.3s;
+font-family:'Poppins',sans-serif;
+}
+
+.drawer-auth .drawer-login:hover{
+background:#a51f1f;
+transform:translateY(-2px);
+}
+
+/* Logout Button */
+.drawer-logout{
+display:none;
+width:100%;
+padding:14px;
+border:2px solid #e53935;
+background:rgba(229,57,53,0.04);
+border-radius:14px;
+color:#e53935;
+font-weight:600;
+font-size:0.95rem;
+cursor:pointer;
+transition:0.3s;
+font-family:'Poppins',sans-serif;
+margin-top:auto;
+gap:8px;
+align-items:center;
+justify-content:center;
+}
+
+.drawer-logout.active{
+display:flex;
+}
+
+.drawer-logout:hover{
+background:#e53935;
+color:white;
+}
+
+/* Body lock when drawer open */
+body.drawer-open{
+overflow:hidden;
+}
+
+/* ================= HERO ================= */
+
+.hero{
+padding-bottom:60px;
+}
+
+.hero-box{
+min-height:760px;
+
+background:
+linear-gradient(rgba(0,0,0,0.55),
+rgba(0,0,0,0.55)),
+url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=2600&auto=format&fit=crop');
+
+background-size:cover;
+background-position:center;
+
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+
+padding:100px 7%;
+}
+
+.hero-content{
+max-width:850px;
+}
+
+.hero-content h1{
+font-size:5rem;
+line-height:1.1;
+font-weight:800;
+color:white;
+margin-bottom:22px;
+}
+
+.hero-content p{
+font-size:1.1rem;
+line-height:1.9;
+color:#f2f2f2;
+margin-bottom:40px;
+}
+
+/* ================= SEARCH ================= */
+
+.search-wrapper{
+background:white;
+border-radius:22px;
+display:flex;
+overflow:hidden;
+max-width:850px;
+margin:auto;
+box-shadow:0 12px 35px rgba(0,0,0,0.12);
+}
+
+.search-location{
+width:28%;
+padding:22px;
+border:none;
+outline:none;
+font-size:1rem;
+border-right:1px solid #eee;
+background:white;
+}
+
+.search-input{
+width:52%;
+padding:22px;
+border:none;
+outline:none;
+font-size:1rem;
+}
+
+.search-btn{
+width:20%;
+background:#C62828;
+border:none;
+color:white;
+font-size:1rem;
+font-weight:600;
+cursor:pointer;
+transition:0.3s;
+}
+
+.search-btn:hover{
+background:#a51f1f;
+}
+
+/* ================= SERVICES ================= */
+
+.services{
+padding:0 7%;
+margin-top:-20px;
+}
+
+.service-grid{
+display:flex;
+justify-content:center;
+gap:28px;
+flex-wrap:wrap;
+}
+
+.service-card{
+width:300px;
+height:300px;
+
+border-radius:32px;
+overflow:hidden;
+position:relative;
+
+display:flex;
+align-items:flex-end;
+
+padding:28px;
+
+background-size:cover;
+background-position:center;
+
+transition:0.4s;
+box-shadow:0 15px 35px rgba(0,0,0,0.08);
+}
+
+.service-card:hover{
+transform:translateY(-8px);
+}
+
+.service-card::before{
+content:'';
+position:absolute;
+inset:0;
+background:
+linear-gradient(to top,
+rgba(0,0,0,0.88),
+rgba(0,0,0,0.2));
+}
+
+.delivery-card{
+background-image:url('https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=1400&auto=format&fit=crop');
+}
+
+.dine-card{
+background-image:url('https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=1400&auto=format&fit=crop');
+}
+
+.service-overlay{
+position:relative;
+z-index:2;
+}
+
+.service-overlay h3{
+font-size:2rem;
+color:white;
+margin-bottom:10px;
+}
+
+.service-overlay p{
+font-size:0.95rem;
+line-height:1.7;
+color:#f3f3f3;
+margin-bottom:18px;
+}
+
+/* ================= DISHES ================= */
+
+.dishes{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:24px;
+}
+
+.dish{
+background:white;
+padding:16px;
+border-radius:28px;
+box-shadow:0 12px 30px rgba(0,0,0,0.05);
+transition:0.4s;
+}
+
+.dish:hover{
+transform:translateY(-8px);
+}
+
+.dish img{
+width:100%;
+height:190px;
+object-fit:cover;
+border-radius:20px;
+margin-bottom:15px;
+}
+
+.dish h3{
+margin-bottom:10px;
+}
+
+.dish-bottom{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.price{
+color:#C62828;
+font-weight:700;
+}
+
+/* ================= OFFERS ================= */
+
+.offer-slider{
+width:100%;
+overflow:hidden;
+border-radius:36px;
+position:relative;
+}
+
+.offer-track{
+display:flex;
+transition:0.7s ease;
+}
+
+.offer-slide{
+min-width:100%;
+height:340px;
+background-size:cover;
+background-position:center;
+display:flex;
+align-items:center;
+padding:60px;
+position:relative;
+}
+
+.offer-overlay{
+position:absolute;
+inset:0;
+
+background:
+linear-gradient(to right,
+rgba(198,40,40,0.50),
+rgba(198,40,40,0.18));
+}
+
+.offer-content{
+position:relative;
+z-index:2;
+max-width:450px;
+color:white;
+}
+
+.offer-content h2{
+font-size:3rem;
+line-height:1.2;
+margin-bottom:18px;
+}
+
+.offer-content p{
+line-height:1.9;
+margin-bottom:20px;
+}
+
+/* ================= DOTS ================= */
+
+.slider-dots{
+display:flex;
+justify-content:center;
+gap:10px;
+margin-top:18px;
+}
+
+.dot{
+width:12px;
+height:12px;
+background:#ddd;
+border-radius:50%;
+cursor:pointer;
+transition:0.3s;
+}
+
+.dot.active{
+background:#C62828;
+width:34px;
+border-radius:20px;
+}
+
+/* ================= RESTAURANTS ================= */
+
+.restaurants-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:24px;
+}
+
+.restaurant-card{
+background:white;
+border-radius:30px;
+overflow:hidden;
+box-shadow:0 12px 30px rgba(0,0,0,0.05);
+transition:0.4s;
+}
+
+.restaurant-card:hover{
+transform:translateY(-8px);
+}
+
+.restaurant-card img{
+width:100%;
+height:220px;
+object-fit:cover;
+}
+
+.restaurant-content{
+padding:22px;
+}
+
+.restaurant-top{
+display:flex;
+justify-content:space-between;
+margin-bottom:10px;
+}
+
+.rating{
+background:#fff2f2;
+padding:6px 12px;
+border-radius:12px;
+color:#C62828;
+font-weight:600;
+}
+
+.restaurant-info{
+display:flex;
+justify-content:space-between;
+margin:18px 0;
+color:#666;
+font-size:0.95rem;
+}
+
+/* ================= WHY CHOOSE ================= */
+
+.why-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:24px;
+}
+
+.why-card{
+background:white;
+padding:36px;
+border-radius:32px;
+box-shadow:0 12px 30px rgba(0,0,0,0.05);
+transition:0.4s;
+}
+
+.why-card:hover{
+transform:translateY(-8px);
+}
+
+.why-card i{
+font-size:2.6rem;
+color:#C62828;
+margin-bottom:20px;
+}
+
+.why-card h3{
+font-size:1.4rem;
+margin-bottom:16px;
+}
+
+.why-card p{
+line-height:2;
+font-size:0.97rem;
+color:#666;
+}
+
+/* ================= REVIEWS ================= */
+
+.reviews-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:24px;
+}
+
+.review-card{
+background:white;
+padding:30px;
+border-radius:30px;
+box-shadow:0 12px 30px rgba(0,0,0,0.05);
+transition:0.4s;
+}
+
+.review-card:hover{
+transform:translateY(-8px);
+}
+
+.review-stars{
+display:flex;
+gap:6px;
+margin-bottom:18px;
+color:#FFB400;
+font-size:1rem;
+}
+
+.review-card p{
+line-height:1.9;
+color:#666;
+margin-bottom:24px;
+}
+
+.review-user{
+display:flex;
+align-items:center;
+gap:14px;
+}
+
+.review-user img{
+width:60px;
+height:60px;
+border-radius:50%;
+object-fit:cover;
+}
+
+/* ================= FOOTER ================= */
+
+.footer{
+background:#1F1F1F;
+padding:80px 7% 30px;
+color:white;
+margin-top:60px;
+}
+
+.footer-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:30px;
+margin-bottom:45px;
+}
+
+.footer-col h3{
+margin-bottom:20px;
+}
+
+.footer-col .footer-logo{
+font-size:2rem;
+font-weight:800;
+color:#C62828;
+}
+
+.footer-col p,
+.footer-col a{
+display:block;
+text-decoration:none;
+color:#ccc;
+margin-bottom:12px;
+line-height:1.8;
+transition:0.3s;
+}
+
+.footer-col a:hover{
+color:white;
+}
+
+.footer-social{
+display:flex;
+gap:14px;
+margin-top:18px;
+}
+
+.footer-social i{
+width:42px;
+height:42px;
+background:rgba(255,255,255,0.08);
+border-radius:12px;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+cursor:pointer;
+transition:0.3s;
+}
+
+.footer-social i:hover{
+background:#C62828;
+transform:translateY(-4px);
+}
+
+.footer-bottom{
+border-top:1px solid rgba(255,255,255,0.1);
+padding-top:20px;
+text-align:center;
+color:#aaa;
+}
+
+.footer-bottom-links{
+display:flex;
+justify-content:center;
+gap:24px;
+flex-wrap:wrap;
+margin-bottom:16px;
+}
+
+.footer-bottom-links a{
+text-decoration:none;
+color:#bbb;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:992px){
+
+.hero-content h1{
+font-size:4rem;
+}
+
+}
+
+@media(max-width:768px){
+
+.nav-right a{
+display:none;
+}
+
+.sign-btn{
+display:none;
+}
+
+.desktop-profile{
+display:none !important;
+}
+
+.menu-toggle{
+display:block;
+}
+
+.hero-box{
+min-height:650px;
+padding:80px 5%;
+}
+
+.hero-content h1{
+font-size:3rem;
+}
+
+.search-wrapper{
+flex-direction:column;
+}
+
+.search-location,
+.search-input,
+.search-btn{
+width:100%;
+}
+
+.search-btn{
+padding:18px;
+}
+
+.offer-slide{
+height:260px;
+padding:30px;
+}
+
+.offer-content h2{
+font-size:2rem;
+}
+
+.service-card{
+width:100%;
+max-width:340px;
+height:320px;
+}
+
+}
+
+@media(max-width:520px){
+
+.hero-content h1{
+font-size:2.2rem;
+}
+
+.hero-content p{
+font-size:1rem;
+}
+
+.section-header h2{
+font-size:2rem;
+}
+
+.offer-content h2{
+font-size:1.6rem;
+}
+
+.offer-slide{
+height:240px;
+}
+
+}
+
+/* HIDE SCROLLBAR */
+
+::-webkit-scrollbar{
+width:0;
+height:0;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+<div class="logo">QuickBite</div>
+
+<div class="nav-right">
+
+<a href="#">Home</a>
+<a href="#">About Us</a>
+
+<i class="fa-solid fa-magnifying-glass icon"></i>
+<i class="fa-solid fa-cart-shopping icon"></i>
+
+<button class="sign-btn" id="desktopSignBtn" onclick="window.location.href='signin.html'">
+SIGN IN
+</button>
+
+<!-- Desktop Profile Icon + Dropdown -->
+<div class="desktop-profile" id="desktopProfile">
+<div class="desktop-profile-icon" id="desktopProfileIcon">
+<i class="fa-solid fa-user"></i>
+</div>
+<div class="desktop-dropdown" id="desktopDropdown">
+<div class="dropdown-header">
+<div class="dropdown-avatar">
+<i class="fa-solid fa-user"></i>
+</div>
+<div class="dropdown-info">
+<h4 id="desktopProfileName">User</h4>
+<span id="desktopProfileEmail">user@quickbite.com</span>
+</div>
+</div>
+<div class="dropdown-divider"></div>
+<ul class="dropdown-menu">
+<li><a href="#"><i class="fa-solid fa-user"></i>My Profile</a></li>
+<li><a href="#"><i class="fa-solid fa-bag-shopping"></i>My Orders</a></li>
+<li><a href="#"><i class="fa-solid fa-location-dot"></i>Saved Addresses</a></li>
+<li><a href="#"><i class="fa-solid fa-heart"></i>Favorites</a></li>
+<li><a href="#"><i class="fa-solid fa-bell"></i>Notifications</a></li>
+<li><a href="#"><i class="fa-solid fa-gear"></i>Settings</a></li>
+<li><a href="#"><i class="fa-solid fa-headset"></i>Help & Support</a></li>
+</ul>
+<div class="dropdown-divider"></div>
+<button class="dropdown-logout" id="desktopLogout">
+<i class="fa-solid fa-right-from-bracket"></i>
+Logout
+</button>
+</div>
+</div>
+
+<div class="menu-toggle" id="menuToggle">
+<i class="fa-solid fa-bars"></i>
+<i class="fa-solid fa-xmark"></i>
+</div>
+
+</div>
+
+</nav>
+
+<!-- MOBILE OVERLAY -->
+<div class="mobile-overlay" id="mobileOverlay"></div>
+
+<!-- MOBILE DRAWER -->
+<div class="mobile-drawer" id="mobileDrawer">
+
+<div class="drawer-close" id="drawerClose">
+<i class="fa-solid fa-xmark"></i>
+</div>
+
+<!-- Profile Section (visible when logged in) -->
+<div class="drawer-profile" id="drawerProfile">
+<div class="drawer-avatar">
+<i class="fa-solid fa-user"></i>
+</div>
+<div class="drawer-profile-info">
+<h4 id="profileName">User</h4>
+<span id="profileEmail">user@quickbite.com</span>
+</div>
+</div>
+
+<!-- Guest Menu -->
+<ul class="drawer-menu" id="guestMenu">
+<li><a href="#" class="active-link"><i class="fa-solid fa-house"></i>Home</a></li>
+<li><a href="#"><i class="fa-solid fa-circle-info"></i>About Us</a></li>
+<li><a href="#"><i class="fa-solid fa-fire"></i>Popular Dishes</a></li>
+<li><a href="#"><i class="fa-solid fa-tags"></i>Exclusive Offers</a></li>
+<li><a href="#"><i class="fa-solid fa-utensils"></i>Top Restaurants</a></li>
+<li><div class="drawer-divider"></div></li>
+<li><a href="#"><i class="fa-solid fa-magnifying-glass"></i>Search</a></li>
+<li><a href="#"><i class="fa-solid fa-cart-shopping"></i>Cart</a></li>
+</ul>
+
+<!-- Logged In Menu -->
+<ul class="drawer-menu" id="userMenu" style="display:none;">
+<li><a href="#"><i class="fa-solid fa-user"></i>My Profile</a></li>
+<li><a href="#"><i class="fa-solid fa-bag-shopping"></i>My Orders</a></li>
+<li><a href="#"><i class="fa-solid fa-location-dot"></i>Saved Addresses</a></li>
+<li><a href="#"><i class="fa-solid fa-heart"></i>Favorites</a></li>
+<li><a href="#"><i class="fa-solid fa-bell"></i>Notifications</a></li>
+<li><div class="drawer-divider"></div></li>
+<li><a href="#"><i class="fa-solid fa-gear"></i>Settings</a></li>
+<li><a href="#"><i class="fa-solid fa-headset"></i>Help & Support</a></li>
+</ul>
+
+<!-- Auth Buttons (visible when NOT logged in) -->
+<div class="drawer-auth" id="drawerAuth">
+<button class="drawer-signin" id="drawerSignIn">SIGN IN</button>
+<button class="drawer-login" id="drawerLogIn">LOG IN</button>
+</div>
+
+<!-- Logout Button (visible when logged in) -->
+<button class="drawer-logout" id="drawerLogout">
+<i class="fa-solid fa-right-from-bracket"></i>
+Logout
+</button>
+
+</div>
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="hero-box">
+
+<div class="hero-content">
+
+<h1>
+Delicious Food,<br>
+Delivered To You
+</h1>
+
+<p>
+Choose your favorite food and enjoy premium dining,
+fast delivery and the best restaurant experience.
+</p>
+
+<div class="search-wrapper">
+
+<select class="search-location">
+<option>Select Location</option>
+<option>Chennai</option>
+<option>Bangalore</option>
+<option>Mumbai</option>
+</select>
+
+<input
+type="text"
+placeholder="Search restaurants, dishes, cuisines..."
+class="search-input">
+
+<button class="search-btn">
+Search
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- SERVICES -->
+
+<section class="services">
+
+<div class="service-grid">
+
+<div class="service-card delivery-card">
+
+<div class="service-overlay">
+
+<h3>Food Delivery</h3>
+
+<p>
+Order delicious meals from premium restaurants with fast doorstep delivery.
+</p>
+
+<button class="red-btn">
+Order Now
+</button>
+
+</div>
+
+</div>
+
+<div class="service-card dine-card">
+
+<div class="service-overlay">
+
+<h3>Dine Out</h3>
+
+<p>
+Reserve tables at top restaurants and enjoy luxury dining experiences.
+</p>
+
+<button class="red-btn">
+Book A Table
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- POPULAR DISHES -->
+
+<section class="section">
+
+<div class="section-header">
+
+<h2>Popular Dishes</h2>
+
+<div class="see-all">See all</div>
+
+</div>
+
+<div class="dishes">
+
+<div class="dish">
+<img src="https://images.unsplash.com/photo-1701579231349-d7459c40919d?q=80&w=1200&auto=format&fit=crop">
+<h3>Chicken Biriyani</h3>
+<div class="dish-bottom">
+<span class="price">₹299</span>
+<span>⭐ 4.8</span>
+</div>
+</div>
+
+<div class="dish">
+<img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=1200&auto=format&fit=crop">
+<h3>Cheese Burger</h3>
+<div class="dish-bottom">
+<span class="price">₹249</span>
+<span>⭐ 4.7</span>
+</div>
+</div>
+
+<div class="dish">
+<img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=1200&auto=format&fit=crop">
+<h3>Pepperoni Pizza</h3>
+<div class="dish-bottom">
+<span class="price">₹499</span>
+<span>⭐ 4.9</span>
+</div>
+</div>
+
+<div class="dish">
+<img src="https://images.unsplash.com/photo-1589302168068-964664d93dc0?q=80&w=1200&auto=format&fit=crop">
+<h3>South Indian Meals</h3>
+<div class="dish-bottom">
+<span class="price">₹199</span>
+<span>⭐ 4.6</span>
+</div>
+</div>
+
+</div>
+
+</section>
+
+<!-- EXCLUSIVE OFFERS -->
+
+<section class="section">
+
+<div class="section-header">
+
+<h2>Exclusive Offers</h2>
+
+</div>
+
+<div class="offer-slider">
+
+<div class="offer-track">
+
+<div class="offer-slide"
+style="background-image:url('https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=2200&auto=format&fit=crop')">
+
+<div class="offer-overlay"></div>
+
+<div class="offer-content">
+
+<h2>Flat 20% OFF On Your First Order</h2>
+
+<p>
+Use Code : WELCOME20 and enjoy premium meals at exciting discounts.
+</p>
+
+<button class="red-btn">
+Order Now
+</button>
+
+</div>
+
+</div>
+
+<div class="offer-slide"
+style="background-image:url('https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=2200&auto=format&fit=crop')">
+
+<div class="offer-overlay"></div>
+
+<div class="offer-content">
+
+<h2>Buy 1 Get 1 Free On Pizza</h2>
+
+<p>
+Enjoy cheesy pizza combos from top restaurants near you.
+</p>
+
+<button class="red-btn">
+Explore
+</button>
+
+</div>
+
+</div>
+
+<div class="offer-slide"
+style="background-image:url('https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=2200&auto=format&fit=crop')">
+
+<div class="offer-overlay"></div>
+
+<div class="offer-content">
+
+<h2>Free Delivery Above ₹499</h2>
+
+<p>
+Get free delivery on your favorite meals from premium restaurants.
+</p>
+
+<button class="red-btn">
+Grab Offer
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="slider-dots">
+<span class="dot active"></span>
+<span class="dot"></span>
+<span class="dot"></span>
+</div>
+
+</section>
+
+<!-- TOP DINE IN RESTAURANTS -->
+
+<section class="section">
+
+<div class="section-header">
+
+<h2>Top Dine-In Restaurants</h2>
+
+<div class="see-all">See all</div>
+
+</div>
+
+<div class="restaurants-grid">
+
+<div class="restaurant-card">
+
+<img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=1600&auto=format&fit=crop">
+
+<div class="restaurant-content">
+
+<div class="restaurant-top">
+
+<h3>Spice Hub</h3>
+
+<div class="rating">⭐ 4.8</div>
+
+</div>
+
+<p>
+Premium Indian restaurant with authentic flavors and luxury ambience.
+</p>
+
+<div class="restaurant-info">
+
+<span>₹600 for two</span>
+<span>30 mins</span>
+
+</div>
+
+<button class="red-btn">
+Book A Table
+</button>
+
+</div>
+
+</div>
+
+<div class="restaurant-card">
+
+<img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1600&auto=format&fit=crop">
+
+<div class="restaurant-content">
+
+<div class="restaurant-top">
+
+<h3>Urban Grill</h3>
+
+<div class="rating">⭐ 4.7</div>
+
+</div>
+
+<p>
+Modern burgers, pizzas and premium fast food experiences.
+</p>
+
+<div class="restaurant-info">
+
+<span>₹850 for two</span>
+<span>25 mins</span>
+
+</div>
+
+<button class="red-btn">
+Book A Table
+</button>
+
+</div>
+
+</div>
+
+<div class="restaurant-card">
+
+<img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=1600&auto=format&fit=crop">
+
+<div class="restaurant-content">
+
+<div class="restaurant-top">
+
+<h3>Royal Dine</h3>
+
+<div class="rating">⭐ 4.9</div>
+
+</div>
+
+<p>
+Luxury fine dining with elegant interiors and top-rated chefs.
+</p>
+
+<div class="restaurant-info">
+
+<span>₹1200 for two</span>
+<span>40 mins</span>
+
+</div>
+
+<button class="red-btn">
+Book A Table
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- WHY CHOOSE -->
+
+<section class="section">
+
+<div class="section-header">
+
+<h2>Why Choose QuickBite</h2>
+
+</div>
+
+<div class="why-grid">
+
+<div class="why-card">
+
+<i class="fa-solid fa-bolt"></i>
+
+<h3>Lightning Fast Delivery</h3>
+
+<p>
+QuickBite partners with trusted delivery executives and smart route systems
+to ensure your meals arrive hot, fresh and on time. Whether it’s lunch,
+dinner or late-night cravings, we deliver quickly across the city.
+</p>
+
+</div>
+
+<div class="why-card">
+
+<i class="fa-solid fa-utensils"></i>
+
+<h3>Fresh & Premium Food</h3>
+
+<p>
+We work only with trusted restaurants that prepare food using premium quality
+ingredients and hygienic cooking methods for the best taste and experience.
+</p>
+
+</div>
+
+<div class="why-card">
+
+<i class="fa-solid fa-star"></i>
+
+<h3>Top Rated Restaurants</h3>
+
+<p>
+Explore carefully selected top-rated restaurants loved by thousands of food
+lovers. Premium dining, trending cafes and local favorites all in one place.
+</p>
+
+</div>
+
+<div class="why-card">
+
+<i class="fa-solid fa-percent"></i>
+
+<h3>Exclusive Offers & Rewards</h3>
+
+<p>
+Enjoy exciting discounts, cashback offers, combo deals and loyalty rewards
+every week while ordering your favorite meals from top restaurants.
+</p>
+
+</div>
+
+<div class="why-card">
+
+<i class="fa-solid fa-mobile-screen-button"></i>
+
+<h3>Smooth Modern Experience</h3>
+
+<p>
+Our modern user interface is designed to feel fast, premium and responsive
+across mobile phones, tablets and laptops with smooth navigation.
+</p>
+
+</div>
+
+<div class="why-card">
+
+<i class="fa-solid fa-headset"></i>
+
+<h3>24/7 Customer Support</h3>
+
+<p>
+Need help with your order or reservation? Our support team is available around
+the clock to provide fast assistance and ensure smooth experiences.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- REVIEWS -->
+
+<section class="section">
+
+<div class="section-header">
+
+<h2>Customer Reviews</h2>
+
+</div>
+
+<div class="reviews-grid">
+
+<div class="review-card">
+
+<div class="review-stars">
+
+<i class="fa-solid fa-star"></i>
+<i class="fa-solid fa-star"></i>
+<i class="fa-solid fa-star"></i>
+<i class="fa-solid fa-star"></i>
+<i class="fa-solid fa-star"></i>
+
+</div>
+
+<p>
+“QuickBite delivers food incredibly fast and the restaurant quality is
+excellent every single time.”
+</p>
+
+<div class="review-user">
+
+<img src="https://randomuser.me/api/portraits/women/68.jpg">
+
+<div>
+
+<h4>Ananya</h4>
+<span>Food Blogger</span>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="review-card">
+
+<div class="review-stars">
+
+<i class="fa-solid fa-star"></i>
+<i class="fa-solid fa-star"></i>
+<i class="fa-solid fa-star"></i>
+<i class="fa-solid fa-star"></i>
+<i class="fa-solid fa-star-half-stroke"></i>
+
+</div>
+
+<p>
+“The dine out reservation feature is smooth and professional. Booking tables
+for weekends has become super easy.”
+</p>
+
+<div class="review-user">
+
+<img src="https://randomuser.me/api/portraits/men/32.jpg">
+
+<div>
+
+<h4>Rahul</h4>
+<span>Software Engineer</span>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="review-card">
+
+<div class="review-stars">
+
+<i class="fa-solid fa-star"></i>
+<i class="fa-solid fa-star"></i>
+<i class="fa-solid fa-star"></i>
+<i class="fa-solid fa-star"></i>
+<i class="fa-regular fa-star"></i>
+
+</div>
+
+<p>
+“The food arrives fresh and properly packed. I also love the weekly discounts
+and offers section.”
+</p>
+
+<div class="review-user">
+
+<img src="https://randomuser.me/api/portraits/women/45.jpg">
+
+<div>
+
+<h4>Priya</h4>
+<span>Designer</span>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+<div class="footer-grid">
+
+<div class="footer-col">
+
+<h3 class="footer-logo">QuickBite</h3>
+
+<p>
+Delivering happiness with delicious food and premium restaurant experiences.
+</p>
+
+<div class="footer-social">
+
+<i class="fa-brands fa-instagram"></i>
+<i class="fa-brands fa-facebook-f"></i>
+<i class="fa-brands fa-x-twitter"></i>
+
+
+</div>
+
+</div>
+
+<div class="footer-col">
+
+<h3>Quick Links</h3>
+
+<a href="#">Home</a>
+<a href="#">About Us</a>
+<a href="#">Popular Dishes</a>
+<a href="#">Top Restaurants</a>
+
+</div>
+
+<div class="footer-col">
+
+<h3>Support</h3>
+
+<a href="#">Help Center</a>
+<a href="#">Terms & Conditions</a>
+<a href="#">Privacy Policy</a>
+
+</div>
+
+<div class="footer-col">
+
+<h3>Contact</h3>
+
+<p>support@quickbite.com</p>
+<p>+91 98765 43210</p>
+<p>Chennai, India</p>
+
+</div>
+
+</div>
+
+<div class="footer-bottom">
+
+<div class="footer-bottom-links">
+
+<a href="#">Home</a>
+<a href="#">About Us</a>
+<a href="#">Search</a>
+<a href="#">Cart</a>
+
+
+</div>
+
+<p>
+© 2026 QuickBite. All Rights Reserved.
+</p>
+
+</div>
+
+</footer>
+
+<!-- OFFER SLIDER -->
+
+<script>
+
+const track = document.querySelector('.offer-track');
+const dots = document.querySelectorAll('.dot');
+
+let index = 0;
+const totalSlides = 3;
+
+function updateSlider(){
+
+track.style.transform =
+`translateX(-${index * 100}%)`;
+
+dots.forEach(dot => dot.classList.remove('active'));
+
+dots[index].classList.add('active');
+
+}
+
+function nextSlide(){
+
+index++;
+
+if(index >= totalSlides){
+index = 0;
+}
+
+updateSlider();
+
+}
+
+setInterval(nextSlide,2000);
+
+dots.forEach((dot,i)=>{
+
+dot.addEventListener('click',()=>{
+
+index = i;
+updateSlider();
+
+});
+
+});
+
+let startX = 0;
+
+track.addEventListener('touchstart',(e)=>{
+
+startX = e.touches[0].clientX;
+
+});
+
+track.addEventListener('touchend',(e)=>{
+
+let endX = e.changedTouches[0].clientX;
+
+if(startX - endX > 50){
+
+index++;
+
+if(index >= totalSlides){
+index = 0;
+}
+
+updateSlider();
+
+}
+
+if(endX - startX > 50){
+
+index--;
+
+if(index < 0){
+index = totalSlides - 1;
+}
+
+updateSlider();
+
+}
+
+});
+
+</script>
+
+<!-- MOBILE DRAWER SCRIPT -->
+<script>
+
+// Elements
+const menuToggle = document.getElementById('menuToggle');
+const mobileOverlay = document.getElementById('mobileOverlay');
+const mobileDrawer = document.getElementById('mobileDrawer');
+const drawerClose = document.getElementById('drawerClose');
+const drawerProfile = document.getElementById('drawerProfile');
+const guestMenu = document.getElementById('guestMenu');
+const userMenu = document.getElementById('userMenu');
+const drawerAuth = document.getElementById('drawerAuth');
+const drawerLogout = document.getElementById('drawerLogout');
+const drawerSignIn = document.getElementById('drawerSignIn');
+const drawerLogIn = document.getElementById('drawerLogIn');
+
+let isLoggedIn = false;
+
+// Open Drawer
+function openDrawer(){
+mobileDrawer.classList.add('active');
+mobileOverlay.classList.add('active');
+menuToggle.classList.add('active');
+document.body.classList.add('drawer-open');
+}
+
+// Close Drawer
+function closeDrawer(){
+mobileDrawer.classList.remove('active');
+mobileOverlay.classList.remove('active');
+menuToggle.classList.remove('active');
+document.body.classList.remove('drawer-open');
+
+// Reset stagger animations
+const items = mobileDrawer.querySelectorAll('.drawer-menu li');
+items.forEach(item => {
+item.style.opacity = '0';
+item.style.transform = 'translateY(12px)';
+});
+
+setTimeout(()=>{
+items.forEach(item => {
+item.style.opacity = '';
+item.style.transform = '';
+});
+},400);
+}
+
+// Toggle Drawer
+menuToggle.addEventListener('click', ()=>{
+if(mobileDrawer.classList.contains('active')){
+closeDrawer();
+} else {
+openDrawer();
+}
+});
+
+// Close via overlay
+mobileOverlay.addEventListener('click', closeDrawer);
+
+// Close via X button
+drawerClose.addEventListener('click', closeDrawer);
+
+// Close on menu item click
+const allMenuLinks = document.querySelectorAll('.drawer-menu li a');
+allMenuLinks.forEach(link => {
+link.addEventListener('click', ()=>{
+closeDrawer();
+});
+});
+
+// Switch to Logged In State
+function loginUser(){
+isLoggedIn = true;
+drawerProfile.classList.add('active');
+guestMenu.style.display = 'none';
+userMenu.style.display = 'block';
+drawerAuth.style.display = 'none';
+drawerLogout.classList.add('active');
+}
+
+// Switch to Guest State
+function logoutUser(){
+isLoggedIn = false;
+drawerProfile.classList.remove('active');
+guestMenu.style.display = 'block';
+userMenu.style.display = 'none';
+drawerAuth.style.display = 'flex';
+drawerLogout.classList.remove('active');
+}
+
+// Sign In / Log In buttons redirect to auth pages
+drawerSignIn.addEventListener('click', ()=>{
+window.location.href = 'signin.html';
+});
+
+drawerLogIn.addEventListener('click', ()=>{
+window.location.href = 'login.html';
+});
+
+// Logout button
+drawerLogout.addEventListener('click', ()=>{
+localStorage.removeItem('quickbite_logged_in');
+localStorage.removeItem('quickbite_user');
+localStorage.removeItem('quickbite_email');
+logoutUser();
+});
+
+// Check login state on page load
+function checkLoginState(){
+const loggedIn = localStorage.getItem('quickbite_logged_in');
+const desktopSignBtn = document.getElementById('desktopSignBtn');
+const desktopProfile = document.getElementById('desktopProfile');
+const desktopProfileIcon = document.getElementById('desktopProfileIcon');
+const desktopDropdown = document.getElementById('desktopDropdown');
+const desktopLogout = document.getElementById('desktopLogout');
+
+if(loggedIn === 'true'){
+const userName = localStorage.getItem('quickbite_user') || 'User';
+const userEmail = localStorage.getItem('quickbite_email') || 'user@quickbite.com';
+
+// Update mobile drawer
+document.getElementById('profileName').textContent = userName;
+document.getElementById('profileEmail').textContent = userEmail;
+loginUser();
+
+// Update desktop - hide sign btn, show profile
+desktopSignBtn.classList.add('hidden');
+desktopProfile.classList.add('active');
+document.getElementById('desktopProfileName').textContent = userName;
+document.getElementById('desktopProfileEmail').textContent = userEmail;
+} else {
+desktopSignBtn.classList.remove('hidden');
+desktopProfile.classList.remove('active');
+}
+
+// Desktop profile icon click - toggle dropdown
+desktopProfileIcon.addEventListener('click', (e)=>{
+e.stopPropagation();
+desktopDropdown.classList.toggle('active');
+});
+
+// Close dropdown when clicking outside
+document.addEventListener('click', (e)=>{
+if(!desktopProfile.contains(e.target)){
+desktopDropdown.classList.remove('active');
+}
+});
+
+// Desktop logout
+desktopLogout.addEventListener('click', ()=>{
+localStorage.removeItem('quickbite_logged_in');
+localStorage.removeItem('quickbite_user');
+localStorage.removeItem('quickbite_email');
+desktopSignBtn.classList.remove('hidden');
+desktopProfile.classList.remove('active');
+desktopDropdown.classList.remove('active');
+logoutUser();
+});
+}
+
+checkLoginState();
+
+</script>
+
+</body>
+</html>
