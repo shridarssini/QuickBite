@@ -95,10 +95,21 @@ html{scroll-behavior:smooth;}
 @media(max-width:900px){
 .booking-container{grid-template-columns:1fr;gap:24px;}
 }
+@media(max-width:768px){
+.nav-right a{display:none;}
+.nav-right{gap:14px;}
+.login-btn{padding:8px 16px;font-size:0.8rem;}
+.logo-text{font-size:1.3rem;}
+.logo-icon{width:34px;height:34px;}
+.back-arrow{width:32px;height:32px;font-size:0.8rem;}
+.nav-left{gap:10px;}
+}
 @media(max-width:520px){
 .time-slots{grid-template-columns:repeat(3,1fr);}
 .booking-form{padding:24px;}
 .rest-info-body{padding:20px;}
+.logo-text{display:none;}
+.navbar{padding:16px 5%;}
 }
 
 ::-webkit-scrollbar{width:0;height:0;}
