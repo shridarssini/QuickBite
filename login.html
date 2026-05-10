@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>QuickBite - Create Account</title>
+<title>QuickBite - Sign In</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 <style>
@@ -35,6 +36,9 @@ font-size:2rem;
 font-weight:800;
 color:#C62828;
 text-decoration:none;
+display:flex;
+align-items:center;
+gap:10px;
 }
 
 .back-btn{
@@ -140,42 +144,39 @@ gap:5px;
 display:flex;
 }
 
-.terms{
+.form-options{
 display:flex;
-align-items:flex-start;
-gap:10px;
+justify-content:space-between;
+align-items:center;
 margin-bottom:28px;
-font-size:0.85rem;
-color:#666;
-line-height:1.6;
+flex-wrap:wrap;
+gap:10px;
 }
 
-.terms input{
+.remember{
+display:flex;
+align-items:center;
+gap:8px;
+font-size:0.88rem;
+color:#666;
+cursor:pointer;
+}
+
+.remember input{
 accent-color:#C62828;
 width:16px;
 height:16px;
-margin-top:3px;
-flex-shrink:0;
 }
 
-.terms a{
+.forgot{
+font-size:0.88rem;
 color:#C62828;
 text-decoration:none;
 font-weight:500;
 }
 
-.terms-error{
-font-size:0.78rem;
-color:#e53935;
-margin-top:-20px;
-margin-bottom:20px;
-display:none;
-align-items:center;
-gap:5px;
-}
-
-.terms-error.show{
-display:flex;
+.forgot:hover{
+opacity:0.7;
 }
 
 .auth-btn{
@@ -196,6 +197,13 @@ font-family:'Poppins',sans-serif;
 background:#a51f1f;
 transform:translateY(-2px);
 box-shadow:0 8px 25px rgba(198,40,40,0.3);
+}
+
+.auth-btn:disabled{
+background:#ccc;
+cursor:not-allowed;
+transform:none;
+box-shadow:none;
 }
 
 .divider{
@@ -289,27 +297,6 @@ transition:0.3s;
 
 .toggle-password:hover{
 color:#C62828;
-}
-
-.password-strength{
-height:4px;
-border-radius:4px;
-margin-top:8px;
-transition:0.3s;
-background:#eee;
-}
-
-.password-strength .bar{
-height:100%;
-border-radius:4px;
-transition:0.4s;
-width:0;
-}
-
-.strength-text{
-font-size:0.75rem;
-margin-top:4px;
-color:#888;
 }
 
 @media(max-width:520px){
@@ -460,7 +447,10 @@ display:block;
 <body>
 
 <nav class="navbar">
-<a href="Homepage.html" class="logo">QuickBite</a>
+<a href="Homepage.html" class="logo">
+<img src="assets/logo.svg" alt="QuickBite" style="width:36px;height:36px;">
+<span style="font-size:1.6rem;font-weight:800;color:#C62828;">QuickBite</span>
+</a>
 <a href="Homepage.html" class="back-btn">
 <i class="fa-solid fa-arrow-left"></i>
 Back to Home
@@ -470,19 +460,10 @@ Back to Home
 <div class="auth-container">
 <div class="auth-card">
 
-<h1>Create Account</h1>
-<p class="subtitle">Join QuickBite for delicious food experiences</p>
+<h1>Welcome Back</h1>
+<p class="subtitle">Login to your QuickBite account</p>
 
-<form id="signUpForm" novalidate>
-
-<div class="form-group">
-<label>Full Name</label>
-<input type="text" id="nameInput" placeholder="Enter your full name">
-<div class="error-msg" id="nameError">
-<i class="fa-solid fa-circle-exclamation"></i>
-<span></span>
-</div>
-</div>
+<form id="signInForm" novalidate>
 
 <div class="form-group">
 <label>Email Address</label>
@@ -494,54 +475,28 @@ Back to Home
 </div>
 
 <div class="form-group">
-<label>Phone Number</label>
-<input type="tel" id="phoneInput" placeholder="Enter your phone number">
-<div class="error-msg" id="phoneError">
-<i class="fa-solid fa-circle-exclamation"></i>
-<span></span>
-</div>
-</div>
-
-<div class="form-group">
 <label>Password</label>
 <div class="password-wrapper">
-<input type="password" id="passwordInput" placeholder="Create a password">
-<i class="fa-solid fa-eye toggle-password" id="togglePass1"></i>
+<input type="password" id="passwordInput" placeholder="Enter your password">
+<i class="fa-solid fa-eye toggle-password" id="togglePass"></i>
 </div>
-<div class="password-strength"><div class="bar" id="strengthBar"></div></div>
-<div class="strength-text" id="strengthText"></div>
 <div class="error-msg" id="passwordError">
 <i class="fa-solid fa-circle-exclamation"></i>
 <span></span>
 </div>
 </div>
 
-<div class="form-group">
-<label>Confirm Password</label>
-<div class="password-wrapper">
-<input type="password" id="confirmInput" placeholder="Confirm your password">
-<i class="fa-solid fa-eye toggle-password" id="togglePass2"></i>
-</div>
-<div class="error-msg" id="confirmError">
-<i class="fa-solid fa-circle-exclamation"></i>
-<span></span>
-</div>
-</div>
-
-<label class="terms">
-<input type="checkbox" id="termsCheck">
-<span>I agree to QuickBite's <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></span>
+<div class="form-options">
+<label class="remember">
+<input type="checkbox"> Remember me
 </label>
-<div class="terms-error" id="termsError">
-<i class="fa-solid fa-circle-exclamation"></i>
-<span>You must agree to the terms</span>
 </div>
 
-<button type="submit" class="auth-btn">Create Account</button>
+<button type="submit" class="auth-btn">Login</button>
 
 </form>
 
-<div class="divider"><span>or sign up with</span></div>
+<div class="divider"><span>or continue with</span></div>
 
 <div class="social-btns">
 <button class="social-btn" id="googleBtn">
@@ -555,7 +510,7 @@ Facebook
 </div>
 
 <div class="auth-footer">
-Already have an account? <a href="signin.html">Sign In</a>
+Don't have an account? <a href="signup.html">Create Account</a>
 </div>
 
 </div>
@@ -568,7 +523,7 @@ Already have an account? <a href="signin.html">Sign In</a>
 <i id="popupIconI"></i>
 </div>
 <h3 id="popupTitle">Continue with Google</h3>
-<p class="popup-sub" id="popupSub">Enter your details to continue</p>
+<p class="popup-sub" id="popupSub">Enter your name to continue</p>
 <input type="text" class="popup-input" id="popupName" placeholder="Enter your name">
 <input type="email" class="popup-input" id="popupEmail" placeholder="Enter your email">
 <p class="popup-error" id="popupError">Please fill in all fields correctly</p>
@@ -578,43 +533,25 @@ Already have an account? <a href="signin.html">Sign In</a>
 </div>
 
 <script>
-const nameInput = document.getElementById('nameInput');
 const emailInput = document.getElementById('emailInput');
-const phoneInput = document.getElementById('phoneInput');
 const passwordInput = document.getElementById('passwordInput');
-const confirmInput = document.getElementById('confirmInput');
-const termsCheck = document.getElementById('termsCheck');
-
-const nameError = document.getElementById('nameError');
 const emailError = document.getElementById('emailError');
-const phoneError = document.getElementById('phoneError');
 const passwordError = document.getElementById('passwordError');
-const confirmError = document.getElementById('confirmError');
-const termsError = document.getElementById('termsError');
-
-const togglePass1 = document.getElementById('togglePass1');
-const togglePass2 = document.getElementById('togglePass2');
-const strengthBar = document.getElementById('strengthBar');
-const strengthText = document.getElementById('strengthText');
-
-const form = document.getElementById('signUpForm');
+const togglePass = document.getElementById('togglePass');
+const form = document.getElementById('signInForm');
 
 // Toggle password visibility
-function togglePassword(btn, input){
-btn.addEventListener('click', ()=>{
-if(input.type === 'password'){
-input.type = 'text';
-btn.classList.remove('fa-eye');
-btn.classList.add('fa-eye-slash');
+togglePass.addEventListener('click', ()=>{
+if(passwordInput.type === 'password'){
+passwordInput.type = 'text';
+togglePass.classList.remove('fa-eye');
+togglePass.classList.add('fa-eye-slash');
 } else {
-input.type = 'password';
-btn.classList.remove('fa-eye-slash');
-btn.classList.add('fa-eye');
+passwordInput.type = 'password';
+togglePass.classList.remove('fa-eye-slash');
+togglePass.classList.add('fa-eye');
 }
 });
-}
-togglePassword(togglePass1, passwordInput);
-togglePassword(togglePass2, confirmInput);
 
 // Validation helpers
 function showError(input, errorEl, message){
@@ -631,37 +568,11 @@ errorEl.classList.remove('show');
 }
 
 function validateEmail(email){
-return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
-
-function validatePhone(phone){
-return /^[0-9]{10}$/.test(phone.replace(/[\s\-\+]/g,''));
-}
-
-// Password strength
-function checkStrength(password){
-let score = 0;
-if(password.length >= 6) score++;
-if(password.length >= 10) score++;
-if(/[A-Z]/.test(password)) score++;
-if(/[0-9]/.test(password)) score++;
-if(/[^A-Za-z0-9]/.test(password)) score++;
-return score;
+const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+return re.test(email);
 }
 
 // Real-time validation
-nameInput.addEventListener('input', ()=>{
-const val = nameInput.value.trim();
-if(val === ''){
-nameInput.classList.remove('error','success');
-nameError.classList.remove('show');
-} else if(val.length < 2){
-showError(nameInput, nameError, 'Name must be at least 2 characters');
-} else {
-showSuccess(nameInput, nameError);
-}
-});
-
 emailInput.addEventListener('input', ()=>{
 const val = emailInput.value.trim();
 if(val === ''){
@@ -674,77 +585,15 @@ showSuccess(emailInput, emailError);
 }
 });
 
-phoneInput.addEventListener('input', ()=>{
-const val = phoneInput.value.trim();
-if(val === ''){
-phoneInput.classList.remove('error','success');
-phoneError.classList.remove('show');
-} else if(!validatePhone(val)){
-showError(phoneInput, phoneError, 'Enter a valid 10-digit phone number');
-} else {
-showSuccess(phoneInput, phoneError);
-}
-});
-
 passwordInput.addEventListener('input', ()=>{
 const val = passwordInput.value;
 if(val === ''){
 passwordInput.classList.remove('error','success');
 passwordError.classList.remove('show');
-strengthBar.style.width = '0';
-strengthText.textContent = '';
 } else if(val.length < 6){
 showError(passwordInput, passwordError, 'Password must be at least 6 characters');
-strengthBar.style.width = '20%';
-strengthBar.style.background = '#e53935';
-strengthText.textContent = 'Too short';
-strengthText.style.color = '#e53935';
 } else {
 showSuccess(passwordInput, passwordError);
-const score = checkStrength(val);
-if(score <= 2){
-strengthBar.style.width = '40%';
-strengthBar.style.background = '#FF9800';
-strengthText.textContent = 'Weak';
-strengthText.style.color = '#FF9800';
-} else if(score <= 3){
-strengthBar.style.width = '70%';
-strengthBar.style.background = '#FFC107';
-strengthText.textContent = 'Medium';
-strengthText.style.color = '#FFC107';
-} else {
-strengthBar.style.width = '100%';
-strengthBar.style.background = '#43A047';
-strengthText.textContent = 'Strong';
-strengthText.style.color = '#43A047';
-}
-}
-
-// Re-validate confirm if filled
-if(confirmInput.value !== ''){
-if(confirmInput.value !== val){
-showError(confirmInput, confirmError, 'Passwords do not match');
-} else {
-showSuccess(confirmInput, confirmError);
-}
-}
-});
-
-confirmInput.addEventListener('input', ()=>{
-const val = confirmInput.value;
-if(val === ''){
-confirmInput.classList.remove('error','success');
-confirmError.classList.remove('show');
-} else if(val !== passwordInput.value){
-showError(confirmInput, confirmError, 'Passwords do not match');
-} else {
-showSuccess(confirmInput, confirmError);
-}
-});
-
-termsCheck.addEventListener('change', ()=>{
-if(termsCheck.checked){
-termsError.classList.remove('show');
 }
 });
 
@@ -753,20 +602,10 @@ form.addEventListener('submit', function(e){
 e.preventDefault();
 
 let valid = true;
-const name = nameInput.value.trim();
 const email = emailInput.value.trim();
-const phone = phoneInput.value.trim();
 const password = passwordInput.value;
-const confirm = confirmInput.value;
 
-if(name === ''){
-showError(nameInput, nameError, 'Full name is required');
-valid = false;
-} else if(name.length < 2){
-showError(nameInput, nameError, 'Name must be at least 2 characters');
-valid = false;
-}
-
+// Validate email
 if(email === ''){
 showError(emailInput, emailError, 'Email is required');
 valid = false;
@@ -775,14 +614,7 @@ showError(emailInput, emailError, 'Please enter a valid email address');
 valid = false;
 }
 
-if(phone === ''){
-showError(phoneInput, phoneError, 'Phone number is required');
-valid = false;
-} else if(!validatePhone(phone)){
-showError(phoneInput, phoneError, 'Enter a valid 10-digit phone number');
-valid = false;
-}
-
+// Validate password
 if(password === ''){
 showError(passwordInput, passwordError, 'Password is required');
 valid = false;
@@ -791,24 +623,15 @@ showError(passwordInput, passwordError, 'Password must be at least 6 characters'
 valid = false;
 }
 
-if(confirm === ''){
-showError(confirmInput, confirmError, 'Please confirm your password');
-valid = false;
-} else if(confirm !== password){
-showError(confirmInput, confirmError, 'Passwords do not match');
-valid = false;
-}
-
-if(!termsCheck.checked){
-termsError.classList.add('show');
-valid = false;
-}
-
 if(!valid) return;
 
-// Save to localStorage with actual entered details
+// Extract name from email (before @) and capitalize
+const namePart = email.split('@')[0];
+const displayName = namePart.charAt(0).toUpperCase() + namePart.slice(1);
+
+// Save to localStorage
 localStorage.setItem('quickbite_logged_in','true');
-localStorage.setItem('quickbite_user', name);
+localStorage.setItem('quickbite_user', displayName);
 localStorage.setItem('quickbite_email', email);
 
 window.location.href = 'Homepage.html';
@@ -828,7 +651,10 @@ const popupBtn = document.getElementById('popupBtn');
 const popupCancel = document.getElementById('popupCancel');
 const popupError = document.getElementById('popupError');
 
+let currentProvider = '';
+
 function openSocialPopup(provider){
+currentProvider = provider;
 socialOverlay.classList.add('active');
 popupError.classList.remove('show');
 popupName.value = '';
@@ -838,16 +664,16 @@ if(provider === 'google'){
 popupIcon.className = 'popup-icon google';
 popupIconI.className = 'fa-brands fa-google';
 popupTitle.textContent = 'Continue with Google';
-popupSub.textContent = 'Enter your details to sign up with Google';
+popupSub.textContent = 'Enter your details to sign in with Google';
 popupBtn.className = 'popup-btn google';
-popupBtn.textContent = 'Sign up with Google';
+popupBtn.textContent = 'Sign in with Google';
 } else {
 popupIcon.className = 'popup-icon facebook';
 popupIconI.className = 'fa-brands fa-facebook-f';
 popupTitle.textContent = 'Continue with Facebook';
-popupSub.textContent = 'Enter your details to sign up with Facebook';
+popupSub.textContent = 'Enter your details to sign in with Facebook';
 popupBtn.className = 'popup-btn facebook';
-popupBtn.textContent = 'Sign up with Facebook';
+popupBtn.textContent = 'Sign in with Facebook';
 }
 }
 

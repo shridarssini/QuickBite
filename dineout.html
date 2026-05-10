@@ -1,0 +1,342 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QuickBite - Dine Out</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:#FFF8F0;color:#1F1F1F;overflow-x:hidden;}
+html{scroll-behavior:smooth;}
+
+/* Navbar */
+.navbar{display:flex;justify-content:space-between;align-items:center;padding:20px 7%;background:#FFF8F0;position:sticky;top:0;z-index:1000;box-shadow:0 3px 12px rgba(0,0,0,0.04);}
+.nav-left{display:flex;align-items:center;gap:16px;}
+.back-arrow{width:36px;height:36px;border-radius:50%;background:rgba(0,0,0,0.04);display:flex;align-items:center;justify-content:center;text-decoration:none;color:#1F1F1F;transition:0.3s;font-size:0.9rem;}
+.back-arrow:hover{background:rgba(198,40,40,0.08);color:#C62828;}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.logo-icon{width:42px;height:42px;border-radius:50%;}
+.logo-text{font-size:1.6rem;font-weight:800;color:#C62828;}
+.nav-right{display:flex;align-items:center;gap:22px;}
+.nav-right a{text-decoration:none;color:#1F1F1F;font-weight:500;transition:0.3s;}
+.nav-right a:hover{color:#C62828;}
+.nav-icon{font-size:1.1rem;cursor:pointer;transition:0.3s;color:#1F1F1F;}
+.nav-icon:hover{color:#C62828;}
+.login-btn{padding:10px 22px;border:2px solid #C62828;border-radius:12px;background:none;color:#C62828;font-weight:600;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;font-size:0.85rem;}
+.login-btn:hover{background:#C62828;color:white;}
+.profile-icon{width:36px;height:36px;border-radius:50%;background:rgba(198,40,40,0.08);border:2px solid #C62828;display:none;align-items:center;justify-content:center;cursor:pointer;transition:0.3s;}
+.profile-icon.active{display:flex;}
+.profile-icon i{font-size:0.9rem;color:#C62828;}
+.profile-icon:hover{background:rgba(198,40,40,0.15);}
+
+/* Hero Banner */
+.dine-hero{padding:60px 7% 40px;background:linear-gradient(135deg,rgba(198,40,40,0.05),rgba(255,248,240,1));}
+.dine-hero h1{font-size:2.8rem;font-weight:800;margin-bottom:10px;}
+.dine-hero h1 span{color:#C62828;}
+.dine-hero p{font-size:1.05rem;color:#666;max-width:600px;line-height:1.8;}
+
+/* Location Selector */
+.location-bar{padding:0 7%;margin-top:-10px;margin-bottom:30px;}
+.location-selector{display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.location-selector label{font-weight:600;font-size:1rem;color:#1F1F1F;}
+.location-btn{padding:10px 22px;border:2px solid #eee;border-radius:30px;background:white;font-family:'Poppins',sans-serif;font-weight:500;font-size:0.9rem;cursor:pointer;transition:0.3s;color:#666;}
+.location-btn:hover{border-color:#C62828;color:#C62828;}
+.location-btn.active{background:#C62828;color:white;border-color:#C62828;}
+
+/* Filters */
+.filters{padding:0 7% 30px;display:flex;gap:12px;flex-wrap:wrap;}
+.filter-btn{padding:9px 20px;border:2px solid #eee;border-radius:25px;background:white;font-family:'Poppins',sans-serif;font-weight:500;font-size:0.85rem;cursor:pointer;transition:0.3s;color:#666;}
+.filter-btn:hover{border-color:#C62828;color:#C62828;}
+.filter-btn.active{background:#C62828;color:white;border-color:#C62828;}
+
+/* Restaurant Grid */
+.section{padding:0 7% 60px;}
+.section h2{font-size:1.8rem;font-weight:700;margin-bottom:24px;}
+.restaurant-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px;}
+
+.rest-card{background:white;border-radius:24px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,0.06);transition:0.4s;cursor:pointer;}
+.rest-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(0,0,0,0.1);}
+.rest-card-img{width:100%;height:200px;object-fit:cover;position:relative;}
+.rest-card-img img{width:100%;height:100%;object-fit:cover;}
+.rest-badge{position:absolute;top:14px;left:14px;background:white;padding:5px 12px;border-radius:20px;font-size:0.78rem;font-weight:600;color:#C62828;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
+.rest-card-body{padding:20px;}
+.rest-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;}
+.rest-card-top h3{font-size:1.15rem;font-weight:700;}
+.rest-rating{background:#43A047;color:white;padding:4px 10px;border-radius:8px;font-size:0.8rem;font-weight:600;display:flex;align-items:center;gap:4px;}
+.rest-cuisine{font-size:0.85rem;color:#888;margin-bottom:12px;}
+.rest-meta{display:flex;justify-content:space-between;align-items:center;padding-top:12px;border-top:1px solid #f0f0f0;}
+.rest-meta span{font-size:0.85rem;color:#666;display:flex;align-items:center;gap:5px;}
+.rest-meta span i{color:#C62828;font-size:0.8rem;}
+.book-btn{padding:10px 20px;border:none;border-radius:12px;background:#C62828;color:white;font-weight:600;font-size:0.85rem;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;}
+.book-btn:hover{background:#a51f1f;transform:translateY(-2px);}
+
+/* No Results */
+.no-results{text-align:center;padding:60px 20px;display:none;}
+.no-results i{font-size:3rem;color:#ddd;margin-bottom:16px;}
+.no-results h3{font-size:1.3rem;color:#888;margin-bottom:8px;}
+.no-results p{color:#aaa;font-size:0.9rem;}
+
+/* Footer */
+.footer{background:#1F1F1F;padding:60px 7% 30px;color:white;margin-top:40px;}
+.footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:30px;margin-bottom:40px;}
+.footer-col h3{margin-bottom:18px;}
+.footer-col p,.footer-col a{display:block;text-decoration:none;color:#ccc;margin-bottom:10px;line-height:1.8;transition:0.3s;}
+.footer-col a:hover{color:white;}
+.footer-brand{display:flex !important;align-items:center;gap:12px;text-decoration:none;margin-bottom:20px;}
+.footer-logo-icon{width:40px;height:40px;display:block;flex-shrink:0;}
+.footer-logo-text{font-size:1.6rem;font-weight:800;color:#C62828;margin:0;padding:0;}
+.footer-social{display:flex;gap:14px;margin-top:16px;}
+.footer-social i{width:40px;height:40px;background:rgba(255,255,255,0.08);border-radius:12px;display:flex;justify-content:center;align-items:center;cursor:pointer;transition:0.3s;}
+.footer-social i:hover{background:#C62828;transform:translateY(-3px);}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:20px;text-align:center;color:#aaa;}
+
+/* Responsive */
+@media(max-width:768px){
+.dine-hero h1{font-size:2rem;}
+.nav-right a{display:none;}
+.restaurant-grid{grid-template-columns:1fr;}
+.filters{overflow-x:auto;flex-wrap:nowrap;padding-bottom:10px;}
+.filter-btn{white-space:nowrap;flex-shrink:0;}
+}
+@media(max-width:520px){
+.dine-hero h1{font-size:1.6rem;}
+.location-selector{flex-direction:column;align-items:flex-start;gap:10px;}
+}
+
+::-webkit-scrollbar{width:0;height:0;}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+<div class="nav-left">
+<a href="Homepage.html" class="back-arrow"><i class="fa-solid fa-arrow-left"></i></a>
+<a href="Homepage.html" class="logo">
+<img src="assets/logo.svg" alt="QuickBite" class="logo-icon">
+<span class="logo-text">QuickBite</span>
+</a>
+</div>
+<div class="nav-right">
+<a href="Homepage.html">Home</a>
+<i class="fa-solid fa-magnifying-glass nav-icon"></i>
+<button class="login-btn" id="loginBtn" onclick="window.location.href='login.html'">LOG IN</button>
+<div class="profile-icon" id="profileIcon" onclick="window.location.href='Homepage.html'"><i class="fa-solid fa-user"></i></div>
+</div>
+</nav>
+
+<!-- Hero -->
+<section class="dine-hero">
+<h1>Discover <span>Dine-Out</span> Restaurants</h1>
+<p>Find the best restaurants near you. Reserve a table, enjoy premium dining experiences with family and friends.</p>
+</section>
+
+<!-- Location Selector -->
+<div class="location-bar">
+<div class="location-selector">
+<label><i class="fa-solid fa-location-dot" style="color:#C62828"></i> Select City:</label>
+<button class="location-btn active" data-city="chennai">Chennai</button>
+<button class="location-btn" data-city="mumbai">Mumbai</button>
+<button class="location-btn" data-city="bangalore">Bangalore</button>
+</div>
+</div>
+
+<!-- Filters -->
+<div class="filters">
+<button class="filter-btn active" data-filter="all">All</button>
+<button class="filter-btn" data-filter="fine-dining">Fine Dining</button>
+<button class="filter-btn" data-filter="casual">Casual Dining</button>
+<button class="filter-btn" data-filter="cafe">Cafe</button>
+<button class="filter-btn" data-filter="buffet">Buffet</button>
+<button class="filter-btn" data-filter="rooftop">Rooftop</button>
+<button class="filter-btn" data-filter="vegetarian">Pure Veg</button>
+</div>
+
+<!-- Restaurant Grid -->
+<section class="section">
+<h2 id="gridTitle">Top Restaurants in Chennai</h2>
+<div class="restaurant-grid" id="restaurantGrid"></div>
+<div class="no-results" id="noResults">
+<i class="fa-solid fa-utensils"></i>
+<h3>No restaurants found</h3>
+<p>Try changing the filter or location</p>
+</div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+<div class="footer-grid">
+<div class="footer-col">
+<a href="Homepage.html" class="footer-brand">
+<img src="assets/logo.svg" alt="QuickBite" class="footer-logo-icon">
+<span class="footer-logo-text">QuickBite</span>
+</a>
+<p>Delivering happiness with delicious food and premium restaurant experiences.</p>
+<div class="footer-social">
+<i class="fa-brands fa-instagram"></i>
+<i class="fa-brands fa-facebook-f"></i>
+<i class="fa-brands fa-x-twitter"></i>
+</div>
+</div>
+<div class="footer-col">
+<h3>Quick Links</h3>
+<a href="Homepage.html">Home</a>
+<a href="dineout.html">Dine Out</a>
+<a href="#">Popular Dishes</a>
+<a href="#">Top Restaurants</a>
+</div>
+<div class="footer-col">
+<h3>Support</h3>
+<a href="#">Help Center</a>
+<a href="#">Terms & Conditions</a>
+<a href="#">Privacy Policy</a>
+</div>
+<div class="footer-col">
+<h3>Contact</h3>
+<p>support@quickbite.com</p>
+<p>+91 98765 43210</p>
+<p>Chennai, India</p>
+</div>
+</div>
+<div class="footer-bottom">
+<p>&copy; 2026 QuickBite. All Rights Reserved.</p>
+</div>
+</footer>
+
+<script>
+const restaurants = {
+chennai: [
+{name:"Dakshin",cuisine:"South Indian, Traditional",type:"fine-dining",rating:4.8,price:"\u20b91800 for two",time:"35 mins",area:"ITC Grand Chola",img:"https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=800&auto=format&fit=crop",badge:"Premium"},
+{name:"Peshawri",cuisine:"North Indian, Mughlai",type:"fine-dining",rating:4.7,price:"\u20b92200 for two",time:"40 mins",area:"Velachery",img:"https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=800&auto=format&fit=crop",badge:"Award Winner"},
+{name:"Copper Chimney",cuisine:"North Indian, Kebabs",type:"casual",rating:4.5,price:"\u20b91200 for two",time:"25 mins",area:"Anna Nagar",img:"https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=800&auto=format&fit=crop",badge:"Popular"},
+{name:"Amethyst Cafe",cuisine:"Continental, Cafe",type:"cafe",rating:4.6,price:"\u20b9900 for two",time:"20 mins",area:"Royapettah",img:"https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=800&auto=format&fit=crop",badge:"Trending"},
+{name:"Bombay Brasserie",cuisine:"Indian, Fusion",type:"fine-dining",rating:4.6,price:"\u20b91600 for two",time:"30 mins",area:"T. Nagar",img:"https://images.unsplash.com/photo-1590846406792-0adc7f938f1d?q=80&w=800&auto=format&fit=crop",badge:"Must Try"},
+{name:"Sandy's Chocolate Lab",cuisine:"Desserts, Cafe",type:"cafe",rating:4.4,price:"\u20b9600 for two",time:"15 mins",area:"Adyar",img:"https://images.unsplash.com/photo-1559925393-8be0ec4767c8?q=80&w=800&auto=format&fit=crop",badge:"Sweet Spot"},
+{name:"Rajdhani Thali",cuisine:"Rajasthani, Gujarati",type:"buffet",rating:4.5,price:"\u20b9800 for two",time:"20 mins",area:"Phoenix Mall",img:"https://images.unsplash.com/photo-1567521464027-f127ff144326?q=80&w=800&auto=format&fit=crop",badge:"Unlimited"},
+{name:"Above Sea Level",cuisine:"Seafood, Continental",type:"rooftop",rating:4.3,price:"\u20b91400 for two",time:"30 mins",area:"ECR",img:"https://images.unsplash.com/photo-1514933651103-005eec06c04b?q=80&w=800&auto=format&fit=crop",badge:"Sea View"},
+{name:"Murugan Idli Shop",cuisine:"South Indian, Tiffin",type:"vegetarian",rating:4.6,price:"\u20b9300 for two",time:"10 mins",area:"Multiple Outlets",img:"https://images.unsplash.com/photo-1630383249896-424e482df921?q=80&w=800&auto=format&fit=crop",badge:"Pure Veg"},
+{name:"The Park - Aqua",cuisine:"Pan Asian, Sushi",type:"fine-dining",rating:4.5,price:"\u20b92000 for two",time:"35 mins",area:"Nungambakkam",img:"https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=800&auto=format&fit=crop",badge:"Luxury"},
+{name:"Writer's Cafe",cuisine:"Continental, Cafe",type:"cafe",rating:4.3,price:"\u20b9700 for two",time:"15 mins",area:"Egmore",img:"https://images.unsplash.com/photo-1521017432531-fbd92d768814?q=80&w=800&auto=format&fit=crop",badge:"Cozy"},
+{name:"Cream Centre",cuisine:"Vegetarian, Chinese",type:"vegetarian",rating:4.4,price:"\u20b9900 for two",time:"20 mins",area:"Alwarpet",img:"https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=800&auto=format&fit=crop",badge:"Family Fav"},
+{name:"Bay 146",cuisine:"Multi-Cuisine, Buffet",type:"buffet",rating:4.5,price:"\u20b91500 for two",time:"25 mins",area:"Ramapuram",img:"https://images.unsplash.com/photo-1544148103-0773bf10d330?q=80&w=800&auto=format&fit=crop",badge:"Grand Buffet"},
+{name:"Roof Garden",cuisine:"North Indian, BBQ",type:"rooftop",rating:4.2,price:"\u20b91100 for two",time:"25 mins",area:"Mylapore",img:"https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?q=80&w=800&auto=format&fit=crop",badge:"Night Vibes"},
+{name:"Benjarong",cuisine:"Thai, Asian",type:"fine-dining",rating:4.7,price:"\u20b92500 for two",time:"40 mins",area:"TTK Road",img:"https://images.unsplash.com/photo-1537047902294-62a40c20a6ae?q=80&w=800&auto=format&fit=crop",badge:"Authentic Thai"},
+{name:"Ciclo Cafe",cuisine:"European, Cafe",type:"cafe",rating:4.4,price:"\u20b9800 for two",time:"15 mins",area:"Kotturpuram",img:"https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=800&auto=format&fit=crop",badge:"Cycling Theme"},
+{name:"Azzuri Bay",cuisine:"Italian, Mediterranean",type:"fine-dining",rating:4.5,price:"\u20b91800 for two",time:"30 mins",area:"Neelankarai",img:"https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=800&auto=format&fit=crop",badge:"Beach View"},
+{name:"Saravana Bhavan",cuisine:"South Indian, Vegetarian",type:"vegetarian",rating:4.5,price:"\u20b9400 for two",time:"10 mins",area:"T. Nagar",img:"https://images.unsplash.com/photo-1601050690597-df0568f70950?q=80&w=800&auto=format&fit=crop",badge:"Legendary"},
+{name:"Absolute Barbecues",cuisine:"BBQ, Grills",type:"buffet",rating:4.4,price:"\u20b91300 for two",time:"25 mins",area:"Velachery",img:"https://images.unsplash.com/photo-1558030006-450675393462?q=80&w=800&auto=format&fit=crop",badge:"Live Grill"},
+{name:"Illusions The Madras Pub",cuisine:"Continental, Pub",type:"casual",rating:4.2,price:"\u20b91000 for two",time:"20 mins",area:"Anna Nagar",img:"https://images.unsplash.com/photo-1572116469696-31de0f17cc34?q=80&w=800&auto=format&fit=crop",badge:"Pub Vibes"},
+{name:"Chamiers Cafe",cuisine:"Continental, Bakery",type:"cafe",rating:4.5,price:"\u20b91000 for two",time:"20 mins",area:"RA Puram",img:"https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=800&auto=format&fit=crop",badge:"Artsy"},
+{name:"Jonah's Bistro",cuisine:"Continental, Italian",type:"casual",rating:4.3,price:"\u20b91100 for two",time:"20 mins",area:"Nungambakkam",img:"https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?q=80&w=800&auto=format&fit=crop",badge:"Cozy Bistro"},
+{name:"Madras Pavilion",cuisine:"South Indian, Vegetarian",type:"vegetarian",rating:4.3,price:"\u20b9700 for two",time:"15 mins",area:"Egmore",img:"https://images.unsplash.com/photo-1546833999-b9f581a1996d?q=80&w=800&auto=format&fit=crop",badge:"Heritage"},
+{name:"Flying Elephant",cuisine:"Multi-Cuisine, Buffet",type:"buffet",rating:4.6,price:"\u20b92500 for two",time:"35 mins",area:"Park Hyatt",img:"https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?q=80&w=800&auto=format&fit=crop",badge:"5 Star"},
+{name:"Kefi",cuisine:"Greek, Mediterranean",type:"rooftop",rating:4.4,price:"\u20b91600 for two",time:"25 mins",area:"Alwarpet",img:"https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop",badge:"Terrace Dining"}
+],
+mumbai: [
+{name:"Trishna",cuisine:"Seafood, Coastal",type:"fine-dining",rating:4.8,price:"\u20b92500 for two",time:"35 mins",area:"Fort",img:"https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=800&auto=format&fit=crop",badge:"Legendary"},
+{name:"Leopold Cafe",cuisine:"Continental, Indian",type:"casual",rating:4.4,price:"\u20b91000 for two",time:"20 mins",area:"Colaba",img:"https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=800&auto=format&fit=crop",badge:"Iconic"},
+{name:"Bastian",cuisine:"Seafood, Asian",type:"fine-dining",rating:4.7,price:"\u20b93000 for two",time:"40 mins",area:"Bandra",img:"https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=800&auto=format&fit=crop",badge:"Celebrity Fav"},
+{name:"Cafe Mondegar",cuisine:"Cafe, Continental",type:"cafe",rating:4.3,price:"\u20b9800 for two",time:"15 mins",area:"Colaba",img:"https://images.unsplash.com/photo-1559925393-8be0ec4767c8?q=80&w=800&auto=format&fit=crop",badge:"Heritage"},
+{name:"Barbeque Nation",cuisine:"BBQ, North Indian",type:"buffet",rating:4.4,price:"\u20b91500 for two",time:"25 mins",area:"Andheri",img:"https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=800&auto=format&fit=crop",badge:"Live Grill"},
+{name:"AER Lounge",cuisine:"Continental, Bar",type:"rooftop",rating:4.6,price:"\u20b93500 for two",time:"30 mins",area:"Worli",img:"https://images.unsplash.com/photo-1514933651103-005eec06c04b?q=80&w=800&auto=format&fit=crop",badge:"Sky High"},
+{name:"Shree Thaker Bhojanalay",cuisine:"Gujarati Thali",type:"vegetarian",rating:4.7,price:"\u20b9500 for two",time:"15 mins",area:"Kalbadevi",img:"https://images.unsplash.com/photo-1567521464027-f127ff144326?q=80&w=800&auto=format&fit=crop",badge:"Pure Veg"},
+{name:"Masala Library",cuisine:"Modern Indian",type:"fine-dining",rating:4.8,price:"\u20b94000 for two",time:"45 mins",area:"BKC",img:"https://images.unsplash.com/photo-1590846406792-0adc7f938f1d?q=80&w=800&auto=format&fit=crop",badge:"Michelin Level"},
+{name:"Prithvi Cafe",cuisine:"Snacks, Cafe",type:"cafe",rating:4.5,price:"\u20b9400 for two",time:"10 mins",area:"Juhu",img:"https://images.unsplash.com/photo-1521017432531-fbd92d768814?q=80&w=800&auto=format&fit=crop",badge:"Theatre Vibes"},
+{name:"Khyber",cuisine:"North Indian, Mughlai",type:"fine-dining",rating:4.6,price:"\u20b92200 for two",time:"35 mins",area:"Fort",img:"https://images.unsplash.com/photo-1537047902294-62a40c20a6ae?q=80&w=800&auto=format&fit=crop",badge:"Heritage"},
+{name:"Soda Bottle Opener",cuisine:"Parsi, Irani",type:"casual",rating:4.4,price:"\u20b91200 for two",time:"20 mins",area:"BKC",img:"https://images.unsplash.com/photo-1544148103-0773bf10d330?q=80&w=800&auto=format&fit=crop",badge:"Quirky"},
+{name:"Asilo",cuisine:"Italian, Rooftop",type:"rooftop",rating:4.5,price:"\u20b92800 for two",time:"30 mins",area:"Lower Parel",img:"https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?q=80&w=800&auto=format&fit=crop",badge:"Sunset Views"},
+{name:"The Table",cuisine:"European, Modern",type:"fine-dining",rating:4.7,price:"\u20b93500 for two",time:"40 mins",area:"Colaba",img:"https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=800&auto=format&fit=crop",badge:"Fine Dine"},
+{name:"Kala Ghoda Cafe",cuisine:"Cafe, Sandwiches",type:"cafe",rating:4.3,price:"\u20b9600 for two",time:"10 mins",area:"Kala Ghoda",img:"https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=800&auto=format&fit=crop",badge:"Art District"},
+{name:"Swati Snacks",cuisine:"Gujarati, Street Food",type:"vegetarian",rating:4.6,price:"\u20b9600 for two",time:"15 mins",area:"Tardeo",img:"https://images.unsplash.com/photo-1601050690597-df0568f70950?q=80&w=800&auto=format&fit=crop",badge:"Must Visit"},
+{name:"Global Fusion",cuisine:"Multi-Cuisine, Buffet",type:"buffet",rating:4.3,price:"\u20b91800 for two",time:"25 mins",area:"Andheri",img:"https://images.unsplash.com/photo-1558030006-450675393462?q=80&w=800&auto=format&fit=crop",badge:"All You Can Eat"},
+{name:"Smoke House Deli",cuisine:"European, Healthy",type:"casual",rating:4.4,price:"\u20b91400 for two",time:"20 mins",area:"Bandra",img:"https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?q=80&w=800&auto=format&fit=crop",badge:"Healthy Eats"},
+{name:"Bayroute",cuisine:"Mediterranean, Lebanese",type:"casual",rating:4.5,price:"\u20b91600 for two",time:"25 mins",area:"Juhu",img:"https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=800&auto=format&fit=crop",badge:"Mediterranean"},
+{name:"Foo",cuisine:"Asian, Japanese",type:"fine-dining",rating:4.5,price:"\u20b92500 for two",time:"35 mins",area:"Lower Parel",img:"https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=800&auto=format&fit=crop",badge:"Pan Asian"},
+{name:"Birdsong Cafe",cuisine:"Organic, Cafe",type:"cafe",rating:4.4,price:"\u20b9900 for two",time:"15 mins",area:"Bandra",img:"https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=800&auto=format&fit=crop",badge:"Organic"},
+{name:"Aswad",cuisine:"Maharashtrian, Vegetarian",type:"vegetarian",rating:4.5,price:"\u20b9400 for two",time:"10 mins",area:"Dadar",img:"https://images.unsplash.com/photo-1546833999-b9f581a1996d?q=80&w=800&auto=format&fit=crop",badge:"Local Legend"},
+{name:"Tamasha",cuisine:"Continental, Lounge",type:"rooftop",rating:4.3,price:"\u20b92000 for two",time:"25 mins",area:"Lower Parel",img:"https://images.unsplash.com/photo-1572116469696-31de0f17cc34?q=80&w=800&auto=format&fit=crop",badge:"Party Spot"},
+{name:"Pali Village Cafe",cuisine:"Continental, Cafe",type:"cafe",rating:4.4,price:"\u20b91100 for two",time:"15 mins",area:"Bandra",img:"https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=800&auto=format&fit=crop",badge:"Charming"},
+{name:"Hitchki",cuisine:"Indian, Fusion",type:"casual",rating:4.3,price:"\u20b91300 for two",time:"20 mins",area:"BKC",img:"https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=800&auto=format&fit=crop",badge:"Bollywood Theme"},
+{name:"Soam",cuisine:"Gujarati, Rajasthani",type:"vegetarian",rating:4.5,price:"\u20b9700 for two",time:"15 mins",area:"Chowpatty",img:"https://images.unsplash.com/photo-1567521464027-f127ff144326?q=80&w=800&auto=format&fit=crop",badge:"Sea Facing"}
+],
+bangalore: [
+{name:"Karavalli",cuisine:"Coastal, South Indian",type:"fine-dining",rating:4.8,price:"\u20b92000 for two",time:"35 mins",area:"Residency Road",img:"https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=800&auto=format&fit=crop",badge:"Legendary"},
+{name:"Toit Brewpub",cuisine:"Continental, Craft Beer",type:"casual",rating:4.5,price:"\u20b91400 for two",time:"25 mins",area:"Indiranagar",img:"https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=800&auto=format&fit=crop",badge:"Brew Master"},
+{name:"Third Wave Coffee",cuisine:"Coffee, Cafe",type:"cafe",rating:4.4,price:"\u20b9500 for two",time:"10 mins",area:"Koramangala",img:"https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=800&auto=format&fit=crop",badge:"Best Coffee"},
+{name:"Windmills Craftworks",cuisine:"European, Brewery",type:"rooftop",rating:4.5,price:"\u20b91800 for two",time:"30 mins",area:"Whitefield",img:"https://images.unsplash.com/photo-1514933651103-005eec06c04b?q=80&w=800&auto=format&fit=crop",badge:"Rooftop Vibes"},
+{name:"Vidyarthi Bhavan",cuisine:"South Indian, Dosa",type:"vegetarian",rating:4.7,price:"\u20b9250 for two",time:"10 mins",area:"Basavanagudi",img:"https://images.unsplash.com/photo-1630383249896-424e482df921?q=80&w=800&auto=format&fit=crop",badge:"Since 1943"},
+{name:"Ebony",cuisine:"Multi-Cuisine, Fine Dine",type:"fine-dining",rating:4.6,price:"\u20b92200 for two",time:"35 mins",area:"MG Road",img:"https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=800&auto=format&fit=crop",badge:"City View"},
+{name:"Barbeque Nation",cuisine:"BBQ, Buffet",type:"buffet",rating:4.4,price:"\u20b91500 for two",time:"25 mins",area:"JP Nagar",img:"https://images.unsplash.com/photo-1567521464027-f127ff144326?q=80&w=800&auto=format&fit=crop",badge:"Live Grill"},
+{name:"The Permit Room",cuisine:"South Indian, Modern",type:"casual",rating:4.5,price:"\u20b91200 for two",time:"20 mins",area:"Indiranagar",img:"https://images.unsplash.com/photo-1590846406792-0adc7f938f1d?q=80&w=800&auto=format&fit=crop",badge:"Trendy"},
+{name:"Cafe Azzure",cuisine:"Italian, Continental",type:"cafe",rating:4.3,price:"\u20b9800 for two",time:"15 mins",area:"Church Street",img:"https://images.unsplash.com/photo-1559925393-8be0ec4767c8?q=80&w=800&auto=format&fit=crop",badge:"Date Spot"},
+{name:"Grasshopper",cuisine:"European, Fine Dine",type:"fine-dining",rating:4.8,price:"\u20b93500 for two",time:"45 mins",area:"Bannerghatta",img:"https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=800&auto=format&fit=crop",badge:"Hidden Gem"},
+{name:"CTR - Shri Sagar",cuisine:"South Indian, Dosa",type:"vegetarian",rating:4.6,price:"\u20b9200 for two",time:"10 mins",area:"Malleshwaram",img:"https://images.unsplash.com/photo-1601050690597-df0568f70950?q=80&w=800&auto=format&fit=crop",badge:"Iconic"},
+{name:"High Ultra Lounge",cuisine:"Continental, Bar",type:"rooftop",rating:4.4,price:"\u20b92500 for two",time:"30 mins",area:"MG Road",img:"https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?q=80&w=800&auto=format&fit=crop",badge:"34th Floor"},
+{name:"Truffles",cuisine:"Burgers, American",type:"casual",rating:4.5,price:"\u20b9700 for two",time:"15 mins",area:"Koramangala",img:"https://images.unsplash.com/photo-1544148103-0773bf10d330?q=80&w=800&auto=format&fit=crop",badge:"Burger King"},
+{name:"Brahmin's Coffee Bar",cuisine:"South Indian, Tiffin",type:"vegetarian",rating:4.6,price:"\u20b9150 for two",time:"10 mins",area:"Basavanagudi",img:"https://images.unsplash.com/photo-1546833999-b9f581a1996d?q=80&w=800&auto=format&fit=crop",badge:"Since 1965"},
+{name:"The Fatty Bao",cuisine:"Asian, Pan Asian",type:"fine-dining",rating:4.5,price:"\u20b91800 for two",time:"30 mins",area:"Indiranagar",img:"https://images.unsplash.com/photo-1537047902294-62a40c20a6ae?q=80&w=800&auto=format&fit=crop",badge:"Asian Fusion"},
+{name:"Dyu Art Cafe",cuisine:"Cafe, Bakery",type:"cafe",rating:4.4,price:"\u20b9600 for two",time:"15 mins",area:"Koramangala",img:"https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=800&auto=format&fit=crop",badge:"Art Cafe"},
+{name:"Hammered",cuisine:"Continental, Pub",type:"casual",rating:4.2,price:"\u20b91100 for two",time:"20 mins",area:"Koramangala",img:"https://images.unsplash.com/photo-1572116469696-31de0f17cc34?q=80&w=800&auto=format&fit=crop",badge:"Pub Grub"},
+{name:"Nagarjuna",cuisine:"Andhra, Biryani",type:"casual",rating:4.5,price:"\u20b9800 for two",time:"15 mins",area:"Residency Road",img:"https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=800&auto=format&fit=crop",badge:"Spice Lovers"},
+{name:"Rim Naam",cuisine:"Thai, Asian",type:"fine-dining",rating:4.6,price:"\u20b92800 for two",time:"35 mins",area:"Yelahanka",img:"https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=800&auto=format&fit=crop",badge:"Authentic Thai"},
+{name:"AB's Absolute Barbecues",cuisine:"BBQ, Grills",type:"buffet",rating:4.4,price:"\u20b91400 for two",time:"25 mins",area:"Indiranagar",img:"https://images.unsplash.com/photo-1558030006-450675393462?q=80&w=800&auto=format&fit=crop",badge:"Unlimited BBQ"},
+{name:"Cafe Terrace",cuisine:"Continental, Cafe",type:"cafe",rating:4.3,price:"\u20b9700 for two",time:"15 mins",area:"MG Road",img:"https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=800&auto=format&fit=crop",badge:"Garden Cafe"},
+{name:"Skyye Lounge",cuisine:"Continental, Lounge",type:"rooftop",rating:4.5,price:"\u20b92200 for two",time:"30 mins",area:"Lavelle Road",img:"https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop",badge:"Skyline View"},
+{name:"Veena Stores",cuisine:"South Indian, Breakfast",type:"vegetarian",rating:4.5,price:"\u20b9150 for two",time:"10 mins",area:"Malleshwaram",img:"https://images.unsplash.com/photo-1630383249896-424e482df921?q=80&w=800&auto=format&fit=crop",badge:"Morning Fav"},
+{name:"Toast & Tonic",cuisine:"European, Cocktails",type:"casual",rating:4.4,price:"\u20b91600 for two",time:"20 mins",area:"Indiranagar",img:"https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?q=80&w=800&auto=format&fit=crop",badge:"Craft Cocktails"},
+{name:"Flechazo",cuisine:"Spanish, Tapas",type:"fine-dining",rating:4.5,price:"\u20b92000 for two",time:"30 mins",area:"Koramangala",img:"https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=800&auto=format&fit=crop",badge:"Spanish Vibes"}
+]
+};
+
+let currentCity = 'chennai';
+let currentFilter = 'all';
+
+const grid = document.getElementById('restaurantGrid');
+const gridTitle = document.getElementById('gridTitle');
+const noResults = document.getElementById('noResults');
+
+function renderRestaurants(){
+const cityData = restaurants[currentCity];
+const filtered = currentFilter === 'all' ? cityData : cityData.filter(r => r.type === currentFilter);
+const cityName = currentCity.charAt(0).toUpperCase() + currentCity.slice(1);
+gridTitle.textContent = 'Top Restaurants in ' + cityName;
+if(filtered.length === 0){grid.innerHTML = '';noResults.style.display = 'block';return;}
+noResults.style.display = 'none';
+grid.innerHTML = filtered.map(r => '<div class="rest-card" onclick="window.location.href=\'book-table.html?name='+encodeURIComponent(r.name)+'&cuisine='+encodeURIComponent(r.cuisine)+'&rating='+r.rating+'&price='+encodeURIComponent(r.price)+'&area='+encodeURIComponent(r.area)+'&city='+currentCity+'\'"><div class="rest-card-img"><img src="'+r.img+'" alt="'+r.name+'"><span class="rest-badge">'+r.badge+'</span></div><div class="rest-card-body"><div class="rest-card-top"><h3>'+r.name+'</h3><div class="rest-rating"><i class="fa-solid fa-star"></i> '+r.rating+'</div></div><p class="rest-cuisine">'+r.cuisine+' &bull; '+r.area+'</p><div class="rest-meta"><span><i class="fa-solid fa-indian-rupee-sign"></i> '+r.price+'</span><button class="book-btn" onclick="event.stopPropagation();window.location.href=\'book-table.html?name='+encodeURIComponent(r.name)+'&cuisine='+encodeURIComponent(r.cuisine)+'&rating='+r.rating+'&price='+encodeURIComponent(r.price)+'&area='+encodeURIComponent(r.area)+'&city='+currentCity+'\'">Book Table</button></div></div></div>').join('');
+}
+
+document.querySelectorAll('.location-btn').forEach(btn => {
+btn.addEventListener('click', ()=>{
+document.querySelectorAll('.location-btn').forEach(b => b.classList.remove('active'));
+btn.classList.add('active');
+currentCity = btn.dataset.city;
+renderRestaurants();
+});
+});
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+btn.addEventListener('click', ()=>{
+document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+btn.classList.add('active');
+currentFilter = btn.dataset.filter;
+renderRestaurants();
+});
+});
+
+// Check login state
+(function(){
+const loggedIn = localStorage.getItem('quickbite_logged_in');
+const loginBtn = document.getElementById('loginBtn');
+const profileIcon = document.getElementById('profileIcon');
+if(loggedIn === 'true'){loginBtn.style.display='none';profileIcon.classList.add('active');}
+else{loginBtn.style.display='block';profileIcon.classList.remove('active');}
+})();
+
+renderRestaurants();
+</script>
+
+</body>
+</html>

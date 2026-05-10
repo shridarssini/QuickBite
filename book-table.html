@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QuickBite - Book a Table</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:#FFF8F0;color:#1F1F1F;overflow-x:hidden;}
+html{scroll-behavior:smooth;}
+
+/* Navbar */
+.navbar{display:flex;justify-content:space-between;align-items:center;padding:20px 7%;background:#FFF8F0;position:sticky;top:0;z-index:1000;box-shadow:0 3px 12px rgba(0,0,0,0.04);}
+.nav-left{display:flex;align-items:center;gap:16px;}
+.back-arrow{width:36px;height:36px;border-radius:50%;background:rgba(0,0,0,0.04);display:flex;align-items:center;justify-content:center;text-decoration:none;color:#1F1F1F;transition:0.3s;font-size:0.9rem;}
+.back-arrow:hover{background:rgba(198,40,40,0.08);color:#C62828;}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.logo-icon{width:42px;height:42px;border-radius:50%;}
+.logo-text{font-size:1.6rem;font-weight:800;color:#C62828;}
+.nav-right{display:flex;align-items:center;gap:22px;}
+.nav-right a{text-decoration:none;color:#1F1F1F;font-weight:500;transition:0.3s;}
+.nav-right a:hover{color:#C62828;}
+.nav-icon{font-size:1.1rem;cursor:pointer;transition:0.3s;color:#1F1F1F;}
+.nav-icon:hover{color:#C62828;}
+.login-btn{padding:10px 22px;border:2px solid #C62828;border-radius:12px;background:none;color:#C62828;font-weight:600;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;font-size:0.85rem;}
+.login-btn:hover{background:#C62828;color:white;}
+.profile-icon{width:36px;height:36px;border-radius:50%;background:rgba(198,40,40,0.08);border:2px solid #C62828;display:none;align-items:center;justify-content:center;cursor:pointer;transition:0.3s;}
+.profile-icon.active{display:flex;}
+.profile-icon i{font-size:0.9rem;color:#C62828;}
+.profile-icon:hover{background:rgba(198,40,40,0.15);}
+
+/* Main Layout */
+.booking-container{padding:40px 7%;display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:1200px;margin:auto;}
+
+/* Restaurant Info Card */
+.rest-info{background:white;border-radius:28px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,0.06);}
+.rest-info-img{width:100%;height:240px;object-fit:cover;}
+.rest-info-body{padding:28px;}
+.rest-info-body h2{font-size:1.6rem;font-weight:700;margin-bottom:6px;}
+.rest-info-body .cuisine-text{color:#888;font-size:0.9rem;margin-bottom:16px;}
+.info-row{display:flex;align-items:center;gap:10px;margin-bottom:12px;font-size:0.9rem;color:#555;}
+.info-row i{color:#C62828;width:18px;text-align:center;}
+.rest-features{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;}
+.feature-tag{padding:6px 14px;background:rgba(198,40,40,0.06);border-radius:20px;font-size:0.78rem;color:#C62828;font-weight:500;}
+
+/* Booking Form */
+.booking-form{background:white;border-radius:28px;padding:36px;box-shadow:0 12px 40px rgba(0,0,0,0.06);}
+.booking-form h2{font-size:1.5rem;font-weight:700;margin-bottom:6px;}
+.booking-form .form-sub{color:#888;font-size:0.9rem;margin-bottom:28px;}
+
+.form-group{margin-bottom:22px;}
+.form-group label{display:block;font-weight:500;font-size:0.88rem;margin-bottom:8px;color:#1F1F1F;}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:14px 18px;border:2px solid #eee;border-radius:14px;font-size:0.95rem;font-family:'Poppins',sans-serif;outline:none;transition:0.3s;background:#FAFAFA;}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:#C62828;background:white;box-shadow:0 0 0 4px rgba(198,40,40,0.06);}
+.form-group textarea{resize:none;height:80px;}
+
+/* Time Slots */
+.time-slots{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+.time-slot{padding:10px;border:2px solid #eee;border-radius:12px;text-align:center;font-size:0.85rem;font-weight:500;cursor:pointer;transition:0.3s;background:white;}
+.time-slot:hover{border-color:#C62828;color:#C62828;}
+.time-slot.active{background:#C62828;color:white;border-color:#C62828;}
+.time-slot.disabled{opacity:0.4;cursor:not-allowed;pointer-events:none;}
+
+/* Guest Counter */
+.guest-counter{display:flex;align-items:center;gap:16px;}
+.guest-btn{width:40px;height:40px;border:2px solid #eee;border-radius:12px;background:white;font-size:1.2rem;cursor:pointer;transition:0.3s;display:flex;align-items:center;justify-content:center;font-family:'Poppins',sans-serif;}
+.guest-btn:hover{border-color:#C62828;color:#C62828;}
+.guest-count{font-size:1.4rem;font-weight:700;min-width:30px;text-align:center;}
+
+/* Submit */
+.submit-btn{width:100%;padding:16px;border:none;border-radius:14px;background:#C62828;color:white;font-size:1rem;font-weight:600;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;margin-top:10px;}
+.submit-btn:hover{background:#a51f1f;transform:translateY(-2px);box-shadow:0 8px 25px rgba(198,40,40,0.3);}
+
+/* Success Modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);z-index:5000;display:none;align-items:center;justify-content:center;padding:20px;}
+.modal-overlay.active{display:flex;}
+.modal{background:white;border-radius:28px;padding:44px 36px;max-width:420px;width:100%;text-align:center;animation:fadeUp 0.4s ease;box-shadow:0 20px 60px rgba(0,0,0,0.15);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.modal .success-icon{width:80px;height:80px;border-radius:50%;background:rgba(67,160,71,0.1);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;}
+.modal .success-icon i{font-size:2.2rem;color:#43A047;}
+.modal h2{font-size:1.5rem;font-weight:700;margin-bottom:8px;}
+.modal p{color:#888;font-size:0.9rem;line-height:1.7;margin-bottom:8px;}
+.modal .booking-details{background:#FFF8F0;border-radius:14px;padding:18px;margin:20px 0;text-align:left;}
+.modal .booking-details p{color:#555;font-size:0.85rem;margin-bottom:6px;display:flex;align-items:center;gap:8px;}
+.modal .booking-details p i{color:#C62828;width:16px;}
+.modal .modal-btn{width:100%;padding:14px;border:none;border-radius:14px;background:#C62828;color:white;font-size:0.95rem;font-weight:600;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;margin-top:10px;}
+.modal .modal-btn:hover{background:#a51f1f;}
+.modal .modal-btn.outline{background:none;border:2px solid #eee;color:#1F1F1F;margin-top:10px;}
+.modal .modal-btn.outline:hover{border-color:#C62828;color:#C62828;}
+
+/* Responsive */
+@media(max-width:900px){
+.booking-container{grid-template-columns:1fr;gap:24px;}
+}
+@media(max-width:520px){
+.time-slots{grid-template-columns:repeat(3,1fr);}
+.booking-form{padding:24px;}
+.rest-info-body{padding:20px;}
+}
+
+::-webkit-scrollbar{width:0;height:0;}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+<div class="nav-left">
+<a href="dineout.html" class="back-arrow"><i class="fa-solid fa-arrow-left"></i></a>
+<a href="Homepage.html" class="logo">
+<img src="assets/logo.svg" alt="QuickBite" class="logo-icon">
+<span class="logo-text">QuickBite</span>
+</a>
+</div>
+<div class="nav-right">
+<a href="Homepage.html">Home</a>
+<i class="fa-solid fa-magnifying-glass nav-icon"></i>
+<button class="login-btn" id="loginBtn" onclick="window.location.href='login.html'">LOG IN</button>
+<div class="profile-icon" id="profileIcon" onclick="window.location.href='Homepage.html'"><i class="fa-solid fa-user"></i></div>
+</div>
+</nav>
+
+<!-- Booking Container -->
+<div class="booking-container">
+
+<!-- Restaurant Info -->
+<div class="rest-info">
+<img class="rest-info-img" id="restImg" src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=800&auto=format&fit=crop" alt="Restaurant">
+<div class="rest-info-body">
+<h2 id="restName">Restaurant Name</h2>
+<p class="cuisine-text" id="restCuisine">Cuisine • Area</p>
+<div class="info-row"><i class="fa-solid fa-star" style="color:#FFB400"></i><span id="restRating">4.8</span> Rating</div>
+<div class="info-row"><i class="fa-solid fa-indian-rupee-sign"></i><span id="restPrice">₹1800 for two</span></div>
+<div class="info-row"><i class="fa-solid fa-location-dot"></i><span id="restArea">Area, City</span></div>
+<div class="info-row"><i class="fa-solid fa-clock"></i> Open now: 11:00 AM - 11:00 PM</div>
+<div class="rest-features">
+<span class="feature-tag">AC Dining</span>
+<span class="feature-tag">Valet Parking</span>
+<span class="feature-tag">Live Music</span>
+<span class="feature-tag">Outdoor Seating</span>
+<span class="feature-tag">Wheelchair Accessible</span>
+</div>
+</div>
+</div>
+
+<!-- Booking Form -->
+<div class="booking-form">
+<h2>Book a Table</h2>
+<p class="form-sub">Reserve your spot for a premium dining experience</p>
+
+<form id="bookingForm" novalidate>
+
+<div class="form-group">
+<label>Your Name</label>
+<input type="text" id="guestName" placeholder="Enter your name" required>
+</div>
+
+<div class="form-group">
+<label>Phone Number</label>
+<input type="tel" id="guestPhone" placeholder="Enter phone number" required>
+</div>
+
+<div class="form-group">
+<label>Select Date</label>
+<input type="date" id="bookingDate" required>
+</div>
+
+<div class="form-group">
+<label>Select Time</label>
+<div class="time-slots" id="timeSlots">
+<div class="time-slot" data-time="11:00 AM">11:00 AM</div>
+<div class="time-slot" data-time="12:00 PM">12:00 PM</div>
+<div class="time-slot" data-time="1:00 PM">1:00 PM</div>
+<div class="time-slot" data-time="2:00 PM">2:00 PM</div>
+<div class="time-slot" data-time="5:00 PM">5:00 PM</div>
+<div class="time-slot" data-time="6:00 PM">6:00 PM</div>
+<div class="time-slot" data-time="7:00 PM">7:00 PM</div>
+<div class="time-slot" data-time="8:00 PM">8:00 PM</div>
+<div class="time-slot" data-time="9:00 PM">9:00 PM</div>
+<div class="time-slot disabled" data-time="10:00 PM">10:00 PM</div>
+<div class="time-slot disabled" data-time="10:30 PM">10:30 PM</div>
+<div class="time-slot disabled" data-time="11:00 PM">11:00 PM</div>
+</div>
+</div>
+
+<div class="form-group">
+<label>Number of Guests</label>
+<div class="guest-counter">
+<button type="button" class="guest-btn" id="guestMinus">−</button>
+<span class="guest-count" id="guestCount">2</span>
+<button type="button" class="guest-btn" id="guestPlus">+</button>
+</div>
+</div>
+
+<div class="form-group">
+<label>Special Requests (Optional)</label>
+<textarea id="specialReq" placeholder="Birthday celebration, window seat, high chair for kids..."></textarea>
+</div>
+
+<button type="submit" class="submit-btn">Confirm Reservation</button>
+
+</form>
+</div>
+
+</div>
+
+<!-- Success Modal -->
+<div class="modal-overlay" id="modalOverlay">
+<div class="modal">
+<div class="success-icon"><i class="fa-solid fa-check"></i></div>
+<h2>Table Reserved!</h2>
+<p>Your reservation has been confirmed successfully.</p>
+<div class="booking-details">
+<p><i class="fa-solid fa-utensils"></i><span id="confirmRest">Restaurant</span></p>
+<p><i class="fa-solid fa-calendar"></i><span id="confirmDate">Date</span></p>
+<p><i class="fa-solid fa-clock"></i><span id="confirmTime">Time</span></p>
+<p><i class="fa-solid fa-users"></i><span id="confirmGuests">Guests</span></p>
+<p><i class="fa-solid fa-user"></i><span id="confirmName">Name</span></p>
+</div>
+<button class="modal-btn" onclick="window.location.href='dineout.html'">Browse More Restaurants</button>
+<button class="modal-btn outline" onclick="window.location.href='Homepage.html'">Back to Home</button>
+</div>
+</div>
+
+<script>
+// Parse URL params
+const params = new URLSearchParams(window.location.search);
+const restName = params.get('name') || 'Restaurant';
+const cuisine = params.get('cuisine') || 'Multi-Cuisine';
+const rating = params.get('rating') || '4.5';
+const price = params.get('price') || '₹1200 for two';
+const area = params.get('area') || 'City Center';
+const city = params.get('city') || 'chennai';
+
+// Populate restaurant info
+document.getElementById('restName').textContent = restName;
+document.getElementById('restCuisine').textContent = `${cuisine} • ${area}`;
+document.getElementById('restRating').textContent = rating;
+document.getElementById('restPrice').textContent = price;
+document.getElementById('restArea').textContent = `${area}, ${city.charAt(0).toUpperCase() + city.slice(1)}`;
+
+// Set min date to today
+const today = new Date().toISOString().split('T')[0];
+document.getElementById('bookingDate').setAttribute('min', today);
+document.getElementById('bookingDate').value = today;
+
+// Time slot selection
+let selectedTime = '';
+document.querySelectorAll('.time-slot:not(.disabled)').forEach(slot => {
+slot.addEventListener('click', ()=>{
+document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('active'));
+slot.classList.add('active');
+selectedTime = slot.dataset.time;
+});
+});
+
+// Guest counter
+let guestCount = 2;
+const guestDisplay = document.getElementById('guestCount');
+document.getElementById('guestMinus').addEventListener('click', ()=>{
+if(guestCount > 1){guestCount--;guestDisplay.textContent = guestCount;}
+});
+document.getElementById('guestPlus').addEventListener('click', ()=>{
+if(guestCount < 20){guestCount++;guestDisplay.textContent = guestCount;}
+});
+
+// Form submit
+document.getElementById('bookingForm').addEventListener('submit', function(e){
+e.preventDefault();
+
+const name = document.getElementById('guestName').value.trim();
+const phone = document.getElementById('guestPhone').value.trim();
+const date = document.getElementById('bookingDate').value;
+
+if(!name){alert('Please enter your name');return;}
+if(!phone || phone.length < 10){alert('Please enter a valid phone number');return;}
+if(!date){alert('Please select a date');return;}
+if(!selectedTime){alert('Please select a time slot');return;}
+
+// Format date
+const dateObj = new Date(date);
+const formattedDate = dateObj.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+
+// Show success modal
+document.getElementById('confirmRest').textContent = restName;
+document.getElementById('confirmDate').textContent = formattedDate;
+document.getElementById('confirmTime').textContent = selectedTime;
+document.getElementById('confirmGuests').textContent = `${guestCount} Guest${guestCount > 1 ? 's' : ''}`;
+document.getElementById('confirmName').textContent = name;
+
+document.getElementById('modalOverlay').classList.add('active');
+});
+
+// Close modal on overlay click
+document.getElementById('modalOverlay').addEventListener('click', function(e){
+if(e.target === this) this.classList.remove('active');
+});
+
+// Check login state
+(function(){
+const loggedIn = localStorage.getItem('quickbite_logged_in');
+const loginBtn = document.getElementById('loginBtn');
+const profileIcon = document.getElementById('profileIcon');
+if(loggedIn === 'true'){loginBtn.style.display='none';profileIcon.classList.add('active');}
+else{loginBtn.style.display='block';profileIcon.classList.remove('active');}
+})();
+</script>
+
+</body>
+</html>

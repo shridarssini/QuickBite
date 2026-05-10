@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+  <!-- Red rounded square background -->
+  <rect width="48" height="48" rx="12" fill="#C62828"/>
+  <!-- White bold Q body with bite mark -->
+  <path d="M 24 8 C 33 8 40 15 40 24 C 40 30 37 35 32 37 L 39 44 L 32 44 L 27 38.5 C 26 38.8 25 39 24 39 C 15 39 8 32 8 23.5 C 8 15 15 8 24 8 Z M 24 14.5 C 18.5 14.5 14 19 14 24 C 14 29 18.5 33.5 24 33.5 C 29.5 33.5 34 29 34 24 C 34 19 29.5 14.5 24 14.5 Z" fill="#FFFFFF"/>
+  <!-- Bite mark -->
+  <circle cx="36" cy="12" r="6" fill="#C62828"/>
+</svg>

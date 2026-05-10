@@ -8,6 +8,9 @@
 
 <title>QuickBite</title>
 
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <link rel="stylesheet"
@@ -100,6 +103,23 @@ box-shadow:0 3px 12px rgba(0,0,0,0.04);
 
 .logo{
 font-size:2rem;
+font-weight:800;
+color:#C62828;
+display:flex;
+align-items:center;
+gap:10px;
+text-decoration:none;
+}
+
+.logo-icon{
+width:42px;
+height:42px;
+object-fit:cover;
+border-radius:50%;
+}
+
+.logo-text{
+font-size:1.6rem;
 font-weight:800;
 color:#C62828;
 }
@@ -1038,10 +1058,27 @@ margin-bottom:45px;
 margin-bottom:20px;
 }
 
-.footer-col .footer-logo{
-font-size:2rem;
+.footer-brand{
+display:flex !important;
+align-items:center;
+gap:12px;
+text-decoration:none;
+margin-bottom:20px;
+}
+
+.footer-logo-icon{
+width:40px;
+height:40px;
+display:block;
+flex-shrink:0;
+}
+
+.footer-logo-text{
+font-size:1.6rem;
 font-weight:800;
 color:#C62828;
+margin:0;
+padding:0;
 }
 
 .footer-col p,
@@ -1193,6 +1230,28 @@ font-size:1.6rem;
 height:240px;
 }
 
+.logo-text{
+font-size:1.3rem;
+}
+
+.logo-icon{
+width:34px;
+height:34px;
+}
+
+}
+
+@media(max-width:380px){
+
+.logo-text{
+display:none;
+}
+
+.logo-icon{
+width:38px;
+height:38px;
+}
+
 }
 
 /* HIDE SCROLLBAR */
@@ -1212,7 +1271,10 @@ height:0;
 
 <nav class="navbar">
 
-<div class="logo">QuickBite</div>
+<a href="Homepage.html" class="logo">
+<img src="assets/logo.svg" alt="QuickBite" class="logo-icon">
+<span class="logo-text">QuickBite</span>
+</a>
 
 <div class="nav-right">
 
@@ -1222,8 +1284,8 @@ height:0;
 <i class="fa-solid fa-magnifying-glass icon"></i>
 <i class="fa-solid fa-cart-shopping icon"></i>
 
-<button class="sign-btn" id="desktopSignBtn" onclick="window.location.href='signin.html'">
-SIGN IN
+<button class="sign-btn" id="desktopSignBtn" onclick="window.location.href='login.html'">
+LOG IN
 </button>
 
 <!-- Desktop Profile Icon + Dropdown -->
@@ -1315,8 +1377,8 @@ Logout
 
 <!-- Auth Buttons (visible when NOT logged in) -->
 <div class="drawer-auth" id="drawerAuth">
-<button class="drawer-signin" id="drawerSignIn">SIGN IN</button>
-<button class="drawer-login" id="drawerLogIn">LOG IN</button>
+<button class="drawer-signin" id="drawerSignIn">LOG IN</button>
+<button class="drawer-login" id="drawerLogIn">SIGN UP</button>
 </div>
 
 <!-- Logout Button (visible when logged in) -->
@@ -1405,7 +1467,7 @@ Order Now
 Reserve tables at top restaurants and enjoy luxury dining experiences.
 </p>
 
-<button class="red-btn">
+<button class="red-btn" onclick="window.location.href='dineout.html'">
 Book A Table
 </button>
 
@@ -1568,44 +1630,11 @@ Grab Offer
 
 <h2>Top Dine-In Restaurants</h2>
 
-<div class="see-all">See all</div>
+<a href="dineout.html" class="see-all" style="text-decoration:none;">See all</a>
 
 </div>
 
 <div class="restaurants-grid">
-
-<div class="restaurant-card">
-
-<img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=1600&auto=format&fit=crop">
-
-<div class="restaurant-content">
-
-<div class="restaurant-top">
-
-<h3>Spice Hub</h3>
-
-<div class="rating">⭐ 4.8</div>
-
-</div>
-
-<p>
-Premium Indian restaurant with authentic flavors and luxury ambience.
-</p>
-
-<div class="restaurant-info">
-
-<span>₹600 for two</span>
-<span>30 mins</span>
-
-</div>
-
-<button class="red-btn">
-Book A Table
-</button>
-
-</div>
-
-</div>
 
 <div class="restaurant-card">
 
@@ -1615,24 +1644,57 @@ Book A Table
 
 <div class="restaurant-top">
 
-<h3>Urban Grill</h3>
+<h3>Dakshin</h3>
+
+<div class="rating">⭐ 4.8</div>
+
+</div>
+
+<p>
+Premium South Indian fine dining at ITC Grand Chola, Chennai.
+</p>
+
+<div class="restaurant-info">
+
+<span>₹1800 for two</span>
+<span>Chennai</span>
+
+</div>
+
+<button class="red-btn" onclick="window.location.href='dineout.html'">
+Book A Table
+</button>
+
+</div>
+
+</div>
+
+<div class="restaurant-card">
+
+<img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=1600&auto=format&fit=crop">
+
+<div class="restaurant-content">
+
+<div class="restaurant-top">
+
+<h3>Bastian</h3>
 
 <div class="rating">⭐ 4.7</div>
 
 </div>
 
 <p>
-Modern burgers, pizzas and premium fast food experiences.
+Celebrity-favorite seafood and Asian cuisine in Bandra, Mumbai.
 </p>
 
 <div class="restaurant-info">
 
-<span>₹850 for two</span>
-<span>25 mins</span>
+<span>₹3000 for two</span>
+<span>Mumbai</span>
 
 </div>
 
-<button class="red-btn">
+<button class="red-btn" onclick="window.location.href='dineout.html'">
 Book A Table
 </button>
 
@@ -1648,24 +1710,24 @@ Book A Table
 
 <div class="restaurant-top">
 
-<h3>Royal Dine</h3>
+<h3>Karavalli</h3>
 
-<div class="rating">⭐ 4.9</div>
+<div class="rating">⭐ 4.8</div>
 
 </div>
 
 <p>
-Luxury fine dining with elegant interiors and top-rated chefs.
+Legendary coastal fine dining on Residency Road, Bangalore.
 </p>
 
 <div class="restaurant-info">
 
-<span>₹1200 for two</span>
-<span>40 mins</span>
+<span>₹2000 for two</span>
+<span>Bangalore</span>
 
 </div>
 
-<button class="red-btn">
+<button class="red-btn" onclick="window.location.href='dineout.html'">
 Book A Table
 </button>
 
@@ -1892,7 +1954,10 @@ and offers section.”
 
 <div class="footer-col">
 
-<h3 class="footer-logo">QuickBite</h3>
+<a href="Homepage.html" class="footer-brand">
+<img src="assets/logo.svg" alt="QuickBite" class="footer-logo-icon">
+<span class="footer-logo-text">QuickBite</span>
+</a>
 
 <p>
 Delivering happiness with delicious food and premium restaurant experiences.
@@ -2139,13 +2204,13 @@ drawerAuth.style.display = 'flex';
 drawerLogout.classList.remove('active');
 }
 
-// Sign In / Log In buttons redirect to auth pages
+// Log In / Sign Up buttons redirect to auth pages
 drawerSignIn.addEventListener('click', ()=>{
-window.location.href = 'signin.html';
+window.location.href = 'login.html';
 });
 
 drawerLogIn.addEventListener('click', ()=>{
-window.location.href = 'login.html';
+window.location.href = 'signup.html';
 });
 
 // Logout button
