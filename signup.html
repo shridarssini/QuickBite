@@ -316,6 +316,11 @@ margin-top:4px;
 color:#888;
 }
 
+@media(max-width:768px){
+.logo span{display:none;}
+.navbar{padding:16px 5%;}
+}
+
 @media(max-width:520px){
 .auth-card{
 padding:36px 24px;
@@ -459,6 +464,148 @@ display:none;
 .popup-error.show{
 display:block;
 }
+
+/* Legal Modal */
+.legal-modal-overlay{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.5);
+backdrop-filter:blur(4px);
+z-index:9000;
+display:none;
+align-items:center;
+justify-content:center;
+padding:20px;
+}
+
+.legal-modal-overlay.active{
+display:flex;
+}
+
+.legal-modal{
+background:white;
+border-radius:24px;
+width:100%;
+max-width:600px;
+max-height:80vh;
+display:flex;
+flex-direction:column;
+animation:modalIn 0.3s ease;
+box-shadow:0 20px 60px rgba(0,0,0,0.15);
+}
+
+@keyframes modalIn{
+from{opacity:0;transform:translateY(20px) scale(0.95)}
+to{opacity:1;transform:translateY(0) scale(1)}
+}
+
+.legal-modal-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:22px 28px;
+border-bottom:1px solid #f0f0f0;
+flex-shrink:0;
+}
+
+.legal-modal-header h3{
+font-size:1.2rem;
+font-weight:700;
+color:#1F1F1F;
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.legal-modal-header h3 i{
+color:#C62828;
+font-size:1rem;
+}
+
+.legal-modal-close{
+width:34px;
+height:34px;
+border:none;
+border-radius:50%;
+background:rgba(0,0,0,0.04);
+color:#666;
+font-size:1rem;
+cursor:pointer;
+display:flex;
+align-items:center;
+justify-content:center;
+transition:0.3s;
+}
+
+.legal-modal-close:hover{
+background:rgba(198,40,40,0.08);
+color:#C62828;
+}
+
+.legal-modal-body{
+padding:24px 28px;
+overflow-y:auto;
+flex:1;
+}
+
+.legal-modal-body h4{
+font-size:0.95rem;
+font-weight:600;
+color:#C62828;
+margin-bottom:8px;
+margin-top:20px;
+}
+
+.legal-modal-body h4:first-child{
+margin-top:0;
+}
+
+.legal-modal-body p{
+color:#666;
+font-size:0.85rem;
+line-height:1.9;
+margin-bottom:8px;
+}
+
+.legal-modal-body ul{
+padding-left:18px;
+margin-bottom:8px;
+}
+
+.legal-modal-body ul li{
+color:#666;
+font-size:0.85rem;
+line-height:1.8;
+margin-bottom:4px;
+}
+
+.legal-modal-body ul li::marker{
+color:#C62828;
+}
+
+.legal-modal-footer{
+padding:16px 28px;
+border-top:1px solid #f0f0f0;
+text-align:center;
+flex-shrink:0;
+}
+
+.legal-modal-footer button{
+padding:12px 32px;
+border:none;
+border-radius:12px;
+background:#C62828;
+color:white;
+font-weight:600;
+font-size:0.9rem;
+cursor:pointer;
+transition:0.3s;
+font-family:'Poppins',sans-serif;
+}
+
+.legal-modal-footer button:hover{
+background:#a51f1f;
+}
 </style>
 </head>
 <body>
@@ -537,7 +684,7 @@ Back to Home
 
 <label class="terms">
 <input type="checkbox" id="termsCheck">
-<span>I agree to QuickBite's <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></span>
+<span>I agree to QuickBite's <a href="#" id="openTerms">Terms & Conditions</a> and <a href="#" id="openPrivacy">Privacy Policy</a></span>
 </label>
 <div class="terms-error" id="termsError">
 <i class="fa-solid fa-circle-exclamation"></i>
@@ -891,6 +1038,141 @@ localStorage.setItem('quickbite_logged_in','true');
 localStorage.setItem('quickbite_user', name);
 localStorage.setItem('quickbite_email', email);
 window.location.href = 'Homepage.html';
+});
+</script>
+
+<!-- Legal Modal -->
+<div class="legal-modal-overlay" id="legalModalOverlay">
+<div class="legal-modal">
+<div class="legal-modal-header">
+<h3 id="legalModalTitle"><i class="fa-solid fa-file-contract"></i> Terms & Conditions</h3>
+<button class="legal-modal-close" id="legalModalClose"><i class="fa-solid fa-xmark"></i></button>
+</div>
+<div class="legal-modal-body" id="legalModalBody"></div>
+<div class="legal-modal-footer">
+<button id="legalModalAccept">Got it</button>
+</div>
+</div>
+</div>
+
+<script>
+const legalOverlay = document.getElementById('legalModalOverlay');
+const legalTitle = document.getElementById('legalModalTitle');
+const legalBody = document.getElementById('legalModalBody');
+const legalClose = document.getElementById('legalModalClose');
+const legalAccept = document.getElementById('legalModalAccept');
+
+const termsContent = `
+<h4>1. Acceptance of Terms</h4>
+<p>By accessing or using QuickBite, you agree to be bound by these Terms and Conditions.</p>
+
+<h4>2. Services</h4>
+<p>QuickBite provides online food ordering, delivery, and dine-out table reservations across Chennai, Mumbai, and Bangalore.</p>
+
+<h4>3. User Accounts</h4>
+<ul>
+<li>You must provide accurate registration information</li>
+<li>You are responsible for maintaining account security</li>
+<li>You must be at least 18 years old to create an account</li>
+</ul>
+
+<h4>4. Orders & Payments</h4>
+<ul>
+<li>All prices include applicable taxes unless stated otherwise</li>
+<li>Delivery charges may apply based on distance</li>
+<li>Orders confirmed cannot be cancelled after preparation begins</li>
+</ul>
+
+<h4>5. Table Reservations</h4>
+<ul>
+<li>Reservations are subject to availability</li>
+<li>Please arrive within 15 minutes of reserved time</li>
+<li>Cancellations should be made at least 2 hours before</li>
+</ul>
+
+<h4>6. Refunds</h4>
+<ul>
+<li>Cancelled before confirmation: Full refund</li>
+<li>After preparation begins: No refund</li>
+<li>Quality issues: Refund after review (5-7 business days)</li>
+</ul>
+
+<h4>7. User Conduct</h4>
+<p>Users must not misuse the platform, submit false reviews, harass staff, or manipulate offers.</p>
+
+<h4>8. Limitation of Liability</h4>
+<p>QuickBite acts as an intermediary and is not liable for food quality, allergic reactions, or delivery delays caused by external factors.</p>
+
+<h4>9. Changes</h4>
+<p>QuickBite may modify these terms at any time. Continued use constitutes acceptance.</p>
+`;
+
+const privacyContent = `
+<h4>1. Information We Collect</h4>
+<ul>
+<li>Personal info: Name, email, phone, address</li>
+<li>Order data: History, preferences, payment details</li>
+<li>Device info: Browser, OS, IP address</li>
+<li>Location data (with permission)</li>
+</ul>
+
+<h4>2. How We Use It</h4>
+<ul>
+<li>Process orders and reservations</li>
+<li>Personalize recommendations</li>
+<li>Send order updates and notifications</li>
+<li>Improve platform experience</li>
+<li>Prevent fraud and ensure security</li>
+</ul>
+
+<h4>3. Information Sharing</h4>
+<p>We share data only with restaurant partners (for orders), delivery partners (for delivery), and payment processors. We never sell your data.</p>
+
+<h4>4. Data Security</h4>
+<ul>
+<li>SSL/TLS encryption</li>
+<li>Encrypted storage</li>
+<li>Regular security audits</li>
+<li>PCI-DSS compliant payment processing</li>
+</ul>
+
+<h4>5. Your Rights</h4>
+<ul>
+<li>Access and download your data</li>
+<li>Correct inaccurate information</li>
+<li>Delete your account and data</li>
+<li>Opt-out of marketing emails</li>
+<li>Withdraw consent at any time</li>
+</ul>
+
+<h4>6. Data Retention</h4>
+<p>Data is retained while your account is active. After deletion, personal data is removed within 30 days.</p>
+
+<h4>7. Cookies</h4>
+<p>We use cookies to keep you logged in, remember preferences, and improve performance. You can manage cookies in browser settings.</p>
+
+<h4>8. Contact</h4>
+<p>For privacy concerns: privacy@quickbite.com</p>
+`;
+
+document.getElementById('openTerms').addEventListener('click', (e)=>{
+e.preventDefault();
+legalTitle.innerHTML = '<i class="fa-solid fa-file-contract"></i> Terms & Conditions';
+legalBody.innerHTML = termsContent;
+legalOverlay.classList.add('active');
+});
+
+document.getElementById('openPrivacy').addEventListener('click', (e)=>{
+e.preventDefault();
+legalTitle.innerHTML = '<i class="fa-solid fa-shield-halved"></i> Privacy Policy';
+legalBody.innerHTML = privacyContent;
+legalOverlay.classList.add('active');
+});
+
+legalClose.addEventListener('click', ()=> legalOverlay.classList.remove('active'));
+legalAccept.addEventListener('click', ()=> legalOverlay.classList.remove('active'));
+legalOverlay.addEventListener('click', (e)=>{
+if(e.target === legalOverlay) legalOverlay.classList.remove('active');
 });
 </script>
 

@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QuickBite - About Us</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:#FFF8F0;color:#1F1F1F;overflow-x:hidden;}
+html{scroll-behavior:smooth;}
+
+/* Navbar */
+.navbar{display:flex;justify-content:space-between;align-items:center;padding:20px 7%;background:#FFF8F0;position:sticky;top:0;z-index:1000;box-shadow:0 3px 12px rgba(0,0,0,0.04);}
+.nav-left{display:flex;align-items:center;gap:12px;}
+.back-arrow{width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,0.04);display:flex;align-items:center;justify-content:center;text-decoration:none;color:#1F1F1F;transition:0.3s;font-size:0.85rem;flex-shrink:0;}
+.back-arrow:hover{background:rgba(198,40,40,0.08);color:#C62828;}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.logo-icon{width:42px;height:42px;border-radius:50%;}
+.logo-text{font-size:1.6rem;font-weight:800;color:#C62828;}
+.nav-right{display:flex;align-items:center;gap:22px;}
+.nav-right a{text-decoration:none;color:#1F1F1F;font-weight:500;transition:0.3s;}
+.nav-right a:hover{color:#C62828;}
+.desktop-icon{font-size:1.1rem;cursor:pointer;transition:0.3s;color:#1F1F1F;}
+.desktop-icon:hover{color:#C62828;}
+.nav-icon{font-size:1.1rem;cursor:pointer;transition:0.3s;color:#1F1F1F;}
+.nav-icon:hover{color:#C62828;}
+.login-btn{padding:10px 22px;border:2px solid #C62828;border-radius:12px;background:none;color:#C62828;font-weight:600;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;font-size:0.85rem;}
+.login-btn:hover{background:#C62828;color:white;}
+.profile-icon-desktop{width:36px;height:36px;border-radius:50%;background:rgba(198,40,40,0.08);border:2px solid #C62828;display:none;align-items:center;justify-content:center;cursor:pointer;transition:0.3s;}
+.profile-icon-desktop.active{display:flex;}
+.profile-icon-desktop i{font-size:0.9rem;color:#C62828;}
+
+/* Mobile Nav Icons */
+.mobile-nav-icons{display:none;align-items:center;gap:14px;}
+.mobile-profile-btn{width:36px;height:36px;border-radius:50%;background:rgba(198,40,40,0.08);border:2px solid #C62828;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:0.3s;position:relative;}
+.mobile-profile-btn i{font-size:0.9rem;color:#C62828;}
+.mobile-profile-btn:hover{background:rgba(198,40,40,0.15);}
+.mobile-profile-dropdown{position:absolute;top:calc(100% + 10px);right:0;width:260px;background:white;border-radius:18px;box-shadow:0 15px 50px rgba(0,0,0,0.12);padding:16px;opacity:0;visibility:hidden;transform:translateY(-8px);transition:0.3s ease;z-index:3000;}
+.mobile-profile-dropdown.active{opacity:1;visibility:visible;transform:translateY(0);}
+.mpd-guest{display:flex;flex-direction:column;gap:10px;}
+.mpd-guest .mpd-login{width:100%;padding:12px;border:2px solid #C62828;background:none;border-radius:12px;color:#C62828;font-weight:600;font-size:0.85rem;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;}
+.mpd-guest .mpd-login:hover{background:#C62828;color:white;}
+.mpd-guest .mpd-signup{width:100%;padding:12px;border:none;border-radius:12px;background:#C62828;color:white;font-weight:600;font-size:0.85rem;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;}
+.mpd-guest .mpd-signup:hover{background:#a51f1f;}
+.mpd-user{display:none;}
+.mpd-user.active{display:block;}
+.mpd-user-header{display:flex;align-items:center;gap:12px;padding-bottom:12px;border-bottom:1px solid #f0f0f0;margin-bottom:8px;}
+.mpd-user-avatar{width:40px;height:40px;border-radius:50%;background:rgba(198,40,40,0.08);border:2px solid #C62828;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.mpd-user-avatar i{font-size:0.9rem;color:#C62828;}
+.mpd-user-name{font-size:0.88rem;font-weight:600;}
+.mpd-user-email{font-size:0.75rem;color:#888;}
+.mpd-menu{list-style:none;padding:6px 0;}
+.mpd-menu li a{display:flex;align-items:center;gap:10px;padding:10px 12px;text-decoration:none;color:#1F1F1F;font-size:0.85rem;font-weight:500;border-radius:10px;transition:0.3s;}
+.mpd-menu li a:hover{background:rgba(198,40,40,0.05);color:#C62828;}
+.mpd-menu li a i{color:#C62828;width:18px;text-align:center;font-size:0.85rem;}
+.mpd-logout{width:100%;padding:10px;border:1.5px solid #e53935;background:none;border-radius:10px;color:#e53935;font-weight:600;font-size:0.8rem;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:6px;}
+.mpd-logout:hover{background:#e53935;color:white;}
+
+/* Toggle Menu */
+.menu-toggle{display:none;font-size:1.3rem;cursor:pointer;color:#1F1F1F;transition:0.3s;width:24px;height:24px;position:relative;}
+.menu-toggle .fa-bars,.menu-toggle .fa-xmark{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);transition:0.4s ease;}
+.menu-toggle .fa-xmark{opacity:0;transform:translate(-50%,-50%) rotate(-90deg);}
+.menu-toggle.active .fa-bars{opacity:0;transform:translate(-50%,-50%) rotate(90deg);}
+.menu-toggle.active .fa-xmark{opacity:1;transform:translate(-50%,-50%) rotate(0deg);}
+.menu-toggle:hover{color:#C62828;}
+
+/* Mobile Overlay & Drawer */
+.mobile-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);z-index:2000;opacity:0;visibility:hidden;transition:0.4s ease;}
+.mobile-overlay.active{opacity:1;visibility:visible;}
+.mobile-drawer{position:fixed;top:0;right:-100%;width:75%;max-width:320px;height:100%;background:#FFF8F0;z-index:2001;padding:30px 24px;overflow-y:auto;transition:0.45s cubic-bezier(0.4,0,0.2,1);box-shadow:-10px 0 40px rgba(0,0,0,0.15);display:flex;flex-direction:column;}
+.mobile-drawer.active{right:0;}
+.drawer-close{position:absolute;top:22px;right:22px;font-size:1.3rem;cursor:pointer;color:#1F1F1F;transition:0.3s;width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(0,0,0,0.04);}
+.drawer-close:hover{color:#C62828;background:rgba(198,40,40,0.08);}
+.drawer-menu{list-style:none;padding:40px 0 16px;flex:1;}
+.drawer-menu li{opacity:0;transform:translateY(12px);transition:0.35s ease;}
+.mobile-drawer.active .drawer-menu li{opacity:1;transform:translateY(0);}
+.drawer-menu li:nth-child(1){transition-delay:0.06s}.drawer-menu li:nth-child(2){transition-delay:0.10s}.drawer-menu li:nth-child(3){transition-delay:0.14s}.drawer-menu li:nth-child(4){transition-delay:0.18s}.drawer-menu li:nth-child(5){transition-delay:0.22s}.drawer-menu li:nth-child(6){transition-delay:0.26s}.drawer-menu li:nth-child(7){transition-delay:0.30s}.drawer-menu li:nth-child(8){transition-delay:0.34s}
+.drawer-menu li a{display:flex;align-items:center;gap:14px;padding:13px 16px;text-decoration:none;color:#1F1F1F;font-weight:500;font-size:0.95rem;border-radius:14px;transition:0.3s ease;}
+.drawer-menu li a:hover,.drawer-menu li a.active-link{background:rgba(198,40,40,0.06);color:#C62828;}
+.drawer-menu li a i{font-size:1.1rem;width:22px;text-align:center;color:#C62828;}
+.drawer-divider{height:1px;background:rgba(0,0,0,0.06);margin:8px 16px;}
+
+/* Hero */
+.about-hero{padding:80px 7% 60px;text-align:center;background:linear-gradient(135deg,rgba(198,40,40,0.04),rgba(255,248,240,1));}
+.about-hero h1{font-size:3rem;font-weight:800;margin-bottom:16px;}
+.about-hero h1 span{color:#C62828;}
+.about-hero p{font-size:1.05rem;color:#666;max-width:650px;margin:0 auto;line-height:1.9;}
+
+/* Section */
+.section{padding:70px 7%;}
+.section-title{font-size:2rem;font-weight:700;text-align:center;margin-bottom:14px;}
+.section-title span{color:#C62828;}
+.section-sub{text-align:center;color:#888;font-size:0.95rem;max-width:600px;margin:0 auto 50px;line-height:1.8;}
+
+/* Story */
+.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;}
+.story-img{width:100%;border-radius:28px;box-shadow:0 20px 50px rgba(0,0,0,0.08);}
+.story-content h2{font-size:1.8rem;font-weight:700;margin-bottom:16px;}
+.story-content h2 span{color:#C62828;}
+.story-content p{color:#555;line-height:2;margin-bottom:16px;font-size:0.95rem;}
+
+/* Stats */
+.stats-section{background:#1F1F1F;padding:70px 7%;margin:0;}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;text-align:center;}
+.stat-item{}
+.stat-number{font-size:2.8rem;font-weight:800;color:#C62828;margin-bottom:6px;}
+.stat-label{color:#ccc;font-size:0.9rem;font-weight:400;}
+
+/* Values */
+.values-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;}
+.value-card{background:white;padding:32px;border-radius:24px;box-shadow:0 8px 30px rgba(0,0,0,0.05);transition:0.4s;text-align:center;}
+.value-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(0,0,0,0.08);}
+.value-card .icon-circle{width:64px;height:64px;border-radius:50%;background:rgba(198,40,40,0.08);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;}
+.value-card .icon-circle i{font-size:1.5rem;color:#C62828;}
+.value-card h3{font-size:1.1rem;font-weight:600;margin-bottom:10px;}
+.value-card p{color:#888;font-size:0.88rem;line-height:1.8;}
+
+/* Timeline */
+.timeline{position:relative;max-width:700px;margin:0 auto;}
+.timeline::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:3px;background:rgba(198,40,40,0.15);transform:translateX(-50%);}
+.timeline-item{display:flex;align-items:flex-start;margin-bottom:50px;position:relative;}
+.timeline-item:nth-child(odd){flex-direction:row-reverse;text-align:right;}
+.timeline-item:nth-child(odd) .timeline-content{margin-right:40px;margin-left:0;}
+.timeline-item:nth-child(even) .timeline-content{margin-left:40px;}
+.timeline-dot{width:18px;height:18px;background:#C62828;border-radius:50%;position:absolute;left:50%;transform:translateX(-50%);top:5px;z-index:2;box-shadow:0 0 0 5px rgba(198,40,40,0.15);}
+.timeline-content{flex:1;max-width:calc(50% - 40px);}
+.timeline-year{font-size:0.8rem;font-weight:700;color:#C62828;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+.timeline-content h3{font-size:1rem;font-weight:600;margin-bottom:6px;}
+.timeline-content p{color:#888;font-size:0.85rem;line-height:1.7;}
+
+/* CTA */
+.cta-section{text-align:center;padding:80px 7%;background:linear-gradient(135deg,#C62828,#a51f1f);border-radius:36px;margin:0 7% 60px;color:white;}
+.cta-section h2{font-size:2.2rem;font-weight:700;margin-bottom:12px;}
+.cta-section p{font-size:1rem;opacity:0.9;margin-bottom:30px;max-width:500px;margin-left:auto;margin-right:auto;line-height:1.8;}
+.cta-btn{padding:16px 36px;border:none;border-radius:14px;background:white;color:#C62828;font-size:1rem;font-weight:700;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;}
+.cta-btn:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,0,0,0.2);}
+
+/* Footer */
+.footer{background:#1F1F1F;padding:60px 7% 30px;color:white;}
+.footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:30px;margin-bottom:40px;}
+.footer-col h3{margin-bottom:18px;}
+.footer-col p,.footer-col a{display:block;text-decoration:none;color:#ccc;margin-bottom:10px;line-height:1.8;transition:0.3s;}
+.footer-col a:hover{color:white;}
+.footer-brand{display:flex !important;align-items:center;gap:12px;text-decoration:none;margin-bottom:20px;}
+.footer-logo-icon{width:40px;height:40px;display:block;flex-shrink:0;}
+.footer-logo-text{font-size:1.6rem;font-weight:800;color:#C62828;margin:0;padding:0;}
+.footer-social{display:flex;gap:14px;margin-top:16px;}
+.footer-social i{width:40px;height:40px;background:rgba(255,255,255,0.08);border-radius:12px;display:flex;justify-content:center;align-items:center;cursor:pointer;transition:0.3s;}
+.footer-social i:hover{background:#C62828;transform:translateY(-3px);}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:20px;text-align:center;color:#aaa;}
+
+/* Responsive */
+@media(max-width:768px){
+.about-hero h1{font-size:2.2rem;}
+.story-grid{grid-template-columns:1fr;gap:30px;}
+.stats-grid{grid-template-columns:repeat(2,1fr);gap:24px;}
+.stat-number{font-size:2.2rem;}
+.nav-right a{display:none;}
+.nav-right .login-btn{display:none;}
+.nav-right .desktop-icon{display:none;}
+.nav-right .profile-icon-desktop{display:none !important;}
+.mobile-nav-icons{display:flex;}
+.menu-toggle{display:block;}
+.logo-text{font-size:1.3rem;}
+.logo-icon{width:34px;height:34px;}
+.nav-left{gap:8px;}
+.back-arrow{width:30px;height:30px;font-size:0.8rem;}
+.timeline::before{left:20px;}
+.timeline-dot{left:20px;}
+.timeline-item,.timeline-item:nth-child(odd){flex-direction:column;text-align:left;padding-left:50px;}
+.timeline-item:nth-child(odd) .timeline-content{margin-right:0;margin-left:0;}
+.timeline-item:nth-child(even) .timeline-content{margin-left:0;}
+.timeline-content{max-width:100%;}
+.cta-section{margin:0 5% 40px;padding:50px 7%;border-radius:24px;}
+.cta-section h2{font-size:1.6rem;}
+}
+@media(max-width:520px){
+.about-hero h1{font-size:1.8rem;}
+.section-title{font-size:1.5rem;}
+.logo-text{display:none;}
+.navbar{padding:14px 5%;}
+.stats-grid{grid-template-columns:1fr 1fr;}
+}
+
+::-webkit-scrollbar{width:0;height:0;}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+<div class="nav-left">
+<a href="Homepage.html" class="back-arrow"><i class="fa-solid fa-arrow-left"></i></a>
+<a href="Homepage.html" class="logo">
+<img src="assets/logo.svg" alt="QuickBite" class="logo-icon">
+<span class="logo-text">QuickBite</span>
+</a>
+</div>
+<div class="nav-right">
+<a href="Homepage.html">Home</a>
+<a href="dineout.html">Dine Out</a>
+<i class="fa-solid fa-cart-shopping desktop-icon"></i>
+<button class="login-btn" id="desktopLoginBtn" onclick="window.location.href='login.html'">LOG IN</button>
+<div class="profile-icon-desktop" id="desktopProfileIcon" style="display:none;"><i class="fa-solid fa-user"></i></div>
+
+<div class="mobile-nav-icons">
+<div class="mobile-profile-btn" id="mobileProfileBtn">
+<i class="fa-solid fa-user"></i>
+<div class="mobile-profile-dropdown" id="mobileProfileDropdown">
+<div class="mpd-guest" id="mpdGuest">
+<button class="mpd-login" onclick="window.location.href='login.html'">LOG IN</button>
+<button class="mpd-signup" onclick="window.location.href='signup.html'">SIGN UP</button>
+</div>
+<div class="mpd-user" id="mpdUser">
+<div class="mpd-user-header">
+<div class="mpd-user-avatar"><i class="fa-solid fa-user"></i></div>
+<div>
+<div class="mpd-user-name" id="mpdName">User</div>
+<div class="mpd-user-email" id="mpdEmail">user@email.com</div>
+</div>
+</div>
+<ul class="mpd-menu">
+<li><a href="#"><i class="fa-solid fa-bag-shopping"></i>My Orders</a></li>
+<li><a href="#"><i class="fa-solid fa-heart"></i>Favorites</a></li>
+<li><a href="#"><i class="fa-solid fa-location-dot"></i>Saved Addresses</a></li>
+<li><a href="#"><i class="fa-solid fa-credit-card"></i>Payment Methods</a></li>
+<li><a href="#"><i class="fa-solid fa-bell"></i>Notifications</a></li>
+<li><a href="#"><i class="fa-solid fa-gear"></i>Account Settings</a></li>
+<li><a href="#"><i class="fa-solid fa-headset"></i>Help & Support</a></li>
+</ul>
+<button class="mpd-logout" id="mpdLogout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
+</div>
+</div>
+</div>
+</div>
+
+<div class="menu-toggle" id="menuToggle">
+<i class="fa-solid fa-bars"></i>
+<i class="fa-solid fa-xmark"></i>
+</div>
+</div>
+</nav>
+
+<!-- Mobile Overlay -->
+<div class="mobile-overlay" id="mobileOverlay"></div>
+
+<!-- Mobile Drawer -->
+<div class="mobile-drawer" id="mobileDrawer">
+<div class="drawer-close" id="drawerClose"><i class="fa-solid fa-xmark"></i></div>
+<ul class="drawer-menu">
+<li><a href="Homepage.html"><i class="fa-solid fa-house"></i>Home</a></li>
+<li><a href="#"><i class="fa-solid fa-motorcycle"></i>Food Delivery</a></li>
+<li><a href="dineout.html"><i class="fa-solid fa-utensils"></i>Dine-Out</a></li>
+<li><a href="#"><i class="fa-solid fa-tags"></i>Exclusive Offers</a></li>
+<li><div class="drawer-divider"></div></li>
+<li><a href="#"><i class="fa-solid fa-cart-shopping"></i>Cart</a></li>
+<li><a href="about.html" class="active-link"><i class="fa-solid fa-circle-info"></i>About Us</a></li>
+<li><a href="#"><i class="fa-solid fa-headset"></i>Help Center</a></li>
+</ul>
+</div>
+
+<!-- Hero -->
+<section class="about-hero">
+<h1>About <span>QuickBite</span></h1>
+<p>We're on a mission to connect food lovers with the best restaurants, delivering happiness one meal at a time across India's favorite cities.</p>
+</section>
+
+<!-- Our Story -->
+<section class="section">
+<div class="story-grid">
+<img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=800&auto=format&fit=crop" alt="Our Story" class="story-img">
+<div class="story-content">
+<h2>Our <span>Story</span></h2>
+<p>QuickBite started in 2024 with a simple idea — what if finding great food and booking a table was as easy as a single tap? We noticed that food lovers in Chennai, Mumbai, and Bangalore were spending too much time searching for the right restaurant.</p>
+<p>So we built QuickBite — a platform that brings together the best restaurants, cafes, and dining experiences in one place. From quick deliveries to premium dine-out reservations, we make every meal memorable.</p>
+<p>Today, we partner with hundreds of restaurants across three cities, serving thousands of happy customers every day.</p>
+</div>
+</div>
+</section>
+
+<!-- Stats -->
+<section class="stats-section">
+<div class="stats-grid">
+<div class="stat-item">
+<div class="stat-number" id="stat1">500+</div>
+<div class="stat-label">Restaurant Partners</div>
+</div>
+<div class="stat-item">
+<div class="stat-number" id="stat2">3</div>
+<div class="stat-label">Cities Served</div>
+</div>
+<div class="stat-item">
+<div class="stat-number" id="stat3">50K+</div>
+<div class="stat-label">Orders Delivered</div>
+</div>
+<div class="stat-item">
+<div class="stat-number" id="stat4">25K+</div>
+<div class="stat-label">Happy Customers</div>
+</div>
+</div>
+</section>
+
+<!-- Our Values -->
+<section class="section">
+<h2 class="section-title">What We <span>Stand For</span></h2>
+<p class="section-sub">Our core values drive every decision we make — from the restaurants we partner with to the experience we deliver.</p>
+
+<div class="values-grid">
+<div class="value-card">
+<div class="icon-circle"><i class="fa-solid fa-heart"></i></div>
+<h3>Customer First</h3>
+<p>Every feature we build, every restaurant we onboard — it all starts with what our customers need and love.</p>
+</div>
+<div class="value-card">
+<div class="icon-circle"><i class="fa-solid fa-leaf"></i></div>
+<h3>Quality Over Quantity</h3>
+<p>We carefully curate restaurants that meet our standards for taste, hygiene, and service excellence.</p>
+</div>
+<div class="value-card">
+<div class="icon-circle"><i class="fa-solid fa-bolt"></i></div>
+<h3>Speed & Reliability</h3>
+<p>Whether it's delivery or a table reservation, we ensure everything happens fast and without friction.</p>
+</div>
+<div class="value-card">
+<div class="icon-circle"><i class="fa-solid fa-handshake"></i></div>
+<h3>Trust & Transparency</h3>
+<p>Honest reviews, real ratings, and no hidden charges. We believe trust is earned through transparency.</p>
+</div>
+<div class="value-card">
+<div class="icon-circle"><i class="fa-solid fa-globe"></i></div>
+<h3>Local Love</h3>
+<p>We celebrate local food culture — from iconic street food joints to hidden gem cafes in every city we serve.</p>
+</div>
+<div class="value-card">
+<div class="icon-circle"><i class="fa-solid fa-rocket"></i></div>
+<h3>Always Innovating</h3>
+<p>We're constantly improving our platform with new features, better recommendations, and smoother experiences.</p>
+</div>
+</div>
+</section>
+
+<!-- Timeline -->
+<section class="section" style="background:rgba(198,40,40,0.02);">
+<h2 class="section-title">Our <span>Journey</span></h2>
+<p class="section-sub">From a small idea to serving thousands of food lovers — here's how QuickBite grew.</p>
+
+<div class="timeline">
+
+<div class="timeline-item">
+<div class="timeline-dot"></div>
+<div class="timeline-content">
+<div class="timeline-year">January 2024</div>
+<h3>The Idea Was Born</h3>
+<p>QuickBite started as a college project — a simple food discovery app for Chennai restaurants.</p>
+</div>
+</div>
+
+<div class="timeline-item">
+<div class="timeline-dot"></div>
+<div class="timeline-content">
+<div class="timeline-year">April 2024</div>
+<h3>First 50 Restaurants</h3>
+<p>We onboarded our first 50 restaurant partners in Chennai, covering fine dining to street food.</p>
+</div>
+</div>
+
+<div class="timeline-item">
+<div class="timeline-dot"></div>
+<div class="timeline-content">
+<div class="timeline-year">August 2024</div>
+<h3>Launched Dine-Out Reservations</h3>
+<p>Table booking went live — users could now reserve tables at premium restaurants with one click.</p>
+</div>
+</div>
+
+<div class="timeline-item">
+<div class="timeline-dot"></div>
+<div class="timeline-content">
+<div class="timeline-year">December 2024</div>
+<h3>Expanded to Mumbai</h3>
+<p>QuickBite went multi-city, bringing Mumbai's iconic food scene to our platform.</p>
+</div>
+</div>
+
+<div class="timeline-item">
+<div class="timeline-dot"></div>
+<div class="timeline-content">
+<div class="timeline-year">March 2025</div>
+<h3>Bangalore Goes Live</h3>
+<p>Our third city launch — Bangalore's brewpubs, cafes, and fine dining joined the QuickBite family.</p>
+</div>
+</div>
+
+<div class="timeline-item">
+<div class="timeline-dot"></div>
+<div class="timeline-content">
+<div class="timeline-year">2026 & Beyond</div>
+<h3>Growing Every Day</h3>
+<p>500+ restaurants, 25K+ customers, and counting. We're just getting started.</p>
+</div>
+</div>
+
+</div>
+</section>
+
+<!-- CTA -->
+<section class="section" style="padding-bottom:0;">
+<div class="cta-section">
+<h2>Ready to Explore?</h2>
+<p>Discover the best restaurants in your city. Order food, book tables, and enjoy premium dining experiences.</p>
+<button class="cta-btn" onclick="window.location.href='dineout.html'">Explore Restaurants</button>
+</div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+<div class="footer-grid">
+<div class="footer-col">
+<a href="Homepage.html" class="footer-brand">
+<img src="assets/logo.svg" alt="QuickBite" class="footer-logo-icon">
+<span class="footer-logo-text">QuickBite</span>
+</a>
+<p>Delivering happiness with delicious food and premium restaurant experiences.</p>
+<div class="footer-social">
+<i class="fa-brands fa-instagram"></i>
+<i class="fa-brands fa-facebook-f"></i>
+<i class="fa-brands fa-x-twitter"></i>
+</div>
+</div>
+<div class="footer-col">
+<h3>Quick Links</h3>
+<a href="Homepage.html">Home</a>
+<a href="food-delivery.html">Food Delivery</a>
+<a href="dineout.html">Dine Out</a>
+<a href="about.html">About Us</a>
+</div>
+<div class="footer-col">
+<h3>Support</h3>
+<a href="#">Help Center</a>
+<a href="terms.html">Terms & Conditions</a>
+<a href="privacy.html">Privacy Policy</a>
+</div>
+<div class="footer-col">
+<h3>Contact</h3>
+<p>support@quickbite.com</p>
+<p>+91 98765 43210</p>
+<p>Chennai, India</p>
+</div>
+</div>
+<div class="footer-bottom">
+<p>&copy; 2026 QuickBite. All Rights Reserved.</p>
+</div>
+</footer>
+
+<script>
+// Check login state
+(function(){
+const loggedIn = localStorage.getItem('quickbite_logged_in');
+const desktopLoginBtn = document.getElementById('desktopLoginBtn');
+const desktopProfileIcon = document.getElementById('desktopProfileIcon');
+const mpdGuest = document.getElementById('mpdGuest');
+const mpdUser = document.getElementById('mpdUser');
+
+if(loggedIn === 'true'){
+const userName = localStorage.getItem('quickbite_user') || 'User';
+const userEmail = localStorage.getItem('quickbite_email') || 'user@email.com';
+if(desktopLoginBtn) desktopLoginBtn.style.display='none';
+if(desktopProfileIcon){desktopProfileIcon.style.display='flex';desktopProfileIcon.classList.add('active');}
+mpdGuest.style.display='none';
+mpdUser.classList.add('active');
+document.getElementById('mpdName').textContent = userName;
+document.getElementById('mpdEmail').textContent = userEmail;
+}
+
+// Mobile profile dropdown
+const mobileProfileBtn = document.getElementById('mobileProfileBtn');
+const mobileProfileDropdown = document.getElementById('mobileProfileDropdown');
+mobileProfileBtn.addEventListener('click',(e)=>{e.stopPropagation();mobileProfileDropdown.classList.toggle('active');});
+document.addEventListener('click',(e)=>{if(!mobileProfileBtn.contains(e.target))mobileProfileDropdown.classList.remove('active');});
+
+// Mobile profile logout
+const mpdLogout = document.getElementById('mpdLogout');
+if(mpdLogout){
+mpdLogout.addEventListener('click',()=>{
+localStorage.removeItem('quickbite_logged_in');
+localStorage.removeItem('quickbite_user');
+localStorage.removeItem('quickbite_email');
+mpdGuest.style.display='flex';
+mpdUser.classList.remove('active');
+if(desktopLoginBtn) desktopLoginBtn.style.display='block';
+if(desktopProfileIcon) desktopProfileIcon.style.display='none';
+mobileProfileDropdown.classList.remove('active');
+});
+}
+
+// Toggle menu
+const menuToggle = document.getElementById('menuToggle');
+const mobileOverlay = document.getElementById('mobileOverlay');
+const mobileDrawer = document.getElementById('mobileDrawer');
+const drawerClose = document.getElementById('drawerClose');
+
+menuToggle.addEventListener('click',()=>{
+mobileDrawer.classList.toggle('active');
+mobileOverlay.classList.toggle('active');
+menuToggle.classList.toggle('active');
+document.body.style.overflow = mobileDrawer.classList.contains('active') ? 'hidden' : '';
+});
+mobileOverlay.addEventListener('click',()=>{
+mobileDrawer.classList.remove('active');
+mobileOverlay.classList.remove('active');
+menuToggle.classList.remove('active');
+document.body.style.overflow = '';
+});
+drawerClose.addEventListener('click',()=>{
+mobileDrawer.classList.remove('active');
+mobileOverlay.classList.remove('active');
+menuToggle.classList.remove('active');
+document.body.style.overflow = '';
+});
+document.querySelectorAll('.drawer-menu li a').forEach(link=>{
+link.addEventListener('click',()=>{
+mobileDrawer.classList.remove('active');
+mobileOverlay.classList.remove('active');
+menuToggle.classList.remove('active');
+document.body.style.overflow = '';
+});
+});
+})();
+
+// Animate stats on scroll
+const statSection = document.querySelector('.stats-section');
+let animated = false;
+
+function animateStats(){
+if(animated) return;
+const rect = statSection.getBoundingClientRect();
+if(rect.top < window.innerHeight - 100){
+animated = true;
+animateNumber('stat1', 500, '+', 1500);
+animateNumber('stat2', 3, '', 800);
+animateNumber('stat3', 50, 'K+', 1800);
+animateNumber('stat4', 25, 'K+', 1600);
+}
+}
+
+function animateNumber(id, target, suffix, duration){
+const el = document.getElementById(id);
+let start = 0;
+const step = target / (duration / 16);
+const timer = setInterval(()=>{
+start += step;
+if(start >= target){start = target;clearInterval(timer);}
+el.textContent = Math.floor(start) + suffix;
+},16);
+}
+
+window.addEventListener('scroll', animateStats);
+animateStats();
+</script>
+
+</body>
+</html>

@@ -824,6 +824,61 @@ color:#C62828;
 font-weight:700;
 }
 
+.add-cart-btn{
+width:100%;
+margin-top:12px;
+padding:8px 0;
+border:2px solid #C62828;
+border-radius:10px;
+background:none;
+color:#C62828;
+font-weight:600;
+font-size:0.82rem;
+cursor:pointer;
+transition:0.3s;
+font-family:'Poppins',sans-serif;
+}
+
+.add-cart-btn:hover{
+background:#C62828;
+color:white;
+}
+
+.dish-cart-area{
+margin-top:12px;
+}
+
+.dish-qty-control{
+display:inline-flex;
+align-items:center;
+border:2px solid #C62828;
+border-radius:10px;
+overflow:hidden;
+}
+
+.dish-qty-control button{
+width:32px;
+height:32px;
+border:none;
+background:#C62828;
+color:white;
+font-size:0.9rem;
+cursor:pointer;
+font-weight:700;
+transition:0.2s;
+}
+
+.dish-qty-control button:hover{
+background:#a51f1f;
+}
+
+.dish-qty-control span{
+padding:0 14px;
+font-size:0.85rem;
+font-weight:700;
+color:#C62828;
+}
+
 /* ================= OFFERS ================= */
 
 .offer-slider{
@@ -1139,6 +1194,124 @@ text-decoration:none;
 color:#bbb;
 }
 
+/* ================= MOBILE SEARCH BAR ================= */
+
+.mobile-search{
+display:none;
+}
+
+/* ================= MOBILE NAV ICONS ================= */
+
+.mobile-nav-icons{
+display:none;
+align-items:center;
+gap:14px;
+}
+
+.mobile-cart{
+position:relative;
+width:36px;
+height:36px;
+border-radius:50%;
+background:rgba(0,0,0,0.04);
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+transition:0.3s;
+}
+
+.mobile-cart:hover{
+background:rgba(198,40,40,0.08);
+}
+
+.mobile-cart i{
+font-size:1rem;
+color:#1F1F1F;
+}
+
+.cart-badge{
+position:absolute;
+top:-2px;
+right:-2px;
+width:18px;
+height:18px;
+background:#C62828;
+color:white;
+font-size:0.65rem;
+font-weight:700;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.mobile-profile-btn{
+width:36px;
+height:36px;
+border-radius:50%;
+background:rgba(198,40,40,0.08);
+border:2px solid #C62828;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+transition:0.3s;
+position:relative;
+}
+
+.mobile-profile-btn i{
+font-size:0.9rem;
+color:#C62828;
+}
+
+.mobile-profile-btn:hover{
+background:rgba(198,40,40,0.15);
+}
+
+/* Profile Dropdown (Mobile) */
+.mobile-profile-dropdown{
+position:absolute;
+top:calc(100% + 10px);
+right:0;
+width:260px;
+background:white;
+border-radius:18px;
+box-shadow:0 15px 50px rgba(0,0,0,0.12);
+padding:16px;
+opacity:0;
+visibility:hidden;
+transform:translateY(-8px);
+transition:0.3s ease;
+z-index:3000;
+}
+
+.mobile-profile-dropdown.active{
+opacity:1;
+visibility:visible;
+transform:translateY(0);
+}
+
+.mpd-guest{display:flex;flex-direction:column;gap:10px;}
+.mpd-guest .mpd-login{width:100%;padding:12px;border:2px solid #C62828;background:none;border-radius:12px;color:#C62828;font-weight:600;font-size:0.85rem;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;}
+.mpd-guest .mpd-login:hover{background:#C62828;color:white;}
+.mpd-guest .mpd-signup{width:100%;padding:12px;border:none;border-radius:12px;background:#C62828;color:white;font-weight:600;font-size:0.85rem;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;}
+.mpd-guest .mpd-signup:hover{background:#a51f1f;}
+
+.mpd-user{display:none;}
+.mpd-user.active{display:block;}
+.mpd-user-header{display:flex;align-items:center;gap:12px;padding-bottom:12px;border-bottom:1px solid #f0f0f0;margin-bottom:8px;}
+.mpd-user-avatar{width:40px;height:40px;border-radius:50%;background:rgba(198,40,40,0.08);border:2px solid #C62828;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.mpd-user-avatar i{font-size:0.9rem;color:#C62828;}
+.mpd-user-name{font-size:0.88rem;font-weight:600;}
+.mpd-user-email{font-size:0.75rem;color:#888;}
+.mpd-menu{list-style:none;padding:6px 0;}
+.mpd-menu li a{display:flex;align-items:center;gap:10px;padding:10px 12px;text-decoration:none;color:#1F1F1F;font-size:0.85rem;font-weight:500;border-radius:10px;transition:0.3s;}
+.mpd-menu li a:hover{background:rgba(198,40,40,0.05);color:#C62828;}
+.mpd-menu li a i{color:#C62828;width:18px;text-align:center;font-size:0.85rem;}
+.mpd-logout{width:100%;padding:10px;border:1.5px solid #e53935;background:none;border-radius:10px;color:#e53935;font-weight:600;font-size:0.8rem;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:6px;}
+.mpd-logout:hover{background:#e53935;color:white;}
+
 /* ================= RESPONSIVE ================= */
 
 @media(max-width:992px){
@@ -1163,8 +1336,17 @@ display:none;
 display:none !important;
 }
 
+.icon{
+display:none;
+}
+
 .menu-toggle{
 display:block;
+}
+
+/* Mobile Nav Icons */
+.mobile-nav-icons{
+display:flex;
 }
 
 .hero-box{
@@ -1278,10 +1460,9 @@ height:0;
 <div class="nav-right">
 
 <a href="#">Home</a>
-<a href="#">About Us</a>
+<a href="about.html">About Us</a>
 
-<i class="fa-solid fa-magnifying-glass icon"></i>
-<i class="fa-solid fa-cart-shopping icon"></i>
+<i class="fa-solid fa-cart-shopping icon" onclick="window.location.href='cart.html'" style="cursor:pointer;"></i>
 
 <button class="sign-btn" id="desktopSignBtn" onclick="window.location.href='login.html'">
 LOG IN
@@ -1320,6 +1501,42 @@ Logout
 </div>
 </div>
 
+<div class="mobile-nav-icons">
+<div class="mobile-cart" onclick="window.location.href='cart.html'">
+<i class="fa-solid fa-cart-shopping"></i>
+<span class="cart-badge">0</span>
+</div>
+<div class="mobile-profile-btn" id="mobileProfileBtn">
+<i class="fa-solid fa-user"></i>
+<div class="mobile-profile-dropdown" id="mobileProfileDropdown">
+<div class="mpd-guest" id="mpdGuest">
+<button class="mpd-login" onclick="window.location.href='login.html'">LOG IN</button>
+<button class="mpd-signup" onclick="window.location.href='signup.html'">SIGN UP</button>
+</div>
+<div class="mpd-user" id="mpdUser">
+<div class="mpd-user-header">
+<div class="mpd-user-avatar"><i class="fa-solid fa-user"></i></div>
+<div>
+<div class="mpd-user-name" id="mpdName">User</div>
+<div class="mpd-user-email" id="mpdEmail">user@email.com</div>
+</div>
+</div>
+<ul class="mpd-menu">
+<li><a href="#"><i class="fa-solid fa-bag-shopping"></i>My Orders</a></li>
+<li><a href="#"><i class="fa-solid fa-heart"></i>Favorites</a></li>
+<li><a href="#"><i class="fa-solid fa-location-dot"></i>Saved Addresses</a></li>
+<li><a href="#"><i class="fa-solid fa-credit-card"></i>Payment Methods</a></li>
+<li><a href="#"><i class="fa-solid fa-bell"></i>Notifications</a></li>
+<li><a href="#"><i class="fa-solid fa-clock-rotate-left"></i>Order History</a></li>
+<li><a href="#"><i class="fa-solid fa-gear"></i>Account Settings</a></li>
+<li><a href="#"><i class="fa-solid fa-headset"></i>Help & Support</a></li>
+</ul>
+<button class="mpd-logout" id="mpdLogout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
+</div>
+</div>
+</div>
+</div>
+
 <div class="menu-toggle" id="menuToggle">
 <i class="fa-solid fa-bars"></i>
 <i class="fa-solid fa-xmark"></i>
@@ -1352,33 +1569,27 @@ Logout
 
 <!-- Guest Menu -->
 <ul class="drawer-menu" id="guestMenu">
-<li><a href="#" class="active-link"><i class="fa-solid fa-house"></i>Home</a></li>
-<li><a href="#"><i class="fa-solid fa-circle-info"></i>About Us</a></li>
-<li><a href="#"><i class="fa-solid fa-fire"></i>Popular Dishes</a></li>
+<li><a href="Homepage.html" class="active-link"><i class="fa-solid fa-house"></i>Home</a></li>
+<li><a href="food-delivery.html"><i class="fa-solid fa-motorcycle"></i>Food Delivery</a></li>
+<li><a href="dineout.html"><i class="fa-solid fa-utensils"></i>Dine-Out</a></li>
 <li><a href="#"><i class="fa-solid fa-tags"></i>Exclusive Offers</a></li>
-<li><a href="#"><i class="fa-solid fa-utensils"></i>Top Restaurants</a></li>
 <li><div class="drawer-divider"></div></li>
-<li><a href="#"><i class="fa-solid fa-magnifying-glass"></i>Search</a></li>
-<li><a href="#"><i class="fa-solid fa-cart-shopping"></i>Cart</a></li>
+<li><a href="cart.html"><i class="fa-solid fa-cart-shopping"></i>Cart</a></li>
+<li><a href="about.html"><i class="fa-solid fa-circle-info"></i>About Us</a></li>
+<li><a href="#"><i class="fa-solid fa-headset"></i>Help Center</a></li>
 </ul>
 
-<!-- Logged In Menu -->
+<!-- Logged In Menu (same nav items) -->
 <ul class="drawer-menu" id="userMenu" style="display:none;">
-<li><a href="#"><i class="fa-solid fa-user"></i>My Profile</a></li>
-<li><a href="#"><i class="fa-solid fa-bag-shopping"></i>My Orders</a></li>
-<li><a href="#"><i class="fa-solid fa-location-dot"></i>Saved Addresses</a></li>
-<li><a href="#"><i class="fa-solid fa-heart"></i>Favorites</a></li>
-<li><a href="#"><i class="fa-solid fa-bell"></i>Notifications</a></li>
+<li><a href="Homepage.html" class="active-link"><i class="fa-solid fa-house"></i>Home</a></li>
+<li><a href="food-delivery.html"><i class="fa-solid fa-motorcycle"></i>Food Delivery</a></li>
+<li><a href="dineout.html"><i class="fa-solid fa-utensils"></i>Dine-Out</a></li>
+<li><a href="#"><i class="fa-solid fa-tags"></i>Exclusive Offers</a></li>
 <li><div class="drawer-divider"></div></li>
-<li><a href="#"><i class="fa-solid fa-gear"></i>Settings</a></li>
-<li><a href="#"><i class="fa-solid fa-headset"></i>Help & Support</a></li>
+<li><a href="cart.html"><i class="fa-solid fa-cart-shopping"></i>Cart</a></li>
+<li><a href="about.html"><i class="fa-solid fa-circle-info"></i>About Us</a></li>
+<li><a href="#"><i class="fa-solid fa-headset"></i>Help Center</a></li>
 </ul>
-
-<!-- Auth Buttons (visible when NOT logged in) -->
-<div class="drawer-auth" id="drawerAuth">
-<button class="drawer-signin" id="drawerSignIn">LOG IN</button>
-<button class="drawer-login" id="drawerLogIn">SIGN UP</button>
-</div>
 
 <!-- Logout Button (visible when logged in) -->
 <button class="drawer-logout" id="drawerLogout">
@@ -1448,7 +1659,7 @@ Search
 Order delicious meals from premium restaurants with fast doorstep delivery.
 </p>
 
-<button class="red-btn">
+<button class="red-btn" onclick="window.location.href='food-delivery.html'">
 Order Now
 </button>
 
@@ -1486,46 +1697,50 @@ Book A Table
 
 <h2>Popular Dishes</h2>
 
-<div class="see-all">See all</div>
+<a href="food-delivery.html" class="see-all" style="text-decoration:none;">See all</a>
 
 </div>
 
 <div class="dishes">
 
-<div class="dish">
+<div class="dish" onclick="window.location.href='food-delivery.html'" style="cursor:pointer;">
 <img src="https://images.unsplash.com/photo-1701579231349-d7459c40919d?q=80&w=1200&auto=format&fit=crop">
 <h3>Chicken Biriyani</h3>
 <div class="dish-bottom">
 <span class="price">₹299</span>
 <span>⭐ 4.8</span>
 </div>
+<div class="dish-cart-area" data-name="Chicken Biryani" data-restaurant="Dindigul Thalappakatti" data-price="299"></div>
 </div>
 
-<div class="dish">
+<div class="dish" onclick="window.location.href='food-delivery.html'" style="cursor:pointer;">
 <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=1200&auto=format&fit=crop">
 <h3>Cheese Burger</h3>
 <div class="dish-bottom">
 <span class="price">₹249</span>
 <span>⭐ 4.7</span>
 </div>
+<div class="dish-cart-area" data-name="Classic Cheese Burger" data-restaurant="Burger King" data-price="249"></div>
 </div>
 
-<div class="dish">
+<div class="dish" onclick="window.location.href='food-delivery.html'" style="cursor:pointer;">
 <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=1200&auto=format&fit=crop">
 <h3>Pepperoni Pizza</h3>
 <div class="dish-bottom">
 <span class="price">₹499</span>
 <span>⭐ 4.9</span>
 </div>
+<div class="dish-cart-area" data-name="Pepperoni Pizza" data-restaurant="Pizza Hut" data-price="499"></div>
 </div>
 
-<div class="dish">
+<div class="dish" onclick="window.location.href='food-delivery.html'" style="cursor:pointer;">
 <img src="https://images.unsplash.com/photo-1589302168068-964664d93dc0?q=80&w=1200&auto=format&fit=crop">
 <h3>South Indian Meals</h3>
 <div class="dish-bottom">
 <span class="price">₹199</span>
 <span>⭐ 4.6</span>
 </div>
+<div class="dish-cart-area" data-name="South Indian Thali" data-restaurant="Saravana Bhavan" data-price="199"></div>
 </div>
 
 </div>
@@ -1559,7 +1774,7 @@ style="background-image:url('https://images.unsplash.com/photo-1565299624946-b28
 Use Code : WELCOME20 and enjoy premium meals at exciting discounts.
 </p>
 
-<button class="red-btn">
+<button class="red-btn" onclick="window.location.href='food-delivery.html'">
 Order Now
 </button>
 
@@ -1580,7 +1795,7 @@ style="background-image:url('https://images.unsplash.com/photo-1513104890138-7c7
 Enjoy cheesy pizza combos from top restaurants near you.
 </p>
 
-<button class="red-btn">
+<button class="red-btn" onclick="window.location.href='food-delivery.html'">
 Explore
 </button>
 
@@ -1601,7 +1816,7 @@ style="background-image:url('https://images.unsplash.com/photo-1550547660-d9450f
 Get free delivery on your favorite meals from premium restaurants.
 </p>
 
-<button class="red-btn">
+<button class="red-btn" onclick="window.location.href='food-delivery.html'">
 Grab Offer
 </button>
 
@@ -1635,7 +1850,7 @@ Grab Offer
 
 <div class="restaurants-grid">
 
-<div class="restaurant-card">
+<div class="restaurant-card" onclick="window.location.href='dineout.html'" style="cursor:pointer;">
 
 <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1600&auto=format&fit=crop">
 
@@ -1660,7 +1875,7 @@ Premium South Indian fine dining at ITC Grand Chola, Chennai.
 
 </div>
 
-<button class="red-btn" onclick="window.location.href='dineout.html'">
+<button class="red-btn" onclick="event.stopPropagation();window.location.href='dineout.html'">
 Book A Table
 </button>
 
@@ -1668,7 +1883,7 @@ Book A Table
 
 </div>
 
-<div class="restaurant-card">
+<div class="restaurant-card" onclick="window.location.href='dineout.html'" style="cursor:pointer;">
 
 <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=1600&auto=format&fit=crop">
 
@@ -1693,7 +1908,7 @@ Celebrity-favorite seafood and Asian cuisine in Bandra, Mumbai.
 
 </div>
 
-<button class="red-btn" onclick="window.location.href='dineout.html'">
+<button class="red-btn" onclick="event.stopPropagation();window.location.href='dineout.html'">
 Book A Table
 </button>
 
@@ -1701,7 +1916,7 @@ Book A Table
 
 </div>
 
-<div class="restaurant-card">
+<div class="restaurant-card" onclick="window.location.href='dineout.html'" style="cursor:pointer;">
 
 <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=1600&auto=format&fit=crop">
 
@@ -1726,7 +1941,7 @@ Legendary coastal fine dining on Residency Road, Bangalore.
 
 </div>
 
-<button class="red-btn" onclick="window.location.href='dineout.html'">
+<button class="red-btn" onclick="event.stopPropagation();window.location.href='dineout.html'">
 Book A Table
 </button>
 
@@ -1968,7 +2183,6 @@ Delivering happiness with delicious food and premium restaurant experiences.
 <i class="fa-brands fa-facebook-f"></i>
 <i class="fa-brands fa-x-twitter"></i>
 
-
 </div>
 
 </div>
@@ -1977,10 +2191,10 @@ Delivering happiness with delicious food and premium restaurant experiences.
 
 <h3>Quick Links</h3>
 
-<a href="#">Home</a>
-<a href="#">About Us</a>
-<a href="#">Popular Dishes</a>
-<a href="#">Top Restaurants</a>
+<a href="Homepage.html">Home</a>
+<a href="food-delivery.html">Food Delivery</a>
+<a href="dineout.html">Dine Out</a>
+<a href="about.html">About Us</a>
 
 </div>
 
@@ -1989,8 +2203,8 @@ Delivering happiness with delicious food and premium restaurant experiences.
 <h3>Support</h3>
 
 <a href="#">Help Center</a>
-<a href="#">Terms & Conditions</a>
-<a href="#">Privacy Policy</a>
+<a href="terms.html">Terms & Conditions</a>
+<a href="privacy.html">Privacy Policy</a>
 
 </div>
 
@@ -2008,23 +2222,64 @@ Delivering happiness with delicious food and premium restaurant experiences.
 
 <div class="footer-bottom">
 
-<div class="footer-bottom-links">
-
-<a href="#">Home</a>
-<a href="#">About Us</a>
-<a href="#">Search</a>
-<a href="#">Cart</a>
-
-
-</div>
-
 <p>
-© 2026 QuickBite. All Rights Reserved.
+&copy; 2026 QuickBite. All Rights Reserved.
 </p>
 
 </div>
 
 </footer>
+
+<!-- CART FUNCTIONALITY -->
+<script>
+let homeCart = JSON.parse(localStorage.getItem('quickbite_cart') || '[]');
+
+function updateHomeBadge() {
+  const total = homeCart.reduce((s, c) => s + c.qty, 0);
+  document.querySelectorAll('.cart-badge').forEach(b => b.textContent = total);
+}
+
+function addToCartHome(name, restaurant, price, btn) {
+  const existing = homeCart.find(c => c.name === name && c.restaurant === restaurant);
+  if (!existing) {
+    homeCart.push({ name, restaurant, price, qty: 1 });
+  } else {
+    existing.qty += 1;
+  }
+  localStorage.setItem('quickbite_cart', JSON.stringify(homeCart));
+  updateHomeBadge();
+  renderDishButtons();
+}
+
+function updateHomeQty(name, restaurant, price, delta) {
+  const idx = homeCart.findIndex(c => c.name === name && c.restaurant === restaurant);
+  if (idx === -1) { if (delta > 0) homeCart.push({ name, restaurant, price, qty: 1 }); }
+  else { homeCart[idx].qty += delta; if (homeCart[idx].qty <= 0) homeCart.splice(idx, 1); }
+  localStorage.setItem('quickbite_cart', JSON.stringify(homeCart));
+  updateHomeBadge();
+  renderDishButtons();
+}
+
+function renderDishButtons() {
+  document.querySelectorAll('.dish').forEach(dish => {
+    const btn = dish.querySelector('.dish-cart-area');
+    if (!btn) return;
+    const name = btn.dataset.name;
+    const restaurant = btn.dataset.restaurant;
+    const price = parseInt(btn.dataset.price);
+    const cartItem = homeCart.find(c => c.name === name && c.restaurant === restaurant);
+    if (cartItem) {
+      btn.innerHTML = '<div class="dish-qty-control"><button onclick="event.stopPropagation();updateHomeQty(\'' + name.replace(/'/g, "\\'") + '\',\'' + restaurant.replace(/'/g, "\\'") + '\',' + price + ',-1)">\u2212</button><span>' + cartItem.qty + '</span><button onclick="event.stopPropagation();updateHomeQty(\'' + name.replace(/'/g, "\\'") + '\',\'' + restaurant.replace(/'/g, "\\'") + '\',' + price + ',1)">+</button></div>';
+    } else {
+      btn.innerHTML = '<button class="add-cart-btn" onclick="event.stopPropagation();addToCartHome(\'' + name.replace(/'/g, "\\'") + '\',\'' + restaurant.replace(/'/g, "\\'") + '\',' + price + ',this)">ADD</button>';
+    }
+  });
+}
+
+// Init
+updateHomeBadge();
+renderDishButtons();
+</script>
 
 <!-- OFFER SLIDER -->
 
@@ -2123,10 +2378,14 @@ const drawerClose = document.getElementById('drawerClose');
 const drawerProfile = document.getElementById('drawerProfile');
 const guestMenu = document.getElementById('guestMenu');
 const userMenu = document.getElementById('userMenu');
-const drawerAuth = document.getElementById('drawerAuth');
 const drawerLogout = document.getElementById('drawerLogout');
-const drawerSignIn = document.getElementById('drawerSignIn');
-const drawerLogIn = document.getElementById('drawerLogIn');
+
+// Mobile Profile Dropdown
+const mobileProfileBtn = document.getElementById('mobileProfileBtn');
+const mobileProfileDropdown = document.getElementById('mobileProfileDropdown');
+const mpdGuest = document.getElementById('mpdGuest');
+const mpdUser = document.getElementById('mpdUser');
+const mpdLogout = document.getElementById('mpdLogout');
 
 let isLoggedIn = false;
 
@@ -2189,8 +2448,10 @@ isLoggedIn = true;
 drawerProfile.classList.add('active');
 guestMenu.style.display = 'none';
 userMenu.style.display = 'block';
-drawerAuth.style.display = 'none';
 drawerLogout.classList.add('active');
+// Mobile profile dropdown
+mpdGuest.style.display = 'none';
+mpdUser.classList.add('active');
 }
 
 // Switch to Guest State
@@ -2199,20 +2460,35 @@ isLoggedIn = false;
 drawerProfile.classList.remove('active');
 guestMenu.style.display = 'block';
 userMenu.style.display = 'none';
-drawerAuth.style.display = 'flex';
 drawerLogout.classList.remove('active');
+// Mobile profile dropdown
+mpdGuest.style.display = 'flex';
+mpdUser.classList.remove('active');
 }
 
-// Log In / Sign Up buttons redirect to auth pages
-drawerSignIn.addEventListener('click', ()=>{
-window.location.href = 'login.html';
+// Mobile Profile Dropdown toggle
+mobileProfileBtn.addEventListener('click', (e)=>{
+e.stopPropagation();
+mobileProfileDropdown.classList.toggle('active');
 });
 
-drawerLogIn.addEventListener('click', ()=>{
-window.location.href = 'signup.html';
+// Close dropdown when clicking outside
+document.addEventListener('click', (e)=>{
+if(!mobileProfileBtn.contains(e.target)){
+mobileProfileDropdown.classList.remove('active');
+}
 });
 
-// Logout button
+// Mobile profile logout
+mpdLogout.addEventListener('click', ()=>{
+localStorage.removeItem('quickbite_logged_in');
+localStorage.removeItem('quickbite_user');
+localStorage.removeItem('quickbite_email');
+logoutUser();
+mobileProfileDropdown.classList.remove('active');
+});
+
+// Drawer Logout button
 drawerLogout.addEventListener('click', ()=>{
 localStorage.removeItem('quickbite_logged_in');
 localStorage.removeItem('quickbite_user');
@@ -2238,11 +2514,15 @@ document.getElementById('profileName').textContent = userName;
 document.getElementById('profileEmail').textContent = userEmail;
 loginUser();
 
-// Update desktop - hide sign btn, show profile
+// Update desktop
 desktopSignBtn.classList.add('hidden');
 desktopProfile.classList.add('active');
 document.getElementById('desktopProfileName').textContent = userName;
 document.getElementById('desktopProfileEmail').textContent = userEmail;
+
+// Update mobile profile dropdown
+document.getElementById('mpdName').textContent = userName;
+document.getElementById('mpdEmail').textContent = userEmail;
 } else {
 desktopSignBtn.classList.remove('hidden');
 desktopProfile.classList.remove('active');

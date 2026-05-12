@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QuickBite - Cart</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:#FFF8F0;color:#1F1F1F;overflow-x:hidden;min-height:100vh;display:flex;flex-direction:column;}
+html{scroll-behavior:smooth;}
+
+.navbar{display:flex;justify-content:space-between;align-items:center;padding:18px 7%;background:#FFF8F0;position:sticky;top:0;z-index:1000;box-shadow:0 3px 12px rgba(0,0,0,0.04);}
+.nav-left{display:flex;align-items:center;gap:12px;}
+.back-arrow{width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,0.04);display:flex;align-items:center;justify-content:center;text-decoration:none;color:#1F1F1F;transition:0.3s;font-size:0.85rem;}
+.back-arrow:hover{background:rgba(198,40,40,0.08);color:#C62828;}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.logo-icon{width:40px;height:40px;border-radius:50%;}
+.logo-text{font-size:1.5rem;font-weight:800;color:#C62828;}
+.nav-right{display:flex;align-items:center;gap:20px;}
+.nav-right a{text-decoration:none;color:#1F1F1F;font-weight:500;transition:0.3s;font-size:0.9rem;}
+.nav-right a:hover{color:#C62828;}
+
+.cart-container{flex:1;padding:30px 7%;max-width:800px;margin:0 auto;width:100%;}
+.cart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;}
+.cart-header h1{font-size:1.8rem;font-weight:700;}
+.cart-header h1 span{color:#C62828;}
+.clear-btn{padding:8px 16px;border:1.5px solid #e53935;border-radius:10px;background:none;color:#e53935;font-size:0.8rem;font-weight:600;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;}
+.clear-btn:hover{background:#e53935;color:white;}
+
+.cart-empty{text-align:center;padding:80px 20px;}
+.cart-empty i{font-size:3.5rem;color:#ddd;margin-bottom:16px;}
+.cart-empty h3{font-size:1.2rem;color:#888;margin-bottom:8px;}
+.cart-empty p{color:#aaa;font-size:0.9rem;margin-bottom:24px;}
+.cart-empty a{padding:12px 28px;border:none;border-radius:12px;background:#C62828;color:white;font-weight:600;font-size:0.9rem;text-decoration:none;transition:0.3s;display:inline-block;}
+.cart-empty a:hover{background:#a51f1f;transform:translateY(-2px);}
+
+.cart-items{display:flex;flex-direction:column;gap:14px;margin-bottom:24px;}
+.cart-item{display:flex;align-items:center;gap:16px;background:white;padding:16px 20px;border-radius:16px;box-shadow:0 3px 14px rgba(0,0,0,0.04);transition:0.3s;}
+.cart-item:hover{box-shadow:0 6px 20px rgba(0,0,0,0.07);}
+.cart-item-info{flex:1;}
+.cart-item-info h4{font-size:0.92rem;font-weight:600;margin-bottom:2px;}
+.cart-item-info p{font-size:0.78rem;color:#888;}
+.cart-item-price{font-size:0.95rem;font-weight:700;color:#C62828;min-width:70px;text-align:right;}
+.cart-item-qty{display:flex;align-items:center;gap:0;border:2px solid #C62828;border-radius:10px;overflow:hidden;}
+.cart-item-qty button{width:30px;height:30px;border:none;background:#C62828;color:white;font-size:0.9rem;cursor:pointer;font-weight:700;transition:0.2s;}
+.cart-item-qty button:hover{background:#a51f1f;}
+.cart-item-qty span{padding:0 12px;font-size:0.85rem;font-weight:700;color:#C62828;}
+.cart-item-remove{width:30px;height:30px;border:none;border-radius:50%;background:rgba(229,57,53,0.06);color:#e53935;font-size:0.8rem;cursor:pointer;transition:0.3s;display:flex;align-items:center;justify-content:center;}
+.cart-item-remove:hover{background:#e53935;color:white;}
+
+.cart-summary{background:white;border-radius:18px;padding:24px;box-shadow:0 4px 18px rgba(0,0,0,0.05);}
+.cart-summary-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;font-size:0.9rem;color:#666;}
+.cart-summary-row.total{border-top:2px solid #f0f0f0;margin-top:8px;padding-top:16px;font-size:1.1rem;font-weight:700;color:#1F1F1F;}
+.cart-summary-row.total span:last-child{color:#C62828;}
+.checkout-btn{width:100%;padding:16px;border:none;border-radius:14px;background:#C62828;color:white;font-size:1rem;font-weight:600;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;margin-top:18px;}
+.checkout-btn:hover{background:#a51f1f;transform:translateY(-2px);box-shadow:0 8px 25px rgba(198,40,40,0.3);}
+
+@media(max-width:768px){
+.cart-container{padding:20px 5%;}
+.cart-header h1{font-size:1.4rem;}
+.cart-item{padding:14px 16px;gap:12px;}
+.logo-text{font-size:1.3rem;}
+.nav-right a{display:none;}
+}
+@media(max-width:520px){
+.logo-text{display:none;}
+.navbar{padding:14px 5%;}
+}
+::-webkit-scrollbar{width:0;height:0;}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+<div class="nav-left">
+<a href="food-delivery.html" class="back-arrow"><i class="fa-solid fa-arrow-left"></i></a>
+<a href="Homepage.html" class="logo"><img src="assets/logo.svg" class="logo-icon"><span class="logo-text">QuickBite</span></a>
+</div>
+<div class="nav-right">
+<a href="Homepage.html">Home</a>
+<a href="food-delivery.html">Order Food</a>
+</div>
+</nav>
+
+<div class="cart-container">
+<div class="cart-header">
+<h1>Your <span>Cart</span></h1>
+<button class="clear-btn" id="clearCart"><i class="fa-solid fa-trash"></i> Clear All</button>
+</div>
+
+<div class="cart-empty" id="cartEmpty" style="display:none;">
+<i class="fa-solid fa-cart-shopping"></i>
+<h3>Your cart is empty</h3>
+<p>Looks like you haven't added anything yet.</p>
+<a href="food-delivery.html">Browse Food</a>
+</div>
+
+<div class="cart-items" id="cartItems"></div>
+<div class="cart-summary" id="cartSummary" style="display:none;">
+<div class="cart-summary-row"><span>Subtotal</span><span id="subtotal">₹0</span></div>
+<div class="cart-summary-row"><span>Delivery Fee</span><span id="deliveryFee">₹40</span></div>
+<div class="cart-summary-row"><span>Platform Fee</span><span>₹5</span></div>
+<div class="cart-summary-row total"><span>Total</span><span id="totalAmount">₹0</span></div>
+<button class="checkout-btn">Proceed to Checkout</button>
+</div>
+</div>
+
+<script>
+let cart = JSON.parse(localStorage.getItem('quickbite_cart') || '[]');
+
+function saveCart(){localStorage.setItem('quickbite_cart', JSON.stringify(cart));renderCart();}
+
+function renderCart(){
+const itemsEl = document.getElementById('cartItems');
+const emptyEl = document.getElementById('cartEmpty');
+const summaryEl = document.getElementById('cartSummary');
+
+if(cart.length === 0){
+itemsEl.innerHTML = '';
+emptyEl.style.display = 'block';
+summaryEl.style.display = 'none';
+return;
+}
+
+emptyEl.style.display = 'none';
+summaryEl.style.display = 'block';
+
+itemsEl.innerHTML = cart.map((item, i) => `
+<div class="cart-item">
+<div class="cart-item-info">
+<h4>${item.name}</h4>
+<p>${item.restaurant}</p>
+</div>
+<div class="cart-item-qty">
+<button onclick="changeQty(${i},-1)">−</button>
+<span>${item.qty}</span>
+<button onclick="changeQty(${i},1)">+</button>
+</div>
+<div class="cart-item-price">₹${item.price * item.qty}</div>
+<button class="cart-item-remove" onclick="removeItem(${i})"><i class="fa-solid fa-xmark"></i></button>
+</div>
+`).join('');
+
+const subtotal = cart.reduce((s, item) => s + (item.price * item.qty), 0);
+const delivery = subtotal > 499 ? 0 : 40;
+document.getElementById('subtotal').textContent = '\u20b9' + subtotal;
+document.getElementById('deliveryFee').textContent = subtotal > 499 ? 'FREE' : '\u20b940';
+document.getElementById('totalAmount').textContent = '\u20b9' + (subtotal + delivery + 5);
+}
+
+function changeQty(index, delta){
+cart[index].qty += delta;
+if(cart[index].qty <= 0) cart.splice(index, 1);
+saveCart();
+}
+
+function removeItem(index){
+cart.splice(index, 1);
+saveCart();
+}
+
+document.getElementById('clearCart').addEventListener('click', () => {
+cart = [];
+saveCart();
+});
+
+renderCart();
+</script>
+
+<footer class="footer" style="background:#1F1F1F;padding:60px 7% 30px;color:white;margin-top:40px;">
+<div class="footer-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:30px;margin-bottom:40px;">
+<div class="footer-col">
+<a href="Homepage.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;margin-bottom:20px;">
+<img src="assets/logo.svg" alt="QuickBite" style="width:40px;height:40px;">
+<span style="font-size:1.6rem;font-weight:800;color:#C62828;">QuickBite</span>
+</a>
+<p style="color:#ccc;line-height:1.8;">Delivering happiness with delicious food and premium restaurant experiences.</p>
+</div>
+<div class="footer-col">
+<h3 style="margin-bottom:18px;">Quick Links</h3>
+<a href="Homepage.html" style="display:block;text-decoration:none;color:#ccc;margin-bottom:10px;transition:0.3s;">Home</a>
+<a href="food-delivery.html" style="display:block;text-decoration:none;color:#ccc;margin-bottom:10px;transition:0.3s;">Food Delivery</a>
+<a href="dineout.html" style="display:block;text-decoration:none;color:#ccc;margin-bottom:10px;transition:0.3s;">Dine Out</a>
+<a href="about.html" style="display:block;text-decoration:none;color:#ccc;margin-bottom:10px;transition:0.3s;">About Us</a>
+</div>
+<div class="footer-col">
+<h3 style="margin-bottom:18px;">Support</h3>
+<a href="#" style="display:block;text-decoration:none;color:#ccc;margin-bottom:10px;transition:0.3s;">Help Center</a>
+<a href="terms.html" style="display:block;text-decoration:none;color:#ccc;margin-bottom:10px;transition:0.3s;">Terms & Conditions</a>
+<a href="privacy.html" style="display:block;text-decoration:none;color:#ccc;margin-bottom:10px;transition:0.3s;">Privacy Policy</a>
+</div>
+<div class="footer-col">
+<h3 style="margin-bottom:18px;">Contact</h3>
+<p style="color:#ccc;margin-bottom:10px;line-height:1.8;">support@quickbite.com</p>
+<p style="color:#ccc;margin-bottom:10px;line-height:1.8;">+91 98765 43210</p>
+<p style="color:#ccc;margin-bottom:10px;line-height:1.8;">Chennai, India</p>
+</div>
+</div>
+<div style="border-top:1px solid rgba(255,255,255,0.1);padding-top:20px;text-align:center;color:#aaa;">
+<p>&copy; 2026 QuickBite. All Rights Reserved.</p>
+</div>
+</footer>
+
+</body>
+</html>

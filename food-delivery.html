@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QuickBite - Food Delivery</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:#FFF8F0;color:#1F1F1F;overflow-x:hidden;}
+html{scroll-behavior:smooth;}
+
+/* Navbar */
+.navbar{display:flex;justify-content:space-between;align-items:center;padding:18px 7%;background:#FFF8F0;position:sticky;top:0;z-index:1000;box-shadow:0 3px 12px rgba(0,0,0,0.04);}
+.nav-left{display:flex;align-items:center;gap:12px;}
+.back-arrow{width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,0.04);display:flex;align-items:center;justify-content:center;text-decoration:none;color:#1F1F1F;transition:0.3s;font-size:0.85rem;}
+.back-arrow:hover{background:rgba(198,40,40,0.08);color:#C62828;}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.logo-icon{width:40px;height:40px;border-radius:50%;}
+.logo-text{font-size:1.5rem;font-weight:800;color:#C62828;}
+.nav-right{display:flex;align-items:center;gap:20px;}
+.nav-right a{text-decoration:none;color:#1F1F1F;font-weight:500;transition:0.3s;font-size:0.9rem;}
+.nav-right a:hover{color:#C62828;}
+.desktop-icon{font-size:1.05rem;cursor:pointer;transition:0.3s;color:#1F1F1F;}
+.desktop-icon:hover{color:#C62828;}
+.login-btn{padding:9px 20px;border:2px solid #C62828;border-radius:12px;background:none;color:#C62828;font-weight:600;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;font-size:0.82rem;}
+.login-btn:hover{background:#C62828;color:white;}
+.desktop-profile{position:relative;display:none;}
+.desktop-profile.active{display:block;}
+.desktop-profile-icon{width:34px;height:34px;border-radius:50%;background:rgba(198,40,40,0.08);border:2px solid #C62828;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:0.3s;}
+.desktop-profile-icon i{font-size:0.85rem;color:#C62828;}
+.desktop-profile-icon:hover{background:rgba(198,40,40,0.15);transform:scale(1.05);}
+.desktop-dropdown{position:absolute;top:calc(100% + 14px);right:0;width:300px;background:white;border-radius:22px;box-shadow:0 20px 60px rgba(0,0,0,0.12);padding:20px;opacity:0;visibility:hidden;transform:translateY(-10px);transition:0.35s ease;z-index:3000;}
+.desktop-dropdown.active{opacity:1;visibility:visible;transform:translateY(0);}
+.dropdown-header{display:flex;align-items:center;gap:14px;padding-bottom:16px;}
+.dropdown-avatar{width:48px;height:48px;border-radius:50%;background:rgba(198,40,40,0.08);border:2px solid #C62828;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.dropdown-avatar i{font-size:1.2rem;color:#C62828;}
+.dropdown-info h4{font-size:0.95rem;font-weight:600;color:#1F1F1F;margin-bottom:2px;}
+.dropdown-info span{font-size:0.8rem;color:#888;}
+.dropdown-divider{height:1px;background:rgba(0,0,0,0.06);margin:4px 0;}
+.dropdown-menu{list-style:none;padding:8px 0;}
+.dropdown-menu li a{display:flex;align-items:center;gap:12px;padding:11px 14px;text-decoration:none;color:#1F1F1F;font-weight:500;font-size:0.9rem;border-radius:12px;transition:0.3s;}
+.dropdown-menu li a:hover{background:rgba(198,40,40,0.05);color:#C62828;}
+.dropdown-menu li a i{font-size:0.95rem;width:20px;text-align:center;color:#C62828;}
+.dropdown-logout{width:100%;padding:12px;border:2px solid #e53935;background:rgba(229,57,53,0.03);border-radius:12px;color:#e53935;font-weight:600;font-size:0.9rem;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px;}
+.dropdown-logout:hover{background:#e53935;color:white;}
+.mobile-nav-icons{display:none;align-items:center;gap:12px;}
+.mobile-cart{position:relative;width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,0.04);display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.mobile-cart i{font-size:0.95rem;color:#1F1F1F;}
+.cart-badge{position:absolute;top:-2px;right:-2px;width:16px;height:16px;background:#C62828;color:white;font-size:0.6rem;font-weight:700;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.mobile-profile-btn{width:34px;height:34px;border-radius:50%;background:rgba(198,40,40,0.08);border:2px solid #C62828;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.mobile-profile-btn i{font-size:0.85rem;color:#C62828;}
+.menu-toggle{display:none;font-size:1.2rem;cursor:pointer;color:#1F1F1F;width:22px;height:22px;position:relative;}
+.menu-toggle i{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);transition:0.4s;}
+
+/* Search Bar */
+.search-section{padding:12px 7%;position:sticky;top:70px;z-index:999;background:#FFF8F0;}
+.search-row{display:flex;gap:10px;align-items:center;}
+.search-box{flex:1;position:relative;}
+.search-box input{width:100%;padding:14px 20px 14px 44px;border:none;border-radius:14px;background:white;font-size:0.9rem;font-family:'Poppins',sans-serif;outline:none;box-shadow:0 3px 15px rgba(0,0,0,0.05);transition:0.3s;}
+.search-box input:focus{box-shadow:0 5px 20px rgba(198,40,40,0.08);}
+.search-box i{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:#bbb;font-size:0.9rem;}
+.filter-btn-main{padding:10px 18px;border:2px solid #eee;border-radius:14px;background:white;font-size:0.82rem;font-weight:600;color:#1F1F1F;cursor:pointer;box-shadow:0 3px 15px rgba(0,0,0,0.05);transition:0.3s;font-family:'Poppins',sans-serif;display:flex;align-items:center;gap:6px;}
+.filter-btn-main:hover{border-color:#C62828;color:#C62828;}
+.filter-btn-main.active{border-color:#C62828;background:rgba(198,40,40,0.04);color:#C62828;}
+.veg-dot{width:12px;height:12px;border-radius:3px;border:2px solid;display:flex;align-items:center;justify-content:center;}
+.veg-dot::after{content:'';width:6px;height:6px;border-radius:50%;}
+.veg-dot.green{border-color:#43A047;}.veg-dot.green::after{background:#43A047;}
+.veg-dot.red{border-color:#C62828;}.veg-dot.red::after{background:#C62828;}
+
+/* Location */
+.location-strip{padding:14px 7% 0;display:flex;align-items:center;gap:8px;font-size:0.85rem;color:#666;}
+.location-strip i{color:#C62828;}
+.location-strip select{border:none;background:none;font-family:'Poppins',sans-serif;font-weight:600;font-size:0.85rem;color:#1F1F1F;outline:none;cursor:pointer;}
+
+/* Categories */
+.categories-section{padding:24px 7% 10px;}
+.categories-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
+.categories-header h3{font-size:1.1rem;font-weight:700;}
+.scroll-arrows{display:flex;gap:8px;}
+.scroll-arrows button{width:30px;height:30px;border:1.5px solid #ddd;border-radius:50%;background:white;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:0.3s;font-size:0.7rem;color:#666;}
+.scroll-arrows button:hover{border-color:#C62828;color:#C62828;}
+.categories-track{display:flex;gap:20px;overflow-x:auto;padding-bottom:10px;scroll-behavior:smooth;}
+.categories-track::-webkit-scrollbar{display:none;}
+.cat-item{display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;min-width:75px;transition:0.3s;}
+.cat-item:hover .cat-circle{border-color:#C62828;transform:scale(1.05);}
+.cat-item.active .cat-circle{border-color:#C62828;background:rgba(198,40,40,0.06);}
+.cat-item.active span{color:#C62828;font-weight:600;}
+.cat-circle{width:65px;height:65px;border-radius:50%;border:2px solid #eee;overflow:hidden;transition:0.3s;display:flex;align-items:center;justify-content:center;background:white;}
+.cat-circle img{width:100%;height:100%;object-fit:cover;}
+.cat-item span{font-size:0.72rem;font-weight:500;color:#666;text-align:center;}
+
+/* Promo Banner */
+.promo-section{padding:20px 7%;}
+.promo-banner{background:linear-gradient(135deg,#C62828,#e53935);border-radius:18px;padding:24px 28px;color:white;position:relative;overflow:hidden;}
+.promo-banner::after{content:'';position:absolute;right:-30px;top:-30px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,0.08);}
+.promo-banner h3{font-size:1.1rem;font-weight:700;margin-bottom:4px;}
+.promo-banner p{font-size:0.85rem;opacity:0.9;margin-bottom:14px;}
+.promo-btn{padding:9px 20px;border:none;border-radius:10px;background:white;color:#C62828;font-weight:700;font-size:0.8rem;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;}
+.promo-btn:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.15);}
+
+/* Recommended Section */
+.recommend-section{padding:24px 7% 10px;}
+.recommend-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
+.recommend-header h3{font-size:1.1rem;font-weight:700;}
+.recommend-track{display:flex;gap:16px;overflow-x:auto;padding-bottom:14px;scroll-behavior:smooth;}
+.recommend-track::-webkit-scrollbar{display:none;}
+.rec-card{min-width:200px;background:white;border-radius:16px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,0.05);transition:0.3s;cursor:pointer;flex-shrink:0;}
+.rec-card:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(0,0,0,0.08);}
+.rec-card img{width:100%;height:130px;object-fit:cover;}
+.rec-card-body{padding:12px;}
+.rec-card-body h4{font-size:0.85rem;font-weight:600;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.rec-card-body .rec-meta{display:flex;justify-content:space-between;align-items:center;font-size:0.75rem;color:#888;}
+.rec-card-body .rec-meta .rec-rating{color:#1F1F1F;font-weight:600;background:rgba(67,160,71,0.1);padding:2px 6px;border-radius:4px;font-size:0.7rem;}
+
+/* Restaurants Section */
+.restaurants-section{padding:24px 7% 40px;}
+.restaurants-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+.restaurants-header h3{font-size:1.1rem;font-weight:700;}
+.restaurants-header span{font-size:0.82rem;color:#888;}
+.rest-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;}
+.rest-card{background:white;border-radius:18px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,0.05);transition:0.3s;cursor:pointer;}
+.rest-card:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(0,0,0,0.08);}
+.rest-card img{width:100%;height:180px;object-fit:cover;}
+.rest-card-body{padding:16px;}
+.rest-card-body h4{font-size:0.95rem;font-weight:600;margin-bottom:4px;}
+.rest-card-body .rest-cuisine{font-size:0.78rem;color:#888;margin-bottom:10px;}
+.rest-card-bottom{display:flex;justify-content:space-between;align-items:center;}
+.rest-card-bottom .rest-rating{font-size:0.78rem;font-weight:600;background:rgba(67,160,71,0.1);color:#43A047;padding:3px 8px;border-radius:6px;}
+.rest-card-bottom .rest-time{font-size:0.78rem;color:#888;}
+.rest-card-bottom .add-btn{padding:6px 14px;border:2px solid #C62828;border-radius:10px;background:none;color:#C62828;font-weight:600;font-size:0.75rem;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;}
+.rest-card-bottom .add-btn:hover{background:#C62828;color:white;}
+.rest-card-bottom .qty-control{display:flex;align-items:center;gap:0;border:2px solid #C62828;border-radius:10px;overflow:hidden;}
+.rest-card-bottom .qty-control button{width:28px;height:28px;border:none;background:#C62828;color:white;font-size:0.85rem;cursor:pointer;transition:0.2s;font-weight:700;}
+.rest-card-bottom .qty-control button:hover{background:#a51f1f;}
+.rest-card-bottom .qty-control span{padding:0 10px;font-size:0.8rem;font-weight:700;color:#C62828;min-width:28px;text-align:center;}
+
+/* Footer */
+.footer{background:#1F1F1F;padding:60px 7% 30px;color:white;margin-top:20px;}
+.footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:30px;margin-bottom:40px;}
+.footer-col h3{margin-bottom:16px;font-size:0.95rem;}
+.footer-col p,.footer-col a{display:block;text-decoration:none;color:#ccc;margin-bottom:8px;line-height:1.7;font-size:0.85rem;transition:0.3s;}
+.footer-col a:hover{color:white;}
+.footer-brand{display:flex !important;align-items:center;gap:10px;text-decoration:none;margin-bottom:16px;}
+.footer-logo-icon{width:36px;height:36px;}
+.footer-logo-text{font-size:1.4rem;font-weight:800;color:#C62828;}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:18px;text-align:center;color:#aaa;font-size:0.8rem;}
+.footer-social{display:flex;gap:14px;margin-top:16px;}
+.footer-social i{width:40px;height:40px;background:rgba(255,255,255,0.08);border-radius:12px;display:flex;justify-content:center;align-items:center;cursor:pointer;transition:0.3s;}
+.footer-social i:hover{background:#C62828;transform:translateY(-3px);}
+
+/* Responsive */
+@media(max-width:768px){
+.nav-right a{display:none;}
+.nav-right .login-btn{display:none;}
+.nav-right .desktop-icon{display:none;}
+.nav-right .desktop-profile{display:none !important;}
+.mobile-nav-icons{display:flex;}
+.menu-toggle{display:block;}
+.search-section{top:62px;padding:10px 5%;}
+.categories-section,.promo-section,.recommend-section,.restaurants-section{padding-left:5%;padding-right:5%;}
+.location-strip{padding-left:5%;padding-right:5%;}
+.rest-grid{grid-template-columns:1fr;}
+.rec-card{min-width:170px;}
+.rec-card img{height:110px;}
+.logo-text{font-size:1.3rem;}
+.logo-icon{width:34px;height:34px;}
+.back-arrow{width:30px;height:30px;font-size:0.8rem;}
+}
+@media(max-width:520px){
+.logo-text{display:none;}
+.navbar{padding:14px 5%;}
+.cat-circle{width:55px;height:55px;}
+.categories-track{gap:14px;}
+.rest-grid{grid-template-columns:1fr;}
+.promo-banner{padding:20px 22px;}
+}
+
+/* Mobile Overlay & Drawer */
+.mobile-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);z-index:2000;opacity:0;visibility:hidden;transition:0.4s ease;}
+.mobile-overlay.active{opacity:1;visibility:visible;}
+.mobile-drawer{position:fixed;top:0;right:-100%;width:75%;max-width:320px;height:100%;background:#FFF8F0;z-index:2001;padding:30px 24px;overflow-y:auto;transition:0.45s cubic-bezier(0.4,0,0.2,1);box-shadow:-10px 0 40px rgba(0,0,0,0.15);display:flex;flex-direction:column;}
+.mobile-drawer.active{right:0;}
+.drawer-close{position:absolute;top:22px;right:22px;font-size:1.3rem;cursor:pointer;color:#1F1F1F;transition:0.3s;width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(0,0,0,0.04);}
+.drawer-close:hover{color:#C62828;background:rgba(198,40,40,0.08);}
+.drawer-menu{list-style:none;padding:40px 0 16px;flex:1;}
+.drawer-menu li{opacity:0;transform:translateY(12px);transition:0.35s ease;}
+.mobile-drawer.active .drawer-menu li{opacity:1;transform:translateY(0);}
+.drawer-menu li:nth-child(1){transition-delay:0.06s}
+.drawer-menu li:nth-child(2){transition-delay:0.10s}
+.drawer-menu li:nth-child(3){transition-delay:0.14s}
+.drawer-menu li:nth-child(4){transition-delay:0.18s}
+.drawer-menu li:nth-child(5){transition-delay:0.22s}
+.drawer-menu li:nth-child(6){transition-delay:0.26s}
+.drawer-menu li:nth-child(7){transition-delay:0.30s}
+.drawer-menu li:nth-child(8){transition-delay:0.34s}
+.drawer-menu li a{display:flex;align-items:center;gap:14px;padding:13px 16px;text-decoration:none;color:#1F1F1F;font-weight:500;font-size:0.95rem;border-radius:14px;transition:0.3s ease;}
+.drawer-menu li a:hover,.drawer-menu li a.active-link{background:rgba(198,40,40,0.06);color:#C62828;}
+.drawer-menu li a i{font-size:1.1rem;width:22px;text-align:center;color:#C62828;}
+.drawer-divider{height:1px;background:rgba(0,0,0,0.06);margin:8px 16px;}
+
+/* Menu Toggle X animation */
+.menu-toggle .fa-xmark{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-90deg);opacity:0;transition:0.4s;}
+.menu-toggle .fa-bars{transition:0.4s;}
+.menu-toggle.active .fa-bars{opacity:0;transform:rotate(90deg);}
+.menu-toggle.active .fa-xmark{opacity:1;transform:translate(-50%,-50%) rotate(0deg);}
+
+/* Mobile Profile Dropdown */
+.mobile-profile-btn{position:relative;}
+.mobile-profile-dropdown{position:absolute;top:calc(100% + 10px);right:0;width:260px;background:white;border-radius:18px;box-shadow:0 15px 50px rgba(0,0,0,0.12);padding:16px;opacity:0;visibility:hidden;transform:translateY(-8px);transition:0.3s ease;z-index:3000;}
+.mobile-profile-dropdown.active{opacity:1;visibility:visible;transform:translateY(0);}
+.mpd-guest{display:flex;flex-direction:column;gap:10px;}
+.mpd-guest .mpd-login{width:100%;padding:12px;border:2px solid #C62828;background:none;border-radius:12px;color:#C62828;font-weight:600;font-size:0.85rem;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;}
+.mpd-guest .mpd-login:hover{background:#C62828;color:white;}
+.mpd-guest .mpd-signup{width:100%;padding:12px;border:none;border-radius:12px;background:#C62828;color:white;font-weight:600;font-size:0.85rem;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;}
+.mpd-guest .mpd-signup:hover{background:#a51f1f;}
+.mpd-user{display:none;}
+.mpd-user.active{display:block;}
+.mpd-user-header{display:flex;align-items:center;gap:12px;padding-bottom:12px;border-bottom:1px solid #f0f0f0;margin-bottom:8px;}
+.mpd-user-avatar{width:40px;height:40px;border-radius:50%;background:rgba(198,40,40,0.08);border:2px solid #C62828;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.mpd-user-avatar i{font-size:0.9rem;color:#C62828;}
+.mpd-user-name{font-size:0.88rem;font-weight:600;}
+.mpd-user-email{font-size:0.75rem;color:#888;}
+.mpd-menu{list-style:none;padding:6px 0;}
+.mpd-menu li{opacity:1;transform:none;}
+.mpd-menu li a{display:flex;align-items:center;gap:10px;padding:10px 12px;text-decoration:none;color:#1F1F1F;font-size:0.85rem;font-weight:500;border-radius:10px;transition:0.3s;}
+.mpd-menu li a:hover{background:rgba(198,40,40,0.05);color:#C62828;}
+.mpd-menu li a i{color:#C62828;width:18px;text-align:center;font-size:0.85rem;}
+.mpd-logout{width:100%;padding:10px;border:1.5px solid #e53935;background:none;border-radius:10px;color:#e53935;font-weight:600;font-size:0.8rem;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:6px;}
+.mpd-logout:hover{background:#e53935;color:white;}
+::-webkit-scrollbar{width:0;height:0;}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+<div class="nav-left">
+<a href="Homepage.html" class="back-arrow"><i class="fa-solid fa-arrow-left"></i></a>
+<a href="Homepage.html" class="logo"><img src="assets/logo.svg" alt="QuickBite" class="logo-icon"><span class="logo-text">QuickBite</span></a>
+</div>
+<div class="nav-right">
+<a href="Homepage.html">Home</a>
+<a href="about.html">About Us</a>
+<i class="fa-solid fa-cart-shopping desktop-icon" onclick="window.location.href='cart.html'" style="cursor:pointer;"></i>
+<button class="login-btn" id="desktopLoginBtn" onclick="window.location.href='login.html'">LOG IN</button>
+<div class="desktop-profile" id="desktopProfile">
+<div class="desktop-profile-icon" id="desktopProfileIcon"><i class="fa-solid fa-user"></i></div>
+<div class="desktop-dropdown" id="desktopDropdown">
+<div class="dropdown-header">
+<div class="dropdown-avatar"><i class="fa-solid fa-user"></i></div>
+<div class="dropdown-info">
+<h4 id="desktopProfileName">User</h4>
+<span id="desktopProfileEmail">user@quickbite.com</span>
+</div>
+</div>
+<div class="dropdown-divider"></div>
+<ul class="dropdown-menu">
+<li><a href="#"><i class="fa-solid fa-user"></i>My Profile</a></li>
+<li><a href="#"><i class="fa-solid fa-bag-shopping"></i>My Orders</a></li>
+<li><a href="#"><i class="fa-solid fa-location-dot"></i>Saved Addresses</a></li>
+<li><a href="#"><i class="fa-solid fa-heart"></i>Favorites</a></li>
+<li><a href="#"><i class="fa-solid fa-bell"></i>Notifications</a></li>
+<li><a href="#"><i class="fa-solid fa-gear"></i>Settings</a></li>
+<li><a href="#"><i class="fa-solid fa-headset"></i>Help & Support</a></li>
+</ul>
+<div class="dropdown-divider"></div>
+<button class="dropdown-logout" id="desktopLogout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
+</div>
+</div>
+<div class="mobile-nav-icons">
+<div class="mobile-cart" onclick="window.location.href='cart.html'"><i class="fa-solid fa-cart-shopping"></i><span class="cart-badge">0</span></div>
+<div class="mobile-profile-btn" id="mobileProfileBtn"><i class="fa-solid fa-user"></i>
+<div class="mobile-profile-dropdown" id="mobileProfileDropdown">
+<div class="mpd-guest" id="mpdGuest">
+<button class="mpd-login" onclick="window.location.href='login.html'">LOG IN</button>
+<button class="mpd-signup" onclick="window.location.href='signup.html'">SIGN UP</button>
+</div>
+<div class="mpd-user" id="mpdUser">
+<div class="mpd-user-header">
+<div class="mpd-user-avatar"><i class="fa-solid fa-user"></i></div>
+<div>
+<div class="mpd-user-name" id="mpdName">User</div>
+<div class="mpd-user-email" id="mpdEmail">user@email.com</div>
+</div>
+</div>
+<ul class="mpd-menu">
+<li><a href="#"><i class="fa-solid fa-bag-shopping"></i>My Orders</a></li>
+<li><a href="#"><i class="fa-solid fa-heart"></i>Favorites</a></li>
+<li><a href="#"><i class="fa-solid fa-location-dot"></i>Saved Addresses</a></li>
+<li><a href="#"><i class="fa-solid fa-gear"></i>Account Settings</a></li>
+<li><a href="#"><i class="fa-solid fa-headset"></i>Help & Support</a></li>
+</ul>
+<button class="mpd-logout" id="mpdLogout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
+</div>
+</div>
+</div>
+</div>
+<div class="menu-toggle" id="menuToggle"><i class="fa-solid fa-bars"></i><i class="fa-solid fa-xmark"></i></div>
+</div>
+</nav>
+
+<!-- Mobile Overlay -->
+<div class="mobile-overlay" id="mobileOverlay"></div>
+
+<!-- Mobile Drawer -->
+<div class="mobile-drawer" id="mobileDrawer">
+<div class="drawer-close" id="drawerClose"><i class="fa-solid fa-xmark"></i></div>
+<ul class="drawer-menu">
+<li><a href="Homepage.html"><i class="fa-solid fa-house"></i>Home</a></li>
+<li><a href="food-delivery.html" class="active-link"><i class="fa-solid fa-motorcycle"></i>Food Delivery</a></li>
+<li><a href="dineout.html"><i class="fa-solid fa-utensils"></i>Dine-Out</a></li>
+<li><a href="#"><i class="fa-solid fa-tags"></i>Exclusive Offers</a></li>
+<li><div class="drawer-divider"></div></li>
+<li><a href="cart.html"><i class="fa-solid fa-cart-shopping"></i>Cart</a></li>
+<li><a href="about.html"><i class="fa-solid fa-circle-info"></i>About Us</a></li>
+<li><a href="#"><i class="fa-solid fa-headset"></i>Help Center</a></li>
+</ul>
+</div>
+
+<!-- Search -->
+<div class="search-section">
+<div class="search-row">
+<div class="search-box">
+<i class="fa-solid fa-magnifying-glass"></i>
+<input type="text" id="searchInput" placeholder="Search for dishes, restaurants..." autocomplete="off">
+</div>
+<button class="filter-btn-main veg-btn" id="vegBtn"><span class="veg-dot green"></span> Veg</button>
+<button class="filter-btn-main nonveg-btn" id="nonvegBtn"><span class="veg-dot red"></span> Non-Veg</button>
+</div>
+</div>
+
+<!-- Location -->
+<div class="location-strip">
+<i class="fa-solid fa-location-dot"></i> Delivering to
+<select id="citySelect">
+<option value="chennai">Chennai</option>
+<option value="mumbai">Mumbai</option>
+<option value="bangalore">Bangalore</option>
+</select>
+</div>
+
+<!-- Categories -->
+<section class="categories-section">
+<div class="categories-header">
+<h3>Categories</h3>
+<div class="scroll-arrows">
+<button id="catLeft"><i class="fa-solid fa-chevron-left"></i></button>
+<button id="catRight"><i class="fa-solid fa-chevron-right"></i></button>
+</div>
+</div>
+<div class="categories-track" id="catTrack">
+<div class="cat-item active" data-cat="all"><div class="cat-circle"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=200&auto=format&fit=crop" alt="All"></div><span>All</span></div>
+<div class="cat-item" data-cat="biryani"><div class="cat-circle"><img src="https://images.unsplash.com/photo-1701579231349-d7459c40919d?q=80&w=200&auto=format&fit=crop" alt="Biryani"></div><span>Biryani</span></div>
+<div class="cat-item" data-cat="pizza"><div class="cat-circle"><img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=200&auto=format&fit=crop" alt="Pizza"></div><span>Pizza</span></div>
+<div class="cat-item" data-cat="burger"><div class="cat-circle"><img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=200&auto=format&fit=crop" alt="Burger"></div><span>Burger</span></div>
+<div class="cat-item" data-cat="chinese"><div class="cat-circle"><img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?q=80&w=200&auto=format&fit=crop" alt="Chinese"></div><span>Chinese</span></div>
+<div class="cat-item" data-cat="south-indian"><div class="cat-circle"><img src="https://images.unsplash.com/photo-1630383249896-424e482df921?q=80&w=200&auto=format&fit=crop" alt="South Indian"></div><span>South Indian</span></div>
+<div class="cat-item" data-cat="north-indian"><div class="cat-circle"><img src="https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?q=80&w=200&auto=format&fit=crop" alt="North Indian"></div><span>North Indian</span></div>
+<div class="cat-item" data-cat="desserts"><div class="cat-circle"><img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?q=80&w=200&auto=format&fit=crop" alt="Desserts"></div><span>Desserts</span></div>
+<div class="cat-item" data-cat="drinks"><div class="cat-circle"><img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?q=80&w=200&auto=format&fit=crop" alt="Drinks"></div><span>Drinks</span></div>
+<div class="cat-item" data-cat="healthy"><div class="cat-circle"><img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=200&auto=format&fit=crop" alt="Healthy"></div><span>Healthy</span></div>
+<div class="cat-item" data-cat="rolls"><div class="cat-circle"><img src="https://images.unsplash.com/photo-1626700051175-6818013e1d4f?q=80&w=200&auto=format&fit=crop" alt="Rolls"></div><span>Rolls</span></div>
+<div class="cat-item" data-cat="sandwich"><div class="cat-circle"><img src="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?q=80&w=200&auto=format&fit=crop" alt="Sandwich"></div><span>Sandwich</span></div>
+<div class="cat-item" data-cat="pasta"><div class="cat-circle"><img src="https://images.unsplash.com/photo-1563379926898-05f4575a45d8?q=80&w=200&auto=format&fit=crop" alt="Pasta"></div><span>Pasta</span></div>
+<div class="cat-item" data-cat="seafood"><div class="cat-circle"><img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?q=80&w=200&auto=format&fit=crop" alt="Seafood"></div><span>Seafood</span></div>
+<div class="cat-item" data-cat="thali"><div class="cat-circle"><img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?q=80&w=200&auto=format&fit=crop" alt="Thali"></div><span>Thali</span></div>
+<div class="cat-item" data-cat="snacks"><div class="cat-circle"><img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?q=80&w=200&auto=format&fit=crop" alt="Snacks"></div><span>Snacks</span></div>
+<div class="cat-item" data-cat="icecream"><div class="cat-circle"><img src="https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?q=80&w=200&auto=format&fit=crop" alt="Ice Cream"></div><span>Ice Cream</span></div>
+<div class="cat-item" data-cat="cake"><div class="cat-circle"><img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=200&auto=format&fit=crop" alt="Cake"></div><span>Cake</span></div>
+</div>
+</section>
+
+<!-- Promo Banner -->
+<section class="promo-section">
+<div class="promo-banner">
+<h3>Get Flat ₹100 Off!</h3>
+<p>Use code QUICKBITE100 on orders above ₹299. Valid on all restaurants.</p>
+<button class="promo-btn">Order Now</button>
+</div>
+</section>
+
+<!-- Recommended -->
+<section class="recommend-section">
+<div class="recommend-header">
+<h3>Recommended for you</h3>
+<div class="scroll-arrows">
+<button id="recLeft"><i class="fa-solid fa-chevron-left"></i></button>
+<button id="recRight"><i class="fa-solid fa-chevron-right"></i></button>
+</div>
+</div>
+<div class="recommend-track" id="recTrack"></div>
+</section>
+
+<!-- Restaurants -->
+<section class="restaurants-section">
+<div class="restaurants-header">
+<h3 id="restTitle">Restaurants delivering to you</h3>
+<span id="restCount"></span>
+</div>
+<div class="rest-grid" id="restGrid"></div>
+<div class="no-results" id="noResults" style="text-align:center;padding:50px 20px;display:none;">
+<i class="fa-solid fa-burger" style="font-size:2.5rem;color:#ddd;margin-bottom:12px;display:block;"></i>
+<h3 style="color:#888;font-size:1.1rem;margin-bottom:6px;">No results found</h3>
+<p style="color:#aaa;font-size:0.85rem;">Try a different search or category</p>
+</div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+<div class="footer-grid">
+<div class="footer-col">
+<a href="Homepage.html" class="footer-brand">
+<img src="assets/logo.svg" alt="QuickBite" class="footer-logo-icon">
+<span class="footer-logo-text">QuickBite</span>
+</a>
+<p>Delivering happiness with delicious food and premium restaurant experiences.</p>
+<div class="footer-social">
+<i class="fa-brands fa-instagram"></i>
+<i class="fa-brands fa-facebook-f"></i>
+<i class="fa-brands fa-x-twitter"></i>
+</div>
+</div>
+<div class="footer-col">
+<h3>Quick Links</h3>
+<a href="Homepage.html">Home</a>
+<a href="food-delivery.html">Food Delivery</a>
+<a href="dineout.html">Dine Out</a>
+<a href="about.html">About Us</a>
+</div>
+<div class="footer-col">
+<h3>Support</h3>
+<a href="#">Help Center</a>
+<a href="terms.html">Terms & Conditions</a>
+<a href="privacy.html">Privacy Policy</a>
+</div>
+<div class="footer-col">
+<h3>Contact</h3>
+<p>support@quickbite.com</p>
+<p>+91 98765 43210</p>
+<p>Chennai, India</p>
+</div>
+</div>
+<div class="footer-bottom">
+<p>&copy; 2026 QuickBite. All Rights Reserved.</p>
+</div>
+</footer>
+
+<script src="food-data.js"></script>
+<script>
+let currentCity='chennai',currentCat='all',searchQuery='',dietFilter='all';
+let cart=JSON.parse(localStorage.getItem('quickbite_cart')||'[]');
+const recTrack=document.getElementById('recTrack'),restGrid=document.getElementById('restGrid'),noResults=document.getElementById('noResults'),restTitle=document.getElementById('restTitle'),restCount=document.getElementById('restCount'),searchInput=document.getElementById('searchInput'),citySelect=document.getElementById('citySelect');
+
+function saveCart(){localStorage.setItem('quickbite_cart',JSON.stringify(cart));updateBadge();}
+function updateBadge(){const total=cart.reduce((s,c)=>s+c.qty,0);document.querySelectorAll('.cart-badge').forEach(b=>b.textContent=total);}
+function addToCart(name,restaurant,price){cart.push({name,restaurant,price,qty:1});saveCart();render();}
+function updateQty(name,restaurant,price,delta){
+const idx=cart.findIndex(c=>c.name===name&&c.restaurant===restaurant);
+if(idx===-1){if(delta>0)cart.push({name,restaurant,price,qty:1});}
+else{cart[idx].qty+=delta;if(cart[idx].qty<=0)cart.splice(idx,1);}
+saveCart();render();
+}
+
+function getFiltered(){
+let data=foods[currentCity];
+if(currentCat!=='all') data=data.filter(f=>f.type===currentCat);
+if(dietFilter!=='all') data=data.filter(f=>f.diet===dietFilter);
+if(searchQuery){const q=searchQuery.toLowerCase();data=data.filter(f=>f.name.toLowerCase().includes(q)||f.restaurant.toLowerCase().includes(q)||f.type.includes(q));}
+return data;
+}
+
+function renderRecommended(){
+const data=foods[currentCity].slice(0,12);
+recTrack.innerHTML=data.map(f=>{
+const cartItem=cart.find(c=>c.name===f.name && c.restaurant===f.restaurant);
+const btnHtml=cartItem
+? '<div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;"><span style="font-size:0.82rem;font-weight:700;color:#1F1F1F;">\u20b9'+f.price+'</span><div style="display:inline-flex;align-items:center;border:2px solid #C62828;border-radius:8px;overflow:hidden;"><button onclick="event.stopPropagation();updateQty(\''+f.name.replace(/'/g,"\\'")+'\',\''+f.restaurant.replace(/'/g,"\\'")+'\','+f.price+',-1)" style="width:28px;height:28px;border:none;background:#C62828;color:white;font-size:0.85rem;cursor:pointer;font-weight:700;">\u2212</button><span style="padding:0 10px;font-size:0.78rem;font-weight:700;color:#C62828;">'+cartItem.qty+'</span><button onclick="event.stopPropagation();updateQty(\''+f.name.replace(/'/g,"\\'")+'\',\''+f.restaurant.replace(/'/g,"\\'")+'\','+f.price+',1)" style="width:28px;height:28px;border:none;background:#C62828;color:white;font-size:0.85rem;cursor:pointer;font-weight:700;">+</button></div></div>'
+: '<div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;"><span style="font-size:0.82rem;font-weight:700;color:#1F1F1F;">\u20b9'+f.price+'</span><button onclick="event.stopPropagation();addToCart(\''+f.name.replace(/'/g,"\\'")+'\',\''+f.restaurant.replace(/'/g,"\\'")+'\','+f.price+')" style="padding:5px 16px;border:2px solid #C62828;border-radius:8px;background:none;color:#C62828;font-weight:600;font-size:0.75rem;cursor:pointer;font-family:Poppins,sans-serif;transition:0.3s;">ADD</button></div>';
+return '<div class="rec-card"><img src="'+f.img+'" alt="'+f.name+'" onerror="this.src=\'https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=600&auto=format&fit=crop\'"><div class="rec-card-body"><h4>'+f.name+'</h4><div class="rec-meta"><span class="rec-rating">\u2605 '+f.rating+'</span><span>'+f.restaurant+'</span></div>'+btnHtml+'</div></div>';
+}).join('');
+}
+
+function renderRestaurants(){
+const data=getFiltered();
+const city=currentCity.charAt(0).toUpperCase()+currentCity.slice(1);
+if(searchQuery){restTitle.textContent='Results for "'+searchQuery+'"';}
+else{restTitle.textContent='Restaurants delivering to you';}
+restCount.textContent=data.length+' options';
+if(data.length===0){restGrid.innerHTML='';noResults.style.display='block';return;}
+noResults.style.display='none';
+restGrid.innerHTML=data.map((f,i)=>{
+const cartItem=cart.find(c=>c.name===f.name && c.restaurant===f.restaurant);
+const btnHtml=cartItem
+? '<div class="qty-control"><button onclick="updateQty(\''+f.name.replace(/'/g,"\\'")+'\',\''+f.restaurant.replace(/'/g,"\\'")+'\','+f.price+',-1)">−</button><span>'+cartItem.qty+'</span><button onclick="updateQty(\''+f.name.replace(/'/g,"\\'")+'\',\''+f.restaurant.replace(/'/g,"\\'")+'\','+f.price+',1)">+</button></div>'
+: '<button class="add-btn" onclick="addToCart(\''+f.name.replace(/'/g,"\\'")+'\',\''+f.restaurant.replace(/'/g,"\\'")+'\','+f.price+')">ADD</button>';
+return '<div class="rest-card"><img src="'+f.img+'" alt="'+f.name+'" onerror="this.src=\'https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=600&auto=format&fit=crop\'"><div class="rest-card-body"><h4>'+f.name+'</h4><p class="rest-cuisine">'+f.restaurant+' \u2022 '+f.type.replace('-',' ')+'</p><div class="rest-card-bottom"><span class="rest-rating">\u2605 '+f.rating+'</span><span class="rest-time">\u20b9'+f.price+'</span>'+btnHtml+'</div></div></div>';
+}).join('');
+}
+
+function render(){renderRecommended();renderRestaurants();updateBadge();}
+
+// Category clicks
+document.querySelectorAll('.cat-item').forEach(c=>{c.addEventListener('click',()=>{document.querySelectorAll('.cat-item').forEach(x=>x.classList.remove('active'));c.classList.add('active');currentCat=c.dataset.cat;renderRestaurants();});});
+
+// City select
+citySelect.addEventListener('change',()=>{currentCity=citySelect.value;render();});
+
+// Veg/Non-Veg filter
+document.getElementById('vegBtn').addEventListener('click',function(){
+if(dietFilter==='veg'){dietFilter='all';this.classList.remove('active');}
+else{dietFilter='veg';this.classList.add('active');document.getElementById('nonvegBtn').classList.remove('active');}
+render();
+});
+document.getElementById('nonvegBtn').addEventListener('click',function(){
+if(dietFilter==='nonveg'){dietFilter='all';this.classList.remove('active');}
+else{dietFilter='nonveg';this.classList.add('active');document.getElementById('vegBtn').classList.remove('active');}
+render();
+});
+
+// Search
+searchInput.addEventListener('input',()=>{searchQuery=searchInput.value.trim();renderRestaurants();});
+
+// Scroll arrows
+document.getElementById('catLeft').addEventListener('click',()=>{document.getElementById('catTrack').scrollBy(-150,0);});
+document.getElementById('catRight').addEventListener('click',()=>{document.getElementById('catTrack').scrollBy(150,0);});
+document.getElementById('recLeft').addEventListener('click',()=>{recTrack.scrollBy(-220,0);});
+document.getElementById('recRight').addEventListener('click',()=>{recTrack.scrollBy(220,0);});
+
+// Login state
+(function(){
+const l=localStorage.getItem('quickbite_logged_in');
+const userName=localStorage.getItem('quickbite_user')||'User';
+const userEmail=localStorage.getItem('quickbite_email')||'user@email.com';
+if(l==='true'){
+document.getElementById('desktopLoginBtn').style.display='none';
+document.getElementById('desktopProfile').classList.add('active');
+document.getElementById('desktopProfileName').textContent=userName;
+document.getElementById('desktopProfileEmail').textContent=userEmail;
+document.getElementById('mpdGuest').style.display='none';
+document.getElementById('mpdUser').classList.add('active');
+document.getElementById('mpdName').textContent=userName;
+document.getElementById('mpdEmail').textContent=userEmail;
+}
+
+// Desktop profile dropdown toggle
+const desktopProfileIcon=document.getElementById('desktopProfileIcon');
+const desktopDropdown=document.getElementById('desktopDropdown');
+desktopProfileIcon.addEventListener('click',(e)=>{e.stopPropagation();desktopDropdown.classList.toggle('active');});
+document.addEventListener('click',(e)=>{if(!document.getElementById('desktopProfile').contains(e.target))desktopDropdown.classList.remove('active');});
+
+// Desktop logout
+const desktopLogout=document.getElementById('desktopLogout');
+if(desktopLogout){
+desktopLogout.addEventListener('click',()=>{
+localStorage.removeItem('quickbite_logged_in');
+localStorage.removeItem('quickbite_user');
+localStorage.removeItem('quickbite_email');
+document.getElementById('desktopLoginBtn').style.display='block';
+document.getElementById('desktopProfile').classList.remove('active');
+desktopDropdown.classList.remove('active');
+document.getElementById('mpdGuest').style.display='flex';
+document.getElementById('mpdUser').classList.remove('active');
+});
+}
+
+// Mobile profile dropdown
+const mobileProfileBtn=document.getElementById('mobileProfileBtn');
+const mobileProfileDropdown=document.getElementById('mobileProfileDropdown');
+mobileProfileBtn.addEventListener('click',(e)=>{e.stopPropagation();mobileProfileDropdown.classList.toggle('active');});
+document.addEventListener('click',(e)=>{if(!mobileProfileBtn.contains(e.target))mobileProfileDropdown.classList.remove('active');});
+
+// Mobile profile logout
+const mpdLogout=document.getElementById('mpdLogout');
+if(mpdLogout){
+mpdLogout.addEventListener('click',()=>{
+localStorage.removeItem('quickbite_logged_in');
+localStorage.removeItem('quickbite_user');
+localStorage.removeItem('quickbite_email');
+document.getElementById('mpdGuest').style.display='flex';
+document.getElementById('mpdUser').classList.remove('active');
+document.getElementById('desktopLoginBtn').style.display='block';
+document.getElementById('desktopProfile').classList.remove('active');
+mobileProfileDropdown.classList.remove('active');
+});
+}
+
+// Toggle menu / Drawer
+const menuToggle=document.getElementById('menuToggle');
+const mobileOverlay=document.getElementById('mobileOverlay');
+const mobileDrawer=document.getElementById('mobileDrawer');
+const drawerClose=document.getElementById('drawerClose');
+
+menuToggle.addEventListener('click',()=>{
+mobileDrawer.classList.toggle('active');
+mobileOverlay.classList.toggle('active');
+menuToggle.classList.toggle('active');
+document.body.style.overflow=mobileDrawer.classList.contains('active')?'hidden':'';
+});
+mobileOverlay.addEventListener('click',()=>{
+mobileDrawer.classList.remove('active');
+mobileOverlay.classList.remove('active');
+menuToggle.classList.remove('active');
+document.body.style.overflow='';
+});
+drawerClose.addEventListener('click',()=>{
+mobileDrawer.classList.remove('active');
+mobileOverlay.classList.remove('active');
+menuToggle.classList.remove('active');
+document.body.style.overflow='';
+});
+})();
+
+render();
+updateBadge();
+</script>
+</body>
+</html>

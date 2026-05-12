@@ -14,8 +14,8 @@ html{scroll-behavior:smooth;}
 
 /* Navbar */
 .navbar{display:flex;justify-content:space-between;align-items:center;padding:20px 7%;background:#FFF8F0;position:sticky;top:0;z-index:1000;box-shadow:0 3px 12px rgba(0,0,0,0.04);}
-.nav-left{display:flex;align-items:center;gap:16px;}
-.back-arrow{width:36px;height:36px;border-radius:50%;background:rgba(0,0,0,0.04);display:flex;align-items:center;justify-content:center;text-decoration:none;color:#1F1F1F;transition:0.3s;font-size:0.9rem;}
+.nav-left{display:flex;align-items:center;gap:12px;}
+.back-arrow{width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,0.04);display:flex;align-items:center;justify-content:center;text-decoration:none;color:#1F1F1F;transition:0.3s;font-size:0.85rem;flex-shrink:0;}
 .back-arrow:hover{background:rgba(198,40,40,0.08);color:#C62828;}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
 .logo-icon{width:42px;height:42px;border-radius:50%;}
@@ -23,28 +23,97 @@ html{scroll-behavior:smooth;}
 .nav-right{display:flex;align-items:center;gap:22px;}
 .nav-right a{text-decoration:none;color:#1F1F1F;font-weight:500;transition:0.3s;}
 .nav-right a:hover{color:#C62828;}
-.nav-icon{font-size:1.1rem;cursor:pointer;transition:0.3s;color:#1F1F1F;}
-.nav-icon:hover{color:#C62828;}
+.desktop-icon{font-size:1.1rem;cursor:pointer;transition:0.3s;color:#1F1F1F;}
+.desktop-icon:hover{color:#C62828;}
+
+/* Mobile Nav Icons */
+.mobile-nav-icons{display:none;align-items:center;gap:14px;}
+.mobile-cart{position:relative;width:36px;height:36px;border-radius:50%;background:rgba(0,0,0,0.04);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:0.3s;}
+.mobile-cart:hover{background:rgba(198,40,40,0.08);}
+.mobile-cart i{font-size:1rem;color:#1F1F1F;}
+.cart-badge{position:absolute;top:-2px;right:-2px;width:18px;height:18px;background:#C62828;color:white;font-size:0.65rem;font-weight:700;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.mobile-profile-btn{width:36px;height:36px;border-radius:50%;background:rgba(198,40,40,0.08);border:2px solid #C62828;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:0.3s;position:relative;}
+.mobile-profile-btn i{font-size:0.9rem;color:#C62828;}
+.mobile-profile-btn:hover{background:rgba(198,40,40,0.15);}
+.mobile-profile-dropdown{position:absolute;top:calc(100% + 10px);right:0;width:260px;background:white;border-radius:18px;box-shadow:0 15px 50px rgba(0,0,0,0.12);padding:16px;opacity:0;visibility:hidden;transform:translateY(-8px);transition:0.3s ease;z-index:3000;}
+.mobile-profile-dropdown.active{opacity:1;visibility:visible;transform:translateY(0);}
+.mpd-guest{display:flex;flex-direction:column;gap:10px;}
+.mpd-guest .mpd-login{width:100%;padding:12px;border:2px solid #C62828;background:none;border-radius:12px;color:#C62828;font-weight:600;font-size:0.85rem;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;}
+.mpd-guest .mpd-login:hover{background:#C62828;color:white;}
+.mpd-guest .mpd-signup{width:100%;padding:12px;border:none;border-radius:12px;background:#C62828;color:white;font-weight:600;font-size:0.85rem;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;}
+.mpd-guest .mpd-signup:hover{background:#a51f1f;}
+.mpd-user{display:none;}
+.mpd-user.active{display:block;}
+.mpd-user-header{display:flex;align-items:center;gap:12px;padding-bottom:12px;border-bottom:1px solid #f0f0f0;margin-bottom:8px;}
+.mpd-user-avatar{width:40px;height:40px;border-radius:50%;background:rgba(198,40,40,0.08);border:2px solid #C62828;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.mpd-user-avatar i{font-size:0.9rem;color:#C62828;}
+.mpd-user-name{font-size:0.88rem;font-weight:600;}
+.mpd-user-email{font-size:0.75rem;color:#888;}
+.mpd-menu{list-style:none;padding:6px 0;}
+.mpd-menu li a{display:flex;align-items:center;gap:10px;padding:10px 12px;text-decoration:none;color:#1F1F1F;font-size:0.85rem;font-weight:500;border-radius:10px;transition:0.3s;}
+.mpd-menu li a:hover{background:rgba(198,40,40,0.05);color:#C62828;}
+.mpd-menu li a i{color:#C62828;width:18px;text-align:center;font-size:0.85rem;}
+.mpd-logout{width:100%;padding:10px;border:1.5px solid #e53935;background:none;border-radius:10px;color:#e53935;font-weight:600;font-size:0.8rem;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:6px;}
+.mpd-logout:hover{background:#e53935;color:white;}
+
+/* Toggle Menu */
+.menu-toggle{display:none;font-size:1.3rem;cursor:pointer;color:#1F1F1F;transition:0.3s;width:24px;height:24px;position:relative;}
+.menu-toggle .fa-bars,.menu-toggle .fa-xmark{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);transition:0.4s ease;}
+.menu-toggle .fa-xmark{opacity:0;transform:translate(-50%,-50%) rotate(-90deg);}
+.menu-toggle.active .fa-bars{opacity:0;transform:translate(-50%,-50%) rotate(90deg);}
+.menu-toggle.active .fa-xmark{opacity:1;transform:translate(-50%,-50%) rotate(0deg);}
+.menu-toggle:hover{color:#C62828;}
+
+/* Mobile Overlay & Drawer */
+.mobile-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);z-index:2000;opacity:0;visibility:hidden;transition:0.4s ease;}
+.mobile-overlay.active{opacity:1;visibility:visible;}
+.mobile-drawer{position:fixed;top:0;right:-100%;width:75%;max-width:320px;height:100%;background:#FFF8F0;z-index:2001;padding:30px 24px;overflow-y:auto;transition:0.45s cubic-bezier(0.4,0,0.2,1);box-shadow:-10px 0 40px rgba(0,0,0,0.15);display:flex;flex-direction:column;}
+.mobile-drawer.active{right:0;}
+.drawer-close{position:absolute;top:22px;right:22px;font-size:1.3rem;cursor:pointer;color:#1F1F1F;transition:0.3s;width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(0,0,0,0.04);}
+.drawer-close:hover{color:#C62828;background:rgba(198,40,40,0.08);}
+.drawer-menu{list-style:none;padding:40px 0 16px;flex:1;}
+.drawer-menu li{opacity:0;transform:translateY(12px);transition:0.35s ease;}
+.mobile-drawer.active .drawer-menu li{opacity:1;transform:translateY(0);}
+.drawer-menu li:nth-child(1){transition-delay:0.06s}
+.drawer-menu li:nth-child(2){transition-delay:0.10s}
+.drawer-menu li:nth-child(3){transition-delay:0.14s}
+.drawer-menu li:nth-child(4){transition-delay:0.18s}
+.drawer-menu li:nth-child(5){transition-delay:0.22s}
+.drawer-menu li:nth-child(6){transition-delay:0.26s}
+.drawer-menu li:nth-child(7){transition-delay:0.30s}
+.drawer-menu li:nth-child(8){transition-delay:0.34s}
+.drawer-menu li a{display:flex;align-items:center;gap:14px;padding:13px 16px;text-decoration:none;color:#1F1F1F;font-weight:500;font-size:0.95rem;border-radius:14px;transition:0.3s ease;}
+.drawer-menu li a:hover,.drawer-menu li a.active-link{background:rgba(198,40,40,0.06);color:#C62828;}
+.drawer-menu li a i{font-size:1.1rem;width:22px;text-align:center;color:#C62828;}
+.drawer-divider{height:1px;background:rgba(0,0,0,0.06);margin:8px 16px;}
+
+/* Sticky Search Bar */
+.sticky-search{position:sticky;top:72px;z-index:998;padding:12px 7%;background:#FFF8F0;margin-bottom:0;}
+.sticky-search-input{width:100%;padding:14px 44px 14px 44px;border:none;border-radius:16px;background:white;font-size:0.9rem;font-family:'Poppins',sans-serif;outline:none;box-shadow:0 4px 18px rgba(0,0,0,0.06);transition:0.3s;}
+.sticky-search-input:focus{box-shadow:0 6px 25px rgba(198,40,40,0.1);}
+.sticky-search > i{position:absolute;left:calc(7% + 16px);top:50%;transform:translateY(-50%);color:#bbb;font-size:0.9rem;pointer-events:none;}
+.search-clear{position:absolute;right:calc(7% + 14px);top:50%;transform:translateY(-50%);width:28px;height:28px;border:none;border-radius:50%;background:rgba(0,0,0,0.06);color:#888;font-size:0.75rem;cursor:pointer;display:none;align-items:center;justify-content:center;transition:0.3s;}
+.search-clear.visible{display:flex;}
+.search-clear:hover{background:rgba(198,40,40,0.1);color:#C62828;}
+
+/* Desktop login btn */
 .login-btn{padding:10px 22px;border:2px solid #C62828;border-radius:12px;background:none;color:#C62828;font-weight:600;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;font-size:0.85rem;}
 .login-btn:hover{background:#C62828;color:white;}
-.profile-icon{width:36px;height:36px;border-radius:50%;background:rgba(198,40,40,0.08);border:2px solid #C62828;display:none;align-items:center;justify-content:center;cursor:pointer;transition:0.3s;}
-.profile-icon.active{display:flex;}
-.profile-icon i{font-size:0.9rem;color:#C62828;}
-.profile-icon:hover{background:rgba(198,40,40,0.15);}
+.profile-icon-desktop{width:36px;height:36px;border-radius:50%;background:rgba(198,40,40,0.08);border:2px solid #C62828;display:none;align-items:center;justify-content:center;cursor:pointer;transition:0.3s;}
+.profile-icon-desktop.active{display:flex;}
+.profile-icon-desktop i{font-size:0.9rem;color:#C62828;}
 
 /* Hero Banner */
-.dine-hero{padding:60px 7% 40px;background:linear-gradient(135deg,rgba(198,40,40,0.05),rgba(255,248,240,1));}
+.dine-hero{padding:24px 7% 30px;background:linear-gradient(135deg,rgba(198,40,40,0.05),rgba(255,248,240,1));}
 .dine-hero h1{font-size:2.8rem;font-weight:800;margin-bottom:10px;}
 .dine-hero h1 span{color:#C62828;}
 .dine-hero p{font-size:1.05rem;color:#666;max-width:600px;line-height:1.8;}
 
 /* Location Selector */
 .location-bar{padding:0 7%;margin-top:-10px;margin-bottom:30px;}
-.location-selector{display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
-.location-selector label{font-weight:600;font-size:1rem;color:#1F1F1F;}
-.location-btn{padding:10px 22px;border:2px solid #eee;border-radius:30px;background:white;font-family:'Poppins',sans-serif;font-weight:500;font-size:0.9rem;cursor:pointer;transition:0.3s;color:#666;}
-.location-btn:hover{border-color:#C62828;color:#C62828;}
-.location-btn.active{background:#C62828;color:white;border-color:#C62828;}
+.location-strip{display:flex;align-items:center;gap:8px;font-size:0.85rem;color:#666;}
+.location-strip i{color:#C62828;}
+.location-strip select{border:none;background:none;font-family:'Poppins',sans-serif;font-weight:600;font-size:0.85rem;color:#1F1F1F;outline:none;cursor:pointer;}
 
 /* Filters */
 .filters{padding:0 7% 30px;display:flex;gap:12px;flex-wrap:wrap;}
@@ -96,22 +165,30 @@ html{scroll-behavior:smooth;}
 /* Responsive */
 @media(max-width:768px){
 .dine-hero h1{font-size:2rem;}
+.dine-hero{padding:20px 5% 24px;}
 .nav-right a{display:none;}
-.nav-right{gap:14px;}
-.login-btn{padding:8px 16px;font-size:0.8rem;}
+.nav-right .login-btn{display:none;}
+.nav-right .desktop-icon{display:none;}
+.nav-right .profile-icon-desktop{display:none !important;}
+.mobile-nav-icons{display:flex;}
+.menu-toggle{display:block;}
 .logo-text{font-size:1.3rem;}
 .logo-icon{width:34px;height:34px;}
-.back-arrow{width:32px;height:32px;font-size:0.8rem;}
-.nav-left{gap:10px;}
+.nav-left{gap:8px;}
+.back-arrow{width:30px;height:30px;font-size:0.8rem;}
 .restaurant-grid{grid-template-columns:1fr;}
 .filters{overflow-x:auto;flex-wrap:nowrap;padding-bottom:10px;}
 .filter-btn{white-space:nowrap;flex-shrink:0;}
+.sticky-search{position:sticky;top:60px;padding:8px 5%;background:#FFF8F0;z-index:998;}
+.sticky-search > i{left:calc(5% + 14px);}
+.search-clear{right:calc(5% + 12px);}
 }
 @media(max-width:520px){
 .dine-hero h1{font-size:1.6rem;}
-.location-selector{flex-direction:column;align-items:flex-start;gap:10px;}
+.location-strip{padding-left:5%;padding-right:5%;}
 .logo-text{display:none;}
-.navbar{padding:16px 5%;}
+.navbar{padding:14px 5%;}
+.sticky-search{top:54px;}
 }
 
 ::-webkit-scrollbar{width:0;height:0;}
@@ -130,11 +207,77 @@ html{scroll-behavior:smooth;}
 </div>
 <div class="nav-right">
 <a href="Homepage.html">Home</a>
-<i class="fa-solid fa-magnifying-glass nav-icon"></i>
-<button class="login-btn" id="loginBtn" onclick="window.location.href='login.html'">LOG IN</button>
-<div class="profile-icon" id="profileIcon" onclick="window.location.href='Homepage.html'"><i class="fa-solid fa-user"></i></div>
+<a href="about.html">About Us</a>
+<i class="fa-solid fa-cart-shopping desktop-icon" onclick="window.location.href='cart.html'" style="cursor:pointer;"></i>
+<button class="login-btn" id="desktopLoginBtn" onclick="window.location.href='login.html'">LOG IN</button>
+<div class="profile-icon-desktop" id="desktopProfileIcon"><i class="fa-solid fa-user"></i></div>
+
+<div class="mobile-nav-icons">
+<div class="mobile-cart" onclick="window.location.href='cart.html'">
+<i class="fa-solid fa-cart-shopping"></i>
+<span class="cart-badge">0</span>
+</div>
+<div class="mobile-profile-btn" id="mobileProfileBtn">
+<i class="fa-solid fa-user"></i>
+<div class="mobile-profile-dropdown" id="mobileProfileDropdown">
+<div class="mpd-guest" id="mpdGuest">
+<button class="mpd-login" onclick="window.location.href='login.html'">LOG IN</button>
+<button class="mpd-signup" onclick="window.location.href='signup.html'">SIGN UP</button>
+</div>
+<div class="mpd-user" id="mpdUser">
+<div class="mpd-user-header">
+<div class="mpd-user-avatar"><i class="fa-solid fa-user"></i></div>
+<div>
+<div class="mpd-user-name" id="mpdName">User</div>
+<div class="mpd-user-email" id="mpdEmail">user@email.com</div>
+</div>
+</div>
+<ul class="mpd-menu">
+<li><a href="#"><i class="fa-solid fa-bag-shopping"></i>My Orders</a></li>
+<li><a href="#"><i class="fa-solid fa-heart"></i>Favorites</a></li>
+<li><a href="#"><i class="fa-solid fa-location-dot"></i>Saved Addresses</a></li>
+<li><a href="#"><i class="fa-solid fa-credit-card"></i>Payment Methods</a></li>
+<li><a href="#"><i class="fa-solid fa-bell"></i>Notifications</a></li>
+<li><a href="#"><i class="fa-solid fa-gear"></i>Account Settings</a></li>
+<li><a href="#"><i class="fa-solid fa-headset"></i>Help & Support</a></li>
+</ul>
+<button class="mpd-logout" id="mpdLogout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
+</div>
+</div>
+</div>
+</div>
+
+<div class="menu-toggle" id="menuToggle">
+<i class="fa-solid fa-bars"></i>
+<i class="fa-solid fa-xmark"></i>
+</div>
 </div>
 </nav>
+
+<!-- Mobile Overlay -->
+<div class="mobile-overlay" id="mobileOverlay"></div>
+
+<!-- Mobile Drawer -->
+<div class="mobile-drawer" id="mobileDrawer">
+<div class="drawer-close" id="drawerClose"><i class="fa-solid fa-xmark"></i></div>
+<ul class="drawer-menu">
+<li><a href="Homepage.html"><i class="fa-solid fa-house"></i>Home</a></li>
+<li><a href="food-delivery.html"><i class="fa-solid fa-motorcycle"></i>Food Delivery</a></li>
+<li><a href="dineout.html" class="active-link"><i class="fa-solid fa-utensils"></i>Dine-Out</a></li>
+<li><a href="#"><i class="fa-solid fa-tags"></i>Exclusive Offers</a></li>
+<li><div class="drawer-divider"></div></li>
+<li><a href="cart.html"><i class="fa-solid fa-cart-shopping"></i>Cart</a></li>
+<li><a href="about.html"><i class="fa-solid fa-circle-info"></i>About Us</a></li>
+<li><a href="#"><i class="fa-solid fa-headset"></i>Help Center</a></li>
+</ul>
+</div>
+
+<!-- Sticky Search Bar -->
+<div class="sticky-search">
+<i class="fa-solid fa-magnifying-glass"></i>
+<input type="text" class="sticky-search-input" id="searchInput" placeholder="Search restaurants, cuisines, dishes..." autocomplete="off">
+<button class="search-clear" id="searchClear"><i class="fa-solid fa-xmark"></i></button>
+</div>
 
 <!-- Hero -->
 <section class="dine-hero">
@@ -144,11 +287,13 @@ html{scroll-behavior:smooth;}
 
 <!-- Location Selector -->
 <div class="location-bar">
-<div class="location-selector">
-<label><i class="fa-solid fa-location-dot" style="color:#C62828"></i> Select City:</label>
-<button class="location-btn active" data-city="chennai">Chennai</button>
-<button class="location-btn" data-city="mumbai">Mumbai</button>
-<button class="location-btn" data-city="bangalore">Bangalore</button>
+<div class="location-strip">
+<i class="fa-solid fa-location-dot"></i> Delivering to
+<select id="citySelect">
+<option value="chennai">Chennai</option>
+<option value="mumbai">Mumbai</option>
+<option value="bangalore">Bangalore</option>
+</select>
 </div>
 </div>
 
@@ -169,8 +314,8 @@ html{scroll-behavior:smooth;}
 <div class="restaurant-grid" id="restaurantGrid"></div>
 <div class="no-results" id="noResults">
 <i class="fa-solid fa-utensils"></i>
-<h3>No restaurants found</h3>
-<p>Try changing the filter or location</p>
+<h3 id="noResultsTitle">No restaurants found</h3>
+<p id="noResultsText">Try changing the filter or location</p>
 </div>
 </section>
 
@@ -192,15 +337,15 @@ html{scroll-behavior:smooth;}
 <div class="footer-col">
 <h3>Quick Links</h3>
 <a href="Homepage.html">Home</a>
+<a href="food-delivery.html">Food Delivery</a>
 <a href="dineout.html">Dine Out</a>
-<a href="#">Popular Dishes</a>
-<a href="#">Top Restaurants</a>
+<a href="about.html">About Us</a>
 </div>
 <div class="footer-col">
 <h3>Support</h3>
 <a href="#">Help Center</a>
-<a href="#">Terms & Conditions</a>
-<a href="#">Privacy Policy</a>
+<a href="terms.html">Terms & Conditions</a>
+<a href="privacy.html">Privacy Policy</a>
 </div>
 <div class="footer-col">
 <h3>Contact</h3>
@@ -301,28 +446,79 @@ bangalore: [
 
 let currentCity = 'chennai';
 let currentFilter = 'all';
+let searchQuery = '';
 
 const grid = document.getElementById('restaurantGrid');
 const gridTitle = document.getElementById('gridTitle');
 const noResults = document.getElementById('noResults');
+const noResultsTitle = document.getElementById('noResultsTitle');
+const noResultsText = document.getElementById('noResultsText');
+const searchInput = document.getElementById('searchInput');
+const searchClear = document.getElementById('searchClear');
 
 function renderRestaurants(){
 const cityData = restaurants[currentCity];
-const filtered = currentFilter === 'all' ? cityData : cityData.filter(r => r.type === currentFilter);
+let filtered = currentFilter === 'all' ? cityData : cityData.filter(r => r.type === currentFilter);
+
+// Apply search filter
+if(searchQuery.length > 0){
+const q = searchQuery.toLowerCase();
+filtered = filtered.filter(r =>
+r.name.toLowerCase().includes(q) ||
+r.cuisine.toLowerCase().includes(q) ||
+r.area.toLowerCase().includes(q) ||
+r.type.toLowerCase().includes(q) ||
+r.badge.toLowerCase().includes(q)
+);
+}
+
 const cityName = currentCity.charAt(0).toUpperCase() + currentCity.slice(1);
+
+if(searchQuery.length > 0){
+gridTitle.textContent = 'Search results for "' + searchQuery + '"';
+} else {
 gridTitle.textContent = 'Top Restaurants in ' + cityName;
-if(filtered.length === 0){grid.innerHTML = '';noResults.style.display = 'block';return;}
+}
+
+if(filtered.length === 0){
+grid.innerHTML = '';
+noResults.style.display = 'block';
+if(searchQuery.length > 0){
+noResultsTitle.textContent = 'No matching restaurants found';
+noResultsText.textContent = 'Try searching for another restaurant or cuisine.';
+} else {
+noResultsTitle.textContent = 'No restaurants found';
+noResultsText.textContent = 'Try changing the filter or location';
+}
+return;
+}
+
 noResults.style.display = 'none';
 grid.innerHTML = filtered.map(r => '<div class="rest-card" onclick="window.location.href=\'book-table.html?name='+encodeURIComponent(r.name)+'&cuisine='+encodeURIComponent(r.cuisine)+'&rating='+r.rating+'&price='+encodeURIComponent(r.price)+'&area='+encodeURIComponent(r.area)+'&city='+currentCity+'\'"><div class="rest-card-img"><img src="'+r.img+'" alt="'+r.name+'"><span class="rest-badge">'+r.badge+'</span></div><div class="rest-card-body"><div class="rest-card-top"><h3>'+r.name+'</h3><div class="rest-rating"><i class="fa-solid fa-star"></i> '+r.rating+'</div></div><p class="rest-cuisine">'+r.cuisine+' &bull; '+r.area+'</p><div class="rest-meta"><span><i class="fa-solid fa-indian-rupee-sign"></i> '+r.price+'</span><button class="book-btn" onclick="event.stopPropagation();window.location.href=\'book-table.html?name='+encodeURIComponent(r.name)+'&cuisine='+encodeURIComponent(r.cuisine)+'&rating='+r.rating+'&price='+encodeURIComponent(r.price)+'&area='+encodeURIComponent(r.area)+'&city='+currentCity+'\'">Book Table</button></div></div></div>').join('');
 }
 
-document.querySelectorAll('.location-btn').forEach(btn => {
-btn.addEventListener('click', ()=>{
-document.querySelectorAll('.location-btn').forEach(b => b.classList.remove('active'));
-btn.classList.add('active');
-currentCity = btn.dataset.city;
+// Search functionality
+searchInput.addEventListener('input', function(){
+searchQuery = this.value.trim();
+if(searchQuery.length > 0){
+searchClear.classList.add('visible');
+} else {
+searchClear.classList.remove('visible');
+}
 renderRestaurants();
 });
+
+searchClear.addEventListener('click', function(){
+searchInput.value = '';
+searchQuery = '';
+searchClear.classList.remove('visible');
+searchInput.focus();
+renderRestaurants();
+});
+
+document.getElementById('citySelect').addEventListener('change', function(){
+currentCity = this.value;
+renderRestaurants();
 });
 
 document.querySelectorAll('.filter-btn').forEach(btn => {
@@ -337,10 +533,75 @@ renderRestaurants();
 // Check login state
 (function(){
 const loggedIn = localStorage.getItem('quickbite_logged_in');
-const loginBtn = document.getElementById('loginBtn');
-const profileIcon = document.getElementById('profileIcon');
-if(loggedIn === 'true'){loginBtn.style.display='none';profileIcon.classList.add('active');}
-else{loginBtn.style.display='block';profileIcon.classList.remove('active');}
+const desktopLoginBtn = document.getElementById('desktopLoginBtn');
+const desktopProfileIcon = document.getElementById('desktopProfileIcon');
+const mpdGuest = document.getElementById('mpdGuest');
+const mpdUser = document.getElementById('mpdUser');
+
+if(loggedIn === 'true'){
+const userName = localStorage.getItem('quickbite_user') || 'User';
+const userEmail = localStorage.getItem('quickbite_email') || 'user@email.com';
+if(desktopLoginBtn) desktopLoginBtn.style.display='none';
+if(desktopProfileIcon) desktopProfileIcon.classList.add('active');
+mpdGuest.style.display='none';
+mpdUser.classList.add('active');
+document.getElementById('mpdName').textContent = userName;
+document.getElementById('mpdEmail').textContent = userEmail;
+}
+
+// Mobile profile dropdown
+const mobileProfileBtn = document.getElementById('mobileProfileBtn');
+const mobileProfileDropdown = document.getElementById('mobileProfileDropdown');
+mobileProfileBtn.addEventListener('click',(e)=>{e.stopPropagation();mobileProfileDropdown.classList.toggle('active');});
+document.addEventListener('click',(e)=>{if(!mobileProfileBtn.contains(e.target))mobileProfileDropdown.classList.remove('active');});
+
+// Mobile profile logout
+const mpdLogout = document.getElementById('mpdLogout');
+if(mpdLogout){
+mpdLogout.addEventListener('click',()=>{
+localStorage.removeItem('quickbite_logged_in');
+localStorage.removeItem('quickbite_user');
+localStorage.removeItem('quickbite_email');
+mpdGuest.style.display='flex';
+mpdUser.classList.remove('active');
+if(desktopLoginBtn) desktopLoginBtn.style.display='block';
+if(desktopProfileIcon) desktopProfileIcon.classList.remove('active');
+mobileProfileDropdown.classList.remove('active');
+});
+}
+
+// Toggle menu
+const menuToggle = document.getElementById('menuToggle');
+const mobileOverlay = document.getElementById('mobileOverlay');
+const mobileDrawer = document.getElementById('mobileDrawer');
+const drawerClose = document.getElementById('drawerClose');
+
+menuToggle.addEventListener('click',()=>{
+mobileDrawer.classList.toggle('active');
+mobileOverlay.classList.toggle('active');
+menuToggle.classList.toggle('active');
+document.body.style.overflow = mobileDrawer.classList.contains('active') ? 'hidden' : '';
+});
+mobileOverlay.addEventListener('click',()=>{
+mobileDrawer.classList.remove('active');
+mobileOverlay.classList.remove('active');
+menuToggle.classList.remove('active');
+document.body.style.overflow = '';
+});
+drawerClose.addEventListener('click',()=>{
+mobileDrawer.classList.remove('active');
+mobileOverlay.classList.remove('active');
+menuToggle.classList.remove('active');
+document.body.style.overflow = '';
+});
+document.querySelectorAll('.drawer-menu li a').forEach(link=>{
+link.addEventListener('click',()=>{
+mobileDrawer.classList.remove('active');
+mobileOverlay.classList.remove('active');
+menuToggle.classList.remove('active');
+document.body.style.overflow = '';
+});
+});
 })();
 
 renderRestaurants();
