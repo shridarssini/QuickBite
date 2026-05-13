@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QuickBite - Track Order</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:#FFF8F0;color:#1F1F1F;overflow-x:hidden;min-height:100vh;}
+html{scroll-behavior:smooth;}
+
+.navbar{display:flex;justify-content:space-between;align-items:center;padding:18px 7%;background:#FFF8F0;position:sticky;top:0;z-index:1000;box-shadow:0 3px 12px rgba(0,0,0,0.04);}
+.nav-left{display:flex;align-items:center;gap:12px;}
+.back-arrow{width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,0.04);display:flex;align-items:center;justify-content:center;text-decoration:none;color:#1F1F1F;transition:0.3s;font-size:0.85rem;}
+.back-arrow:hover{background:rgba(198,40,40,0.08);color:#C62828;}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.logo-icon{width:40px;height:40px;border-radius:50%;}
+.logo-text{font-size:1.5rem;font-weight:800;color:#C62828;}
+
+/* Track Container */
+.track-container{max-width:700px;margin:0 auto;padding:30px 7% 60px;}
+.track-header{text-align:center;margin-bottom:36px;}
+.track-header h1{font-size:1.8rem;font-weight:700;margin-bottom:6px;}
+.track-header h1 span{color:#C62828;}
+.track-header p{font-size:0.9rem;color:#888;}
+.order-id-badge{display:inline-block;padding:8px 20px;background:rgba(198,40,40,0.06);border-radius:10px;color:#C62828;font-weight:600;font-size:0.9rem;margin-top:12px;}
+
+/* ETA Card */
+.eta-card{background:white;border-radius:20px;padding:28px;box-shadow:0 4px 18px rgba(0,0,0,0.04);margin-bottom:28px;text-align:center;}
+.eta-card .eta-time{font-size:2.8rem;font-weight:800;color:#C62828;margin-bottom:4px;}
+.eta-card .eta-label{font-size:0.9rem;color:#666;}
+.eta-card .eta-sub{font-size:0.8rem;color:#aaa;margin-top:6px;}
+
+/* Live Map Placeholder */
+.map-card{background:white;border-radius:20px;overflow:hidden;box-shadow:0 4px 18px rgba(0,0,0,0.04);margin-bottom:28px;position:relative;height:200px;}
+.map-placeholder{width:100%;height:100%;background:linear-gradient(135deg,#e8f5e9,#fff8f0);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;}
+.map-placeholder i{font-size:2.5rem;color:#C62828;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.15);opacity:0.7}}
+.map-placeholder p{font-size:0.85rem;color:#666;font-weight:500;}
+.map-dot{position:absolute;width:14px;height:14px;background:#C62828;border-radius:50%;border:3px solid white;box-shadow:0 2px 8px rgba(198,40,40,0.4);animation:moveDot 8s linear infinite;}
+@keyframes moveDot{0%{top:70%;left:20%}25%{top:50%;left:40%}50%{top:40%;left:60%}75%{top:30%;left:75%}100%{top:25%;left:80%}}
+
+/* Timeline */
+.timeline{background:white;border-radius:20px;padding:28px;box-shadow:0 4px 18px rgba(0,0,0,0.04);margin-bottom:28px;}
+.timeline h3{font-size:1.05rem;font-weight:700;margin-bottom:20px;}
+.timeline-steps{position:relative;padding-left:30px;}
+.timeline-steps::before{content:'';position:absolute;left:11px;top:8px;bottom:8px;width:2px;background:#eee;}
+.timeline-step{position:relative;padding-bottom:28px;display:flex;align-items:flex-start;gap:16px;}
+.timeline-step:last-child{padding-bottom:0;}
+.timeline-dot{position:absolute;left:-30px;top:2px;width:24px;height:24px;border-radius:50%;background:#eee;display:flex;align-items:center;justify-content:center;font-size:0.6rem;color:#aaa;z-index:1;transition:0.5s;}
+.timeline-step.active .timeline-dot{background:#C62828;color:white;box-shadow:0 3px 12px rgba(198,40,40,0.3);}
+.timeline-step.done .timeline-dot{background:#43A047;color:white;}
+.timeline-step.active .timeline-dot::after{content:'';position:absolute;width:34px;height:34px;border-radius:50%;border:2px solid rgba(198,40,40,0.2);animation:ripple 2s infinite;}
+@keyframes ripple{0%{transform:scale(0.8);opacity:1}100%{transform:scale(1.6);opacity:0}}
+.timeline-content h4{font-size:0.9rem;font-weight:600;color:#1F1F1F;}
+.timeline-step.active .timeline-content h4{color:#C62828;}
+.timeline-content p{font-size:0.78rem;color:#888;margin-top:2px;}
+.timeline-content .time-stamp{font-size:0.72rem;color:#aaa;margin-top:4px;display:flex;align-items:center;gap:4px;}
+
+/* Delivery Partner */
+.partner-card{background:white;border-radius:20px;padding:24px;box-shadow:0 4px 18px rgba(0,0,0,0.04);display:flex;align-items:center;gap:16px;margin-bottom:28px;}
+.partner-avatar{width:56px;height:56px;border-radius:50%;background:rgba(198,40,40,0.08);border:2px solid #C62828;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.partner-avatar i{font-size:1.4rem;color:#C62828;}
+.partner-info{flex:1;}
+.partner-info h4{font-size:0.95rem;font-weight:600;}
+.partner-info p{font-size:0.8rem;color:#888;}
+.partner-info .partner-rating{font-size:0.75rem;color:#43A047;font-weight:600;margin-top:2px;}
+.partner-call{width:44px;height:44px;border-radius:50%;background:#C62828;color:white;border:none;font-size:1rem;cursor:pointer;transition:0.3s;display:flex;align-items:center;justify-content:center;}
+.partner-call:hover{background:#a51f1f;transform:scale(1.05);}
+
+/* Order Details */
+.order-details{background:white;border-radius:20px;padding:24px;box-shadow:0 4px 18px rgba(0,0,0,0.04);}
+.order-details h3{font-size:1.05rem;font-weight:700;margin-bottom:16px;}
+.detail-item{display:flex;justify-content:space-between;padding:8px 0;font-size:0.85rem;border-bottom:1px solid #f5f5f5;}
+.detail-item:last-child{border:none;}
+.detail-item span:first-child{color:#666;}
+.detail-item span:last-child{font-weight:600;}
+
+/* Responsive */
+@media(max-width:768px){
+.track-container{padding:20px 5% 40px;}
+.track-header h1{font-size:1.5rem;}
+.eta-card .eta-time{font-size:2.2rem;}
+.map-card{height:160px;}
+}
+@media(max-width:520px){
+.logo-text{display:none;}
+.navbar{padding:14px 5%;}
+.partner-card{flex-wrap:wrap;gap:12px;}
+}
+::-webkit-scrollbar{width:0;height:0;}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+<div class="nav-left">
+<a href="Homepage.html" class="back-arrow"><i class="fa-solid fa-arrow-left"></i></a>
+<a href="Homepage.html" class="logo"><img src="assets/logo.svg" alt="QuickBite" class="logo-icon"><span class="logo-text">QuickBite</span></a>
+</div>
+</nav>
+
+<div class="track-container">
+
+<!-- Header -->
+<div class="track-header">
+<h1>Track Your <span>Order</span></h1>
+<p>Real-time updates on your delivery</p>
+<div class="order-id-badge" id="trackOrderId">Order #QB12345</div>
+</div>
+
+<!-- ETA -->
+<div class="eta-card">
+<div class="eta-time" id="etaTime">25</div>
+<div class="eta-label">minutes remaining</div>
+<div class="eta-sub">Arriving by <span id="etaArrival">--:--</span></div>
+</div>
+
+<!-- Map -->
+<div class="map-card">
+<div class="map-placeholder">
+<i class="fa-solid fa-motorcycle"></i>
+<p>Live tracking your delivery</p>
+</div>
+<div class="map-dot"></div>
+</div>
+
+<!-- Timeline -->
+<div class="timeline">
+<h3>Order Status</h3>
+<div class="timeline-steps" id="timelineSteps">
+<div class="timeline-step done">
+<div class="timeline-dot"><i class="fa-solid fa-check"></i></div>
+<div class="timeline-content">
+<h4>Order Confirmed</h4>
+<p>Your order has been placed successfully</p>
+<div class="time-stamp"><i class="fa-regular fa-clock"></i> <span class="step-time">--:--</span></div>
+</div>
+</div>
+<div class="timeline-step done">
+<div class="timeline-dot"><i class="fa-solid fa-check"></i></div>
+<div class="timeline-content">
+<h4>Preparing Your Food</h4>
+<p>Restaurant is cooking your meal</p>
+<div class="time-stamp"><i class="fa-regular fa-clock"></i> <span class="step-time">--:--</span></div>
+</div>
+</div>
+<div class="timeline-step active">
+<div class="timeline-dot"><i class="fa-solid fa-motorcycle"></i></div>
+<div class="timeline-content">
+<h4>Out for Delivery</h4>
+<p>Your delivery partner is on the way</p>
+<div class="time-stamp"><i class="fa-regular fa-clock"></i> <span class="step-time">--:--</span></div>
+</div>
+</div>
+<div class="timeline-step">
+<div class="timeline-dot"><i class="fa-solid fa-house"></i></div>
+<div class="timeline-content">
+<h4>Delivered</h4>
+<p>Enjoy your meal!</p>
+<div class="time-stamp"><i class="fa-regular fa-clock"></i> <span class="step-time">--:--</span></div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Delivery Partner -->
+<div class="partner-card">
+<div class="partner-avatar"><i class="fa-solid fa-user"></i></div>
+<div class="partner-info">
+<h4 id="partnerName">Rajesh Kumar</h4>
+<p>Delivery Partner</p>
+<div class="partner-rating">★ 4.8 • 1200+ deliveries</div>
+</div>
+<button class="partner-call" title="Call delivery partner"><i class="fa-solid fa-phone"></i></button>
+</div>
+
+<!-- Order Details -->
+<div class="order-details">
+<h3>Order Details</h3>
+<div id="orderDetailItems"></div>
+<div class="detail-item" style="border-top:2px solid #f0f0f0;margin-top:8px;padding-top:12px;">
+<span>Total Paid</span>
+<span style="color:#C62828;" id="totalPaid">₹0</span>
+</div>
+</div>
+
+</div>
+
+<script>
+// Get order data from localStorage
+const orderData = JSON.parse(localStorage.getItem('quickbite_last_order') || 'null');
+
+// Set order ID
+const params = new URLSearchParams(window.location.search);
+const orderId = params.get('id') || 'QB' + Math.floor(10000 + Math.random() * 90000);
+document.getElementById('trackOrderId').textContent = 'Order #' + orderId;
+
+// Calculate ETA
+const now = new Date();
+const eta = new Date(now.getTime() + 25 * 60000);
+document.getElementById('etaArrival').textContent = eta.getHours().toString().padStart(2,'0') + ':' + eta.getMinutes().toString().padStart(2,'0');
+
+// Set timeline timestamps
+const steps = document.querySelectorAll('.step-time');
+const t1 = new Date(now.getTime() - 15 * 60000);
+const t2 = new Date(now.getTime() - 8 * 60000);
+const t3 = new Date(now.getTime() - 2 * 60000);
+steps[0].textContent = t1.getHours().toString().padStart(2,'0') + ':' + t1.getMinutes().toString().padStart(2,'0');
+steps[1].textContent = t2.getHours().toString().padStart(2,'0') + ':' + t2.getMinutes().toString().padStart(2,'0');
+steps[2].textContent = t3.getHours().toString().padStart(2,'0') + ':' + t3.getMinutes().toString().padStart(2,'0');
+steps[3].textContent = eta.getHours().toString().padStart(2,'0') + ':' + eta.getMinutes().toString().padStart(2,'0') + ' (est)';
+
+// Render order items
+if(orderData && orderData.items){
+const detailsEl = document.getElementById('orderDetailItems');
+detailsEl.innerHTML = orderData.items.map(item =>
+'<div class="detail-item"><span>' + item.name + ' x' + item.qty + '</span><span>₹' + (item.price * item.qty) + '</span></div>'
+).join('');
+document.getElementById('totalPaid').textContent = '₹' + orderData.total;
+} else {
+// Fallback - show generic
+document.getElementById('orderDetailItems').innerHTML = '<div class="detail-item"><span>Your items</span><span>—</span></div>';
+}
+
+// Countdown timer - updates every minute realistically
+let remaining = 25;
+const countdown = setInterval(() => {
+remaining--;
+if(remaining <= 0){
+clearInterval(countdown);
+document.getElementById('etaTime').textContent = '0';
+document.querySelector('.eta-label').textContent = 'Delivered!';
+document.querySelector('.eta-card').style.background = 'linear-gradient(135deg,rgba(67,160,71,0.05),white)';
+const timelineSteps = document.querySelectorAll('.timeline-step');
+timelineSteps.forEach(s => { s.classList.remove('active'); s.classList.add('done'); s.querySelector('.timeline-dot').innerHTML = '<i class="fa-solid fa-check"></i>'; });
+} else {
+document.getElementById('etaTime').textContent = remaining;
+}
+}, 60000); // every 1 minute
+
+// Timeline progression - matches the 25 min delivery time
+// Step 3 (Out for Delivery) is already active
+// At 10 mins remaining → mark delivered
+const timelineSteps = document.querySelectorAll('.timeline-step');
+setTimeout(() => {
+// Delivered
+timelineSteps[2].classList.remove('active');
+timelineSteps[2].classList.add('done');
+timelineSteps[2].querySelector('.timeline-dot').innerHTML = '<i class="fa-solid fa-check"></i>';
+timelineSteps[3].classList.add('done');
+timelineSteps[3].querySelector('.timeline-dot').innerHTML = '<i class="fa-solid fa-check"></i>';
+document.getElementById('etaTime').textContent = '0';
+document.querySelector('.eta-label').textContent = 'Delivered!';
+document.querySelector('.eta-card').style.background = 'linear-gradient(135deg,rgba(67,160,71,0.05),white)';
+clearInterval(countdown);
+}, 25 * 60000); // deliver after full 25 minutes
+
+// Random partner names
+const partners = ['Rajesh Kumar','Suresh M','Arun Prakash','Karthik R','Vijay S','Deepak N'];
+document.getElementById('partnerName').textContent = partners[Math.floor(Math.random() * partners.length)];
+</script>
+
+</body>
+</html>

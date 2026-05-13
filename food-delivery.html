@@ -23,6 +23,9 @@ html{scroll-behavior:smooth;}
 .nav-right{display:flex;align-items:center;gap:20px;}
 .nav-right a{text-decoration:none;color:#1F1F1F;font-weight:500;transition:0.3s;font-size:0.9rem;}
 .nav-right a:hover{color:#C62828;}
+.nav-center{display:flex;align-items:center;gap:22px;position:absolute;left:50%;transform:translateX(-50%);}
+.nav-center a{text-decoration:none;color:#1F1F1F;font-weight:500;transition:0.3s;font-size:0.9rem;}
+.nav-center a:hover{color:#C62828;}
 .desktop-icon{font-size:1.05rem;cursor:pointer;transition:0.3s;color:#1F1F1F;}
 .desktop-icon:hover{color:#C62828;}
 .login-btn{padding:9px 20px;border:2px solid #C62828;border-radius:12px;background:none;color:#C62828;font-weight:600;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;font-size:0.82rem;}
@@ -130,8 +133,8 @@ html{scroll-behavior:smooth;}
 .rest-card-bottom{display:flex;justify-content:space-between;align-items:center;}
 .rest-card-bottom .rest-rating{font-size:0.78rem;font-weight:600;background:rgba(67,160,71,0.1);color:#43A047;padding:3px 8px;border-radius:6px;}
 .rest-card-bottom .rest-time{font-size:0.78rem;color:#888;}
-.rest-card-bottom .add-btn{padding:6px 14px;border:2px solid #C62828;border-radius:10px;background:none;color:#C62828;font-weight:600;font-size:0.75rem;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;}
-.rest-card-bottom .add-btn:hover{background:#C62828;color:white;}
+.rest-card-bottom .add-btn{padding:6px 14px;border:none;border-radius:10px;background:#C62828;color:white;font-weight:600;font-size:0.75rem;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;}
+.rest-card-bottom .add-btn:hover{background:#a51f1f;}
 .rest-card-bottom .qty-control{display:flex;align-items:center;gap:0;border:2px solid #C62828;border-radius:10px;overflow:hidden;}
 .rest-card-bottom .qty-control button{width:28px;height:28px;border:none;background:#C62828;color:white;font-size:0.85rem;cursor:pointer;transition:0.2s;font-weight:700;}
 .rest-card-bottom .qty-control button:hover{background:#a51f1f;}
@@ -157,6 +160,7 @@ html{scroll-behavior:smooth;}
 .nav-right .login-btn{display:none;}
 .nav-right .desktop-icon{display:none;}
 .nav-right .desktop-profile{display:none !important;}
+.nav-center{display:none;}
 .mobile-nav-icons{display:flex;}
 .menu-toggle{display:block;}
 .search-section{top:62px;padding:10px 5%;}
@@ -240,9 +244,15 @@ html{scroll-behavior:smooth;}
 <a href="Homepage.html" class="back-arrow"><i class="fa-solid fa-arrow-left"></i></a>
 <a href="Homepage.html" class="logo"><img src="assets/logo.svg" alt="QuickBite" class="logo-icon"><span class="logo-text">QuickBite</span></a>
 </div>
-<div class="nav-right">
+<div class="nav-center">
 <a href="Homepage.html">Home</a>
 <a href="about.html">About Us</a>
+<a href="blog.html">Blog</a>
+<a href="contact.html">Contact</a>
+<a href="home2.html">Home 2</a>
+</div>
+<div class="nav-right">
+
 <i class="fa-solid fa-cart-shopping desktop-icon" onclick="window.location.href='cart.html'" style="cursor:pointer;"></i>
 <button class="login-btn" id="desktopLoginBtn" onclick="window.location.href='login.html'">LOG IN</button>
 <div class="desktop-profile" id="desktopProfile">
@@ -257,13 +267,13 @@ html{scroll-behavior:smooth;}
 </div>
 <div class="dropdown-divider"></div>
 <ul class="dropdown-menu">
-<li><a href="#"><i class="fa-solid fa-user"></i>My Profile</a></li>
-<li><a href="#"><i class="fa-solid fa-bag-shopping"></i>My Orders</a></li>
-<li><a href="#"><i class="fa-solid fa-location-dot"></i>Saved Addresses</a></li>
-<li><a href="#"><i class="fa-solid fa-heart"></i>Favorites</a></li>
-<li><a href="#"><i class="fa-solid fa-bell"></i>Notifications</a></li>
-<li><a href="#"><i class="fa-solid fa-gear"></i>Settings</a></li>
-<li><a href="#"><i class="fa-solid fa-headset"></i>Help & Support</a></li>
+<li><a href="profile.html?tab=profile"><i class="fa-solid fa-user"></i>My Profile</a></li>
+<li><a href="profile.html?tab=orders"><i class="fa-solid fa-bag-shopping"></i>My Orders</a></li>
+<li><a href="profile.html?tab=addresses"><i class="fa-solid fa-location-dot"></i>Saved Addresses</a></li>
+<li><a href="profile.html?tab=favorites"><i class="fa-solid fa-heart"></i>Favorites</a></li>
+<li><a href="profile.html?tab=notifications"><i class="fa-solid fa-bell"></i>Notifications</a></li>
+<li><a href="profile.html?tab=settings"><i class="fa-solid fa-gear"></i>Settings</a></li>
+<li><a href="contact.html"><i class="fa-solid fa-headset"></i>Help & Support</a></li>
 </ul>
 <div class="dropdown-divider"></div>
 <button class="dropdown-logout" id="desktopLogout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
@@ -286,11 +296,11 @@ html{scroll-behavior:smooth;}
 </div>
 </div>
 <ul class="mpd-menu">
-<li><a href="#"><i class="fa-solid fa-bag-shopping"></i>My Orders</a></li>
-<li><a href="#"><i class="fa-solid fa-heart"></i>Favorites</a></li>
-<li><a href="#"><i class="fa-solid fa-location-dot"></i>Saved Addresses</a></li>
-<li><a href="#"><i class="fa-solid fa-gear"></i>Account Settings</a></li>
-<li><a href="#"><i class="fa-solid fa-headset"></i>Help & Support</a></li>
+<li><a href="profile.html?tab=orders"><i class="fa-solid fa-bag-shopping"></i>My Orders</a></li>
+<li><a href="profile.html?tab=favorites"><i class="fa-solid fa-heart"></i>Favorites</a></li>
+<li><a href="profile.html?tab=addresses"><i class="fa-solid fa-location-dot"></i>Saved Addresses</a></li>
+<li><a href="profile.html?tab=settings"><i class="fa-solid fa-gear"></i>Account Settings</a></li>
+<li><a href="contact.html"><i class="fa-solid fa-headset"></i>Help & Support</a></li>
 </ul>
 <button class="mpd-logout" id="mpdLogout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
 </div>
@@ -309,13 +319,15 @@ html{scroll-behavior:smooth;}
 <div class="drawer-close" id="drawerClose"><i class="fa-solid fa-xmark"></i></div>
 <ul class="drawer-menu">
 <li><a href="Homepage.html"><i class="fa-solid fa-house"></i>Home</a></li>
-<li><a href="food-delivery.html" class="active-link"><i class="fa-solid fa-motorcycle"></i>Food Delivery</a></li>
+<li><a href="food-delivery.html"><i class="fa-solid fa-motorcycle"></i>Food Delivery</a></li>
 <li><a href="dineout.html"><i class="fa-solid fa-utensils"></i>Dine-Out</a></li>
-<li><a href="#"><i class="fa-solid fa-tags"></i>Exclusive Offers</a></li>
+<li><a href="offers.html"><i class="fa-solid fa-tags"></i>Exclusive Offers</a></li>
 <li><div class="drawer-divider"></div></li>
 <li><a href="cart.html"><i class="fa-solid fa-cart-shopping"></i>Cart</a></li>
 <li><a href="about.html"><i class="fa-solid fa-circle-info"></i>About Us</a></li>
-<li><a href="#"><i class="fa-solid fa-headset"></i>Help Center</a></li>
+<li><a href="blog.html"><i class="fa-solid fa-newspaper"></i>Blog</a></li>
+<li><a href="contact.html"><i class="fa-solid fa-headset"></i>Contact</a></li>
+<li><a href="home2.html"><i class="fa-solid fa-bullhorn"></i>Home 2</a></li>
 </ul>
 </div>
 
@@ -427,11 +439,8 @@ html{scroll-behavior:smooth;}
 <a href="Homepage.html">Home</a>
 <a href="food-delivery.html">Food Delivery</a>
 <a href="dineout.html">Dine Out</a>
-<a href="about.html">About Us</a>
-</div>
-<div class="footer-col">
-<h3>Support</h3>
-<a href="#">Help Center</a>
+<a href="about.html">About Us</a><a href="blog.html">Blog</a><a href="contact.html">Contact</a></div><div class="footer-col"><h3>Support</h3>
+<a href="contact.html">Help Center</a>
 <a href="terms.html">Terms & Conditions</a>
 <a href="privacy.html">Privacy Policy</a>
 </div>
@@ -451,6 +460,21 @@ html{scroll-behavior:smooth;}
 <script>
 let currentCity='chennai',currentCat='all',searchQuery='',dietFilter='all';
 let cart=JSON.parse(localStorage.getItem('quickbite_cart')||'[]');
+
+// Read URL params from homepage search
+(function(){
+const params=new URLSearchParams(window.location.search);
+const cityParam=params.get('city');
+const searchParam=params.get('search');
+if(cityParam && ['chennai','mumbai','bangalore'].includes(cityParam)){
+currentCity=cityParam;
+document.getElementById('citySelect').value=cityParam;
+}
+if(searchParam){
+searchQuery=searchParam;
+document.getElementById('searchInput').value=searchParam;
+}
+})();
 const recTrack=document.getElementById('recTrack'),restGrid=document.getElementById('restGrid'),noResults=document.getElementById('noResults'),restTitle=document.getElementById('restTitle'),restCount=document.getElementById('restCount'),searchInput=document.getElementById('searchInput'),citySelect=document.getElementById('citySelect');
 
 function saveCart(){localStorage.setItem('quickbite_cart',JSON.stringify(cart));updateBadge();}
@@ -477,7 +501,7 @@ recTrack.innerHTML=data.map(f=>{
 const cartItem=cart.find(c=>c.name===f.name && c.restaurant===f.restaurant);
 const btnHtml=cartItem
 ? '<div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;"><span style="font-size:0.82rem;font-weight:700;color:#1F1F1F;">\u20b9'+f.price+'</span><div style="display:inline-flex;align-items:center;border:2px solid #C62828;border-radius:8px;overflow:hidden;"><button onclick="event.stopPropagation();updateQty(\''+f.name.replace(/'/g,"\\'")+'\',\''+f.restaurant.replace(/'/g,"\\'")+'\','+f.price+',-1)" style="width:28px;height:28px;border:none;background:#C62828;color:white;font-size:0.85rem;cursor:pointer;font-weight:700;">\u2212</button><span style="padding:0 10px;font-size:0.78rem;font-weight:700;color:#C62828;">'+cartItem.qty+'</span><button onclick="event.stopPropagation();updateQty(\''+f.name.replace(/'/g,"\\'")+'\',\''+f.restaurant.replace(/'/g,"\\'")+'\','+f.price+',1)" style="width:28px;height:28px;border:none;background:#C62828;color:white;font-size:0.85rem;cursor:pointer;font-weight:700;">+</button></div></div>'
-: '<div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;"><span style="font-size:0.82rem;font-weight:700;color:#1F1F1F;">\u20b9'+f.price+'</span><button onclick="event.stopPropagation();addToCart(\''+f.name.replace(/'/g,"\\'")+'\',\''+f.restaurant.replace(/'/g,"\\'")+'\','+f.price+')" style="padding:5px 16px;border:2px solid #C62828;border-radius:8px;background:none;color:#C62828;font-weight:600;font-size:0.75rem;cursor:pointer;font-family:Poppins,sans-serif;transition:0.3s;">ADD</button></div>';
+: '<div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;"><span style="font-size:0.82rem;font-weight:700;color:#1F1F1F;">\u20b9'+f.price+'</span><button onclick="event.stopPropagation();addToCart(\''+f.name.replace(/'/g,"\\'")+'\',\''+f.restaurant.replace(/'/g,"\\'")+'\','+f.price+')" style="padding:5px 16px;border:none;border-radius:8px;background:#C62828;color:white;font-weight:600;font-size:0.75rem;cursor:pointer;font-family:Poppins,sans-serif;transition:0.3s;">ADD</button></div>';
 return '<div class="rec-card"><img src="'+f.img+'" alt="'+f.name+'" onerror="this.src=\'https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=600&auto=format&fit=crop\'"><div class="rec-card-body"><h4>'+f.name+'</h4><div class="rec-meta"><span class="rec-rating">\u2605 '+f.rating+'</span><span>'+f.restaurant+'</span></div>'+btnHtml+'</div></div>';
 }).join('');
 }

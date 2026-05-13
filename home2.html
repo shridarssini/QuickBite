@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QuickBite - Order Food Online | Fast Delivery in Chennai, Mumbai & Bangalore</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:#FFF8F0;color:#1F1F1F;overflow-x:hidden;}
+html{scroll-behavior:smooth;}
+
+/* Navbar */
+.navbar{display:flex;justify-content:space-between;align-items:center;padding:20px 7%;background:#FFF8F0;position:sticky;top:0;z-index:1000;box-shadow:0 3px 12px rgba(0,0,0,0.04);}
+.nav-left{display:flex;align-items:center;gap:12px;}
+.back-arrow{width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,0.04);display:flex;align-items:center;justify-content:center;text-decoration:none;color:#1F1F1F;transition:0.3s;font-size:0.85rem;}
+.back-arrow:hover{background:rgba(198,40,40,0.08);color:#C62828;}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.logo-icon{width:42px;height:42px;border-radius:50%;}
+.logo-text{font-size:1.6rem;font-weight:800;color:#C62828;}
+.nav-center{display:flex;align-items:center;gap:22px;position:absolute;left:50%;transform:translateX(-50%);}
+.nav-center a{text-decoration:none;color:#1F1F1F;font-weight:500;transition:0.3s;font-size:0.9rem;}
+.nav-center a:hover{color:#C62828;}
+.nav-right{display:flex;align-items:center;gap:20px;}
+.nav-right a{text-decoration:none;color:#1F1F1F;font-weight:500;transition:0.3s;font-size:0.9rem;}
+.nav-right a:hover{color:#C62828;}
+.nav-icon{font-size:1.1rem;color:#1F1F1F;transition:0.3s;cursor:pointer;}
+.nav-icon:hover{color:#C62828;}
+.mobile-nav-icons{display:none;align-items:center;gap:14px;}
+.mobile-cart{position:relative;width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,0.04);display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.mobile-cart i{font-size:0.95rem;color:#1F1F1F;}
+.cart-badge{position:absolute;top:-2px;right:-2px;width:16px;height:16px;background:#C62828;color:white;font-size:0.6rem;font-weight:700;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.mobile-profile-btn{width:34px;height:34px;border-radius:50%;background:rgba(198,40,40,0.08);border:2px solid #C62828;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.mobile-profile-btn i{font-size:0.85rem;color:#C62828;}
+.menu-toggle{display:none;font-size:1.2rem;cursor:pointer;color:#1F1F1F;width:22px;height:22px;position:relative;}
+.menu-toggle .fa-bars,.menu-toggle .fa-xmark{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);transition:0.4s;}
+.menu-toggle .fa-xmark{opacity:0;transform:translate(-50%,-50%) rotate(-90deg);}
+.menu-toggle.active .fa-bars{opacity:0;transform:translate(-50%,-50%) rotate(90deg);}
+.menu-toggle.active .fa-xmark{opacity:1;transform:translate(-50%,-50%) rotate(0deg);}
+.mobile-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);z-index:2000;opacity:0;visibility:hidden;transition:0.4s;}
+.mobile-overlay.active{opacity:1;visibility:visible;}
+.mobile-drawer{position:fixed;top:0;right:-100%;width:75%;max-width:320px;height:100%;background:#FFF8F0;z-index:2001;padding:30px 24px;overflow-y:auto;transition:0.45s cubic-bezier(0.4,0,0.2,1);box-shadow:-10px 0 40px rgba(0,0,0,0.15);display:flex;flex-direction:column;}
+.mobile-drawer.active{right:0;}
+.drawer-close{position:absolute;top:22px;right:22px;font-size:1.3rem;cursor:pointer;color:#1F1F1F;width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(0,0,0,0.04);transition:0.3s;}
+.drawer-close:hover{color:#C62828;background:rgba(198,40,40,0.08);}
+.drawer-menu{list-style:none;padding:40px 0 16px;flex:1;}
+.drawer-menu li{opacity:0;transform:translateY(12px);transition:0.35s ease;}
+.mobile-drawer.active .drawer-menu li{opacity:1;transform:translateY(0);}
+.drawer-menu li:nth-child(1){transition-delay:.06s}.drawer-menu li:nth-child(2){transition-delay:.1s}.drawer-menu li:nth-child(3){transition-delay:.14s}.drawer-menu li:nth-child(4){transition-delay:.18s}.drawer-menu li:nth-child(5){transition-delay:.22s}.drawer-menu li:nth-child(6){transition-delay:.26s}.drawer-menu li:nth-child(7){transition-delay:.3s}.drawer-menu li:nth-child(8){transition-delay:.34s}.drawer-menu li:nth-child(9){transition-delay:.38s}.drawer-menu li:nth-child(10){transition-delay:.42s}
+.drawer-menu li a{display:flex;align-items:center;gap:14px;padding:13px 16px;text-decoration:none;color:#1F1F1F;font-weight:500;font-size:0.95rem;border-radius:14px;transition:0.3s;}
+.drawer-menu li a:hover{background:rgba(198,40,40,0.06);color:#C62828;}
+.drawer-menu li a i{font-size:1.1rem;width:22px;text-align:center;color:#C62828;}
+.drawer-divider{height:1px;background:rgba(0,0,0,0.06);margin:8px 16px;}
+.nav-cta{padding:11px 24px;border:none;border-radius:12px;background:#C62828;color:white;font-weight:600;font-size:0.85rem;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;text-decoration:none;}
+.nav-cta:hover{background:#a51f1f;transform:translateY(-2px);box-shadow:0 6px 18px rgba(198,40,40,0.3);}
+.login-btn{padding:10px 22px;border:2px solid #C62828;border-radius:12px;background:none;color:#C62828;font-weight:600;font-size:0.85rem;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;}
+.login-btn:hover{background:#C62828;color:white;}
+.desktop-profile{position:relative;display:none;}
+.desktop-profile.active{display:block;}
+.desktop-profile-icon{width:36px;height:36px;border-radius:50%;background:rgba(198,40,40,0.08);border:2px solid #C62828;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:0.3s;}
+.desktop-profile-icon i{font-size:0.85rem;color:#C62828;}
+.desktop-profile-icon:hover{background:rgba(198,40,40,0.15);transform:scale(1.05);}
+.desktop-dropdown{position:absolute;top:calc(100% + 14px);right:0;width:280px;background:white;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,0.12);padding:20px;opacity:0;visibility:hidden;transform:translateY(-10px);transition:0.35s ease;z-index:3000;}
+.desktop-dropdown.active{opacity:1;visibility:visible;transform:translateY(0);}
+.dropdown-header{display:flex;align-items:center;gap:14px;padding-bottom:14px;}
+.dropdown-avatar{width:44px;height:44px;border-radius:50%;background:rgba(198,40,40,0.08);border:2px solid #C62828;display:flex;align-items:center;justify-content:center;}
+.dropdown-avatar i{font-size:1rem;color:#C62828;}
+.dropdown-info h4{font-size:0.9rem;font-weight:600;margin-bottom:2px;}
+.dropdown-info span{font-size:0.78rem;color:#888;}
+.dropdown-divider{height:1px;background:rgba(0,0,0,0.06);margin:4px 0;}
+.dropdown-menu{list-style:none;padding:8px 0;}
+.dropdown-menu li a{display:flex;align-items:center;gap:12px;padding:10px 14px;text-decoration:none;color:#1F1F1F;font-weight:500;font-size:0.88rem;border-radius:10px;transition:0.3s;}
+.dropdown-menu li a:hover{background:rgba(198,40,40,0.05);color:#C62828;}
+.dropdown-menu li a i{font-size:0.9rem;width:18px;text-align:center;color:#C62828;}
+.dropdown-logout{width:100%;padding:10px;border:2px solid #e53935;background:none;border-radius:10px;color:#e53935;font-weight:600;font-size:0.85rem;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px;}
+.dropdown-logout:hover{background:#e53935;color:white;}
+
+/* Hero - Split */
+.hero{display:flex;align-items:center;padding:60px 7% 80px;gap:50px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-30%;right:-15%;width:600px;height:600px;border-radius:50%;background:rgba(198,40,40,0.03);}
+.hero-left{flex:1;max-width:540px;}
+.hero-left .promo-tag{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;background:rgba(198,40,40,0.06);border:1px solid rgba(198,40,40,0.12);border-radius:30px;font-size:0.78rem;font-weight:600;color:#C62828;margin-bottom:22px;}
+.hero-left .promo-tag i{animation:pulse-icon 2s infinite;}
+@keyframes pulse-icon{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
+.hero-left h1{font-size:3.2rem;font-weight:800;line-height:1.2;margin-bottom:18px;}
+.hero-left h1 span{color:#C62828;}
+.hero-left p{font-size:1.05rem;color:#666;line-height:1.8;margin-bottom:28px;}
+.hero-btns{display:flex;gap:14px;align-items:center;margin-bottom:30px;}
+.btn-primary{padding:16px 36px;border:none;border-radius:16px;background:#C62828;color:white;font-weight:700;font-size:1rem;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;display:inline-flex;align-items:center;gap:10px;text-decoration:none;}
+.btn-primary:hover{background:#a51f1f;transform:translateY(-3px);box-shadow:0 12px 35px rgba(198,40,40,0.3);}
+.btn-outline{padding:16px 36px;border:2px solid #1F1F1F;border-radius:16px;background:none;color:#1F1F1F;font-weight:600;font-size:1rem;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;text-decoration:none;}
+.btn-outline:hover{border-color:#C62828;color:#C62828;}
+.trust-row{display:flex;align-items:center;gap:20px;}
+.trust-item{display:flex;align-items:center;gap:6px;font-size:0.82rem;color:#888;}
+.trust-item i{color:#C62828;font-size:0.9rem;}
+.hero-right{flex:1;display:flex;justify-content:center;position:relative;}
+.hero-img{width:450px;height:450px;border-radius:30px;object-fit:cover;box-shadow:0 30px 80px rgba(0,0,0,0.1);}
+.hero-float{position:absolute;background:white;border-radius:16px;padding:14px 18px;box-shadow:0 10px 30px rgba(0,0,0,0.08);display:flex;align-items:center;gap:12px;animation:floaty 4s ease-in-out infinite;}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.hero-float.f1{top:30px;left:0;animation-delay:0s;}
+.hero-float.f2{bottom:50px;right:0;animation-delay:1.5s;}
+.hero-float .hf-icon{width:42px;height:42px;border-radius:12px;background:rgba(198,40,40,0.08);display:flex;align-items:center;justify-content:center;color:#C62828;font-size:1rem;}
+.hero-float .hf-text{font-size:0.82rem;font-weight:600;}
+.hero-float .hf-sub{font-size:0.72rem;color:#888;}
+
+/* How It Works */
+.how-section{padding:80px 7%;text-align:center;background:white;}
+.how-section h2{font-size:2rem;font-weight:800;margin-bottom:10px;}
+.how-section h2 span{color:#C62828;}
+.how-section .subtitle{font-size:0.95rem;color:#888;margin-bottom:50px;}
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;max-width:900px;margin:0 auto;}
+.how-card{padding:30px;border-radius:22px;transition:0.3s;position:relative;}
+.how-card:hover{background:rgba(198,40,40,0.02);}
+.how-num{position:absolute;top:16px;right:20px;font-size:3rem;font-weight:800;color:rgba(198,40,40,0.06);}
+.how-icon{width:64px;height:64px;border-radius:18px;background:rgba(198,40,40,0.08);display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-size:1.5rem;color:#C62828;}
+.how-card h3{font-size:1.05rem;font-weight:700;margin-bottom:8px;}
+.how-card p{font-size:0.85rem;color:#888;line-height:1.7;}
+
+/* Offers */
+.offers-section{padding:80px 7%;}
+.offers-section h2{font-size:2rem;font-weight:800;margin-bottom:30px;text-align:center;}
+.offers-section h2 span{color:#C62828;}
+.offers-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;}
+.offer-card{background:linear-gradient(135deg,#C62828,#e53935);border-radius:22px;padding:32px;color:white;position:relative;overflow:hidden;transition:0.4s;}
+.offer-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(198,40,40,0.2);}
+.offer-card::before{content:'';position:absolute;top:-30%;right:-15%;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.06);}
+.offer-card.alt{background:linear-gradient(135deg,#1F1F1F,#333);}
+.offer-card h3{font-size:1.4rem;font-weight:700;margin-bottom:8px;}
+.offer-card p{font-size:0.88rem;opacity:0.85;margin-bottom:16px;line-height:1.6;}
+.offer-code{display:inline-block;padding:8px 20px;background:rgba(255,255,255,0.2);border-radius:10px;font-weight:700;font-size:0.9rem;letter-spacing:1px;backdrop-filter:blur(5px);border:1px solid rgba(255,255,255,0.2);}
+.offer-card .offer-badge{position:absolute;top:16px;right:16px;padding:5px 12px;background:rgba(255,255,255,0.2);border-radius:8px;font-size:0.7rem;font-weight:600;}
+
+/* Social Proof */
+.proof-section{padding:80px 7%;background:white;text-align:center;}
+.proof-section h2{font-size:2rem;font-weight:800;margin-bottom:40px;}
+.proof-section h2 span{color:#C62828;}
+.proof-stats{display:flex;justify-content:center;gap:60px;margin-bottom:50px;}
+.proof-stat .num{font-size:2.8rem;font-weight:800;color:#C62828;}
+.proof-stat .label{font-size:0.85rem;color:#888;margin-top:4px;}
+.reviews-row{display:flex;gap:20px;overflow-x:auto;padding-bottom:10px;justify-content:center;flex-wrap:wrap;}
+.review-card{background:#FFF8F0;border:2px solid #f0f0f0;border-radius:20px;padding:24px;min-width:300px;max-width:340px;text-align:left;transition:0.3s;}
+.review-card:hover{border-color:rgba(198,40,40,0.15);}
+.review-stars{color:#FFB400;font-size:0.85rem;margin-bottom:12px;}
+.review-card p{font-size:0.88rem;color:#666;line-height:1.7;margin-bottom:14px;font-style:italic;}
+.review-user{display:flex;align-items:center;gap:10px;}
+.review-avatar{width:36px;height:36px;border-radius:50%;background:rgba(198,40,40,0.08);display:flex;align-items:center;justify-content:center;}
+.review-avatar i{color:#C62828;font-size:0.8rem;}
+.review-user span{font-size:0.82rem;font-weight:600;}
+
+/* App Download */
+.app-section{padding:80px 7%;display:flex;align-items:center;gap:50px;}
+.app-content{flex:1;}
+.app-content h2{font-size:2rem;font-weight:800;margin-bottom:12px;}
+.app-content h2 span{color:#C62828;}
+.app-content p{font-size:0.95rem;color:#666;line-height:1.8;margin-bottom:24px;}
+.app-features{list-style:none;margin-bottom:28px;}
+.app-features li{display:flex;align-items:center;gap:12px;padding:8px 0;font-size:0.9rem;color:#555;}
+.app-features li i{width:28px;height:28px;border-radius:8px;background:rgba(198,40,40,0.08);display:flex;align-items:center;justify-content:center;color:#C62828;font-size:0.75rem;flex-shrink:0;}
+.app-btns{display:flex;gap:12px;}
+.app-btn{padding:14px 28px;border-radius:14px;background:#1F1F1F;color:white;font-size:0.85rem;font-weight:600;display:flex;align-items:center;gap:10px;text-decoration:none;transition:0.3s;}
+.app-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,0.2);}
+.app-btn i{font-size:1.3rem;}
+.app-mockup{flex:1;display:flex;justify-content:center;}
+.app-mockup img{width:280px;height:auto;border-radius:30px;box-shadow:0 30px 60px rgba(0,0,0,0.1);}
+
+/* Final CTA */
+.final-cta{text-align:center;padding:80px 7%;background:linear-gradient(135deg,#C62828,#e53935);color:white;position:relative;overflow:hidden;}
+.final-cta::before{content:'';position:absolute;top:-40%;right:-10%;width:400px;height:400px;border-radius:50%;background:rgba(255,255,255,0.04);}
+.final-cta h2{font-size:2.4rem;font-weight:800;margin-bottom:12px;position:relative;z-index:2;}
+.final-cta p{font-size:1rem;opacity:0.85;margin-bottom:30px;max-width:500px;margin-left:auto;margin-right:auto;position:relative;z-index:2;}
+.final-cta .btn-white{padding:16px 40px;border:none;border-radius:16px;background:white;color:#C62828;font-weight:700;font-size:1rem;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;position:relative;z-index:2;}
+.final-cta .btn-white:hover{transform:translateY(-3px);box-shadow:0 12px 35px rgba(0,0,0,0.2);}
+
+/* Footer */
+.footer{background:#1F1F1F;padding:60px 7% 30px;color:white;}
+.footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:30px;margin-bottom:40px;}
+.footer-col h3{margin-bottom:18px;}
+.footer-col p,.footer-col a{display:block;text-decoration:none;color:#ccc;margin-bottom:10px;line-height:1.8;transition:0.3s;}
+.footer-col a:hover{color:white;}
+.footer-brand{display:flex!important;align-items:center;gap:12px;text-decoration:none;margin-bottom:20px;}
+.footer-logo-icon{width:40px;height:40px;}
+.footer-logo-text{font-size:1.6rem;font-weight:800;color:#C62828;}
+.footer-social{display:flex;gap:14px;margin-top:16px;}
+.footer-social i{width:40px;height:40px;background:rgba(255,255,255,0.08);border-radius:12px;display:flex;justify-content:center;align-items:center;cursor:pointer;transition:0.3s;}
+.footer-social i:hover{background:#C62828;transform:translateY(-3px);}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:20px;text-align:center;color:#aaa;}
+
+/* Responsive */
+@media(max-width:992px){.hero{flex-direction:column;text-align:center;padding:50px 7%;}.hero-left{max-width:100%;}.hero-btns{justify-content:center;}.trust-row{justify-content:center;}.hero-right{display:none;}.app-section{flex-direction:column;text-align:center;}.app-mockup{display:none;}.app-btns{justify-content:center;}}
+@media(max-width:768px){.nav-center{display:none;}.nav-icon{display:none;}.login-btn{display:none;}.desktop-profile{display:none !important;}.mobile-nav-icons{display:flex;}.menu-toggle{display:block;}.hero-left h1{font-size:2.2rem;}.how-grid{grid-template-columns:1fr;}.proof-stats{flex-wrap:wrap;gap:30px;}.offers-grid{grid-template-columns:1fr;}}
+@media(max-width:520px){.logo-text{display:none;}.navbar{padding:14px 5%;}.hero-left h1{font-size:1.8rem;}.hero{padding:40px 5%;}.final-cta h2{font-size:1.6rem;}}
+::-webkit-scrollbar{width:0;height:0;}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+<div class="nav-left">
+<a href="Homepage.html" class="back-arrow"><i class="fa-solid fa-arrow-left"></i></a>
+<a href="Homepage.html" class="logo"><img src="assets/logo.svg" alt="QuickBite" class="logo-icon"><span class="logo-text">QuickBite</span></a>
+</div>
+<div class="nav-center">
+<a href="Homepage.html">Home</a>
+<a href="about.html">About Us</a>
+<a href="blog.html">Blog</a>
+<a href="contact.html">Contact</a>
+<a href="home2.html" style="color:#C62828;">Home 2</a>
+</div>
+<div class="nav-right">
+
+<i class="fa-solid fa-cart-shopping nav-icon" onclick="window.location.href='cart.html'"></i>
+<button class="login-btn" id="desktopLoginBtn" onclick="window.location.href='login.html'">LOG IN</button>
+<div class="desktop-profile" id="desktopProfile">
+<div class="desktop-profile-icon" id="desktopProfileIcon"><i class="fa-solid fa-user"></i></div>
+<div class="desktop-dropdown" id="desktopDropdown">
+<div class="dropdown-header"><div class="dropdown-avatar"><i class="fa-solid fa-user"></i></div><div class="dropdown-info"><h4 id="desktopProfileName">User</h4><span id="desktopProfileEmail">user@quickbite.com</span></div></div>
+<div class="dropdown-divider"></div>
+<ul class="dropdown-menu">
+<li><a href="profile.html?tab=profile"><i class="fa-solid fa-user"></i>My Profile</a></li>
+<li><a href="profile.html?tab=orders"><i class="fa-solid fa-bag-shopping"></i>My Orders</a></li>
+<li><a href="profile.html?tab=addresses"><i class="fa-solid fa-location-dot"></i>Saved Addresses</a></li>
+<li><a href="profile.html?tab=favorites"><i class="fa-solid fa-heart"></i>Favorites</a></li>
+<li><a href="profile.html?tab=settings"><i class="fa-solid fa-gear"></i>Settings</a></li>
+</ul>
+<div class="dropdown-divider"></div>
+<button class="dropdown-logout" id="desktopLogout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
+</div>
+</div>
+<div class="mobile-nav-icons">
+<div class="mobile-cart" onclick="window.location.href='cart.html'"><i class="fa-solid fa-cart-shopping"></i><span class="cart-badge">0</span></div>
+<div class="mobile-profile-btn"><i class="fa-solid fa-user"></i></div>
+<div class="menu-toggle" id="menuToggle"><i class="fa-solid fa-bars"></i><i class="fa-solid fa-xmark"></i></div>
+</div>
+</div>
+</nav>
+
+<!-- Mobile Overlay & Drawer -->
+<div class="mobile-overlay" id="mobileOverlay"></div>
+<div class="mobile-drawer" id="mobileDrawer">
+<div class="drawer-close" id="drawerClose"><i class="fa-solid fa-xmark"></i></div>
+<ul class="drawer-menu">
+<li><a href="Homepage.html"><i class="fa-solid fa-house"></i>Home</a></li>
+<li><a href="food-delivery.html"><i class="fa-solid fa-motorcycle"></i>Food Delivery</a></li>
+<li><a href="dineout.html"><i class="fa-solid fa-utensils"></i>Dine-Out</a></li>
+<li><a href="offers.html"><i class="fa-solid fa-tags"></i>Exclusive Offers</a></li>
+<li><div class="drawer-divider"></div></li>
+<li><a href="cart.html"><i class="fa-solid fa-cart-shopping"></i>Cart</a></li>
+<li><a href="about.html"><i class="fa-solid fa-circle-info"></i>About Us</a></li>
+<li><a href="blog.html"><i class="fa-solid fa-newspaper"></i>Blog</a></li>
+<li><a href="contact.html"><i class="fa-solid fa-headset"></i>Contact</a></li>
+<li><a href="home2.html"><i class="fa-solid fa-bullhorn"></i>Home 2</a></li>
+</ul>
+</div>
+
+<!-- Hero -->
+<section class="hero">
+<div class="hero-left">
+<div class="promo-tag"><i class="fa-solid fa-fire"></i> #1 Food Delivery in South India</div>
+<h1>Delicious Food,<br>Delivered <span>Fast</span> to Your Door</h1>
+<p>Order from 500+ restaurants across Chennai, Mumbai & Bangalore. Fresh meals delivered in under 30 minutes with real-time tracking.</p>
+<div class="hero-btns">
+<a href="food-delivery.html" class="btn-primary"><i class="fa-solid fa-utensils"></i> Order Food</a>
+<a href="dineout.html" class="btn-outline">Book a Table</a>
+</div>
+<div class="trust-row">
+<div class="trust-item"><i class="fa-solid fa-check-circle"></i> Free delivery above ₹499</div>
+<div class="trust-item"><i class="fa-solid fa-check-circle"></i> No minimum order</div>
+<div class="trust-item"><i class="fa-solid fa-check-circle"></i> Live tracking</div>
+</div>
+</div>
+<div class="hero-right">
+<img class="hero-img" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=900&auto=format&fit=crop" alt="Food">
+<div class="hero-float f1">
+<div class="hf-icon"><i class="fa-solid fa-motorcycle"></i></div>
+<div><div class="hf-text">25 min delivery</div><div class="hf-sub">Average time</div></div>
+</div>
+<div class="hero-float f2">
+<div class="hf-icon"><i class="fa-solid fa-star"></i></div>
+<div><div class="hf-text">4.8★ rated</div><div class="hf-sub">50,000+ reviews</div></div>
+</div>
+</div>
+</section>
+
+<!-- How It Works -->
+<section class="how-section">
+<h2>How <span>QuickBite</span> Works</h2>
+<p class="subtitle">Three simple steps to get your food delivered</p>
+<div class="how-grid">
+<div class="how-card">
+<div class="how-num">1</div>
+<div class="how-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+<h3>Browse & Choose</h3>
+<p>Explore restaurants, browse menus, and pick your favorite dishes from 500+ options.</p>
+</div>
+<div class="how-card">
+<div class="how-num">2</div>
+<div class="how-icon"><i class="fa-solid fa-cart-shopping"></i></div>
+<h3>Place Your Order</h3>
+<p>Add items to cart, apply coupons, choose payment method, and confirm your order.</p>
+</div>
+<div class="how-card">
+<div class="how-num">3</div>
+<div class="how-icon"><i class="fa-solid fa-box-open"></i></div>
+<h3>Fast Delivery</h3>
+<p>Track your order in real-time and receive hot, fresh food at your doorstep.</p>
+</div>
+</div>
+</section>
+
+<!-- Offers -->
+<section class="offers-section">
+<h2>Exclusive <span>Offers</span> For You</h2>
+<div class="offers-grid">
+<div class="offer-card">
+<span class="offer-badge">New Users</span>
+<h3>Flat 20% OFF</h3>
+<p>On your first order. No minimum value required. Start your QuickBite journey with savings!</p>
+<div class="offer-code">WELCOME20</div>
+</div>
+<div class="offer-card alt">
+<span class="offer-badge">This Week</span>
+<h3>₹100 OFF on ₹299+</h3>
+<p>Valid on all restaurants. Order your favorites and save big this week.</p>
+<div class="offer-code">QUICKBITE100</div>
+</div>
+<div class="offer-card">
+<span class="offer-badge">Weekend</span>
+<h3>Buy 1 Get 1 Free</h3>
+<p>On select pizzas and burgers every Friday to Sunday. Don't miss out!</p>
+<div class="offer-code">BOGO</div>
+</div>
+</div>
+</section>
+
+<!-- Social Proof -->
+<section class="proof-section">
+<h2>Trusted by <span>Thousands</span></h2>
+<div class="proof-stats">
+<div class="proof-stat"><div class="num">50K+</div><div class="label">Happy Customers</div></div>
+<div class="proof-stat"><div class="num">500+</div><div class="label">Restaurants</div></div>
+<div class="proof-stat"><div class="num">3</div><div class="label">Cities</div></div>
+<div class="proof-stat"><div class="num">4.8★</div><div class="label">App Rating</div></div>
+</div>
+<div class="reviews-row">
+<div class="review-card">
+<div class="review-stars">★★★★★</div>
+<p>"Best food delivery app I've used. The food always arrives hot and the delivery is super fast. Love the variety!"</p>
+<div class="review-user"><div class="review-avatar"><i class="fa-solid fa-user"></i></div><span>Priya M, Chennai</span></div>
+</div>
+<div class="review-card">
+<div class="review-stars">★★★★★</div>
+<p>"The real-time tracking is amazing. I can see exactly where my food is. Plus the offers are unbeatable!"</p>
+<div class="review-user"><div class="review-avatar"><i class="fa-solid fa-user"></i></div><span>Rahul K, Mumbai</span></div>
+</div>
+<div class="review-card">
+<div class="review-stars">★★★★★</div>
+<p>"From biryani to pizza, everything I've ordered has been fresh and delicious. QuickBite is my go-to app now."</p>
+<div class="review-user"><div class="review-avatar"><i class="fa-solid fa-user"></i></div><span>Ananya S, Bangalore</span></div>
+</div>
+</div>
+</section>
+
+<!-- Final CTA -->
+<section class="final-cta">
+<h2>Ready to Order?</h2>
+<p>Join 50,000+ food lovers who trust QuickBite for fast, fresh, and delicious meals every day.</p>
+<button class="btn-white" onclick="window.location.href='food-delivery.html'">Start Ordering Now</button>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+<div class="footer-grid">
+<div class="footer-col"><a href="Homepage.html" class="footer-brand"><img src="assets/logo.svg" alt="QuickBite" class="footer-logo-icon"><span class="footer-logo-text">QuickBite</span></a><p>Delivering happiness with delicious food and premium restaurant experiences.</p><div class="footer-social"><i class="fa-brands fa-instagram"></i><i class="fa-brands fa-facebook-f"></i><i class="fa-brands fa-x-twitter"></i></div></div>
+<div class="footer-col"><h3>Quick Links</h3><a href="Homepage.html">Home</a><a href="food-delivery.html">Food Delivery</a><a href="dineout.html">Dine Out</a><a href="about.html">About Us</a><a href="blog.html">Blog</a><a href="contact.html">Contact</a><a href="home2.html">Home 2</a></div>
+<div class="footer-col"><h3>Support</h3><a href="contact.html">Help Center</a><a href="terms.html">Terms & Conditions</a><a href="privacy.html">Privacy Policy</a></div>
+<div class="footer-col"><h3>Contact</h3><p>support@quickbite.com</p><p>+91 98765 43210</p><p>Chennai, India</p></div>
+</div>
+<div class="footer-bottom"><p>&copy; 2026 QuickBite. All Rights Reserved.</p></div>
+</footer>
+
+<script>
+// Login state & Profile
+(function(){
+const l=localStorage.getItem('quickbite_logged_in');
+const userName=localStorage.getItem('quickbite_user')||'User';
+const userEmail=localStorage.getItem('quickbite_email')||'user@email.com';
+if(l==='true'){
+document.getElementById('desktopLoginBtn').style.display='none';
+document.getElementById('desktopProfile').classList.add('active');
+document.getElementById('desktopProfileName').textContent=userName;
+document.getElementById('desktopProfileEmail').textContent=userEmail;
+}
+// Desktop profile dropdown toggle
+const desktopProfileIcon=document.getElementById('desktopProfileIcon');
+const desktopDropdown=document.getElementById('desktopDropdown');
+desktopProfileIcon.addEventListener('click',(e)=>{e.stopPropagation();desktopDropdown.classList.toggle('active');});
+document.addEventListener('click',(e)=>{if(!document.getElementById('desktopProfile').contains(e.target))desktopDropdown.classList.remove('active');});
+// Logout
+document.getElementById('desktopLogout').addEventListener('click',()=>{
+localStorage.removeItem('quickbite_logged_in');
+localStorage.removeItem('quickbite_user');
+localStorage.removeItem('quickbite_email');
+window.location.reload();
+});
+// Toggle menu / Drawer
+const mt=document.getElementById('menuToggle');
+const mo=document.getElementById('mobileOverlay');
+const md=document.getElementById('mobileDrawer');
+const dc=document.getElementById('drawerClose');
+if(mt&&mo&&md&&dc){
+mt.addEventListener('click',()=>{md.classList.toggle('active');mo.classList.toggle('active');mt.classList.toggle('active');document.body.style.overflow=md.classList.contains('active')?'hidden':'';});
+mo.addEventListener('click',()=>{md.classList.remove('active');mo.classList.remove('active');mt.classList.remove('active');document.body.style.overflow='';});
+dc.addEventListener('click',()=>{md.classList.remove('active');mo.classList.remove('active');mt.classList.remove('active');document.body.style.overflow='';});
+}
+})();
+</script>
+
+</body>
+</html>

@@ -12,16 +12,65 @@
 body{background:#FFF8F0;color:#1F1F1F;overflow-x:hidden;min-height:100vh;display:flex;flex-direction:column;}
 html{scroll-behavior:smooth;}
 
-.navbar{display:flex;justify-content:space-between;align-items:center;padding:18px 7%;background:#FFF8F0;position:sticky;top:0;z-index:1000;box-shadow:0 3px 12px rgba(0,0,0,0.04);}
+.navbar{display:flex;justify-content:space-between;align-items:center;padding:20px 7%;background:#FFF8F0;position:sticky;top:0;z-index:1000;box-shadow:0 3px 12px rgba(0,0,0,0.04);}
 .nav-left{display:flex;align-items:center;gap:12px;}
 .back-arrow{width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,0.04);display:flex;align-items:center;justify-content:center;text-decoration:none;color:#1F1F1F;transition:0.3s;font-size:0.85rem;}
 .back-arrow:hover{background:rgba(198,40,40,0.08);color:#C62828;}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
-.logo-icon{width:40px;height:40px;border-radius:50%;}
-.logo-text{font-size:1.5rem;font-weight:800;color:#C62828;}
+.logo-icon{width:42px;height:42px;border-radius:50%;}
+.logo-text{font-size:1.6rem;font-weight:800;color:#C62828;}
+.nav-center{display:flex;align-items:center;gap:22px;position:absolute;left:50%;transform:translateX(-50%);}
+.nav-center a{text-decoration:none;color:#1F1F1F;font-weight:500;transition:0.3s;font-size:0.9rem;}
+.nav-center a:hover{color:#C62828;}
 .nav-right{display:flex;align-items:center;gap:20px;}
-.nav-right a{text-decoration:none;color:#1F1F1F;font-weight:500;transition:0.3s;font-size:0.9rem;}
-.nav-right a:hover{color:#C62828;}
+.desktop-icon{font-size:1.1rem;cursor:pointer;transition:0.3s;color:#1F1F1F;}
+.desktop-icon:hover{color:#C62828;}
+.login-btn{padding:10px 22px;border:2px solid #C62828;border-radius:12px;background:none;color:#C62828;font-weight:600;font-size:0.85rem;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;}
+.login-btn:hover{background:#C62828;color:white;}
+.desktop-profile{position:relative;display:none;}
+.desktop-profile.active{display:block;}
+.desktop-profile-icon{width:36px;height:36px;border-radius:50%;background:rgba(198,40,40,0.08);border:2px solid #C62828;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:0.3s;}
+.desktop-profile-icon i{font-size:0.85rem;color:#C62828;}
+.desktop-profile-icon:hover{background:rgba(198,40,40,0.15);}
+.desktop-dropdown{position:absolute;top:calc(100% + 14px);right:0;width:280px;background:white;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,0.12);padding:20px;opacity:0;visibility:hidden;transform:translateY(-10px);transition:0.35s ease;z-index:3000;}
+.desktop-dropdown.active{opacity:1;visibility:visible;transform:translateY(0);}
+.dropdown-header{display:flex;align-items:center;gap:14px;padding-bottom:14px;}
+.dropdown-avatar{width:44px;height:44px;border-radius:50%;background:rgba(198,40,40,0.08);border:2px solid #C62828;display:flex;align-items:center;justify-content:center;}
+.dropdown-avatar i{font-size:1rem;color:#C62828;}
+.dropdown-info h4{font-size:0.9rem;font-weight:600;margin-bottom:2px;}
+.dropdown-info span{font-size:0.78rem;color:#888;}
+.dropdown-divider{height:1px;background:rgba(0,0,0,0.06);margin:4px 0;}
+.dropdown-menu{list-style:none;padding:8px 0;}
+.dropdown-menu li a{display:flex;align-items:center;gap:12px;padding:10px 14px;text-decoration:none;color:#1F1F1F;font-weight:500;font-size:0.88rem;border-radius:10px;transition:0.3s;}
+.dropdown-menu li a:hover{background:rgba(198,40,40,0.05);color:#C62828;}
+.dropdown-menu li a i{font-size:0.9rem;width:18px;text-align:center;color:#C62828;}
+.dropdown-logout{width:100%;padding:10px;border:2px solid #e53935;background:none;border-radius:10px;color:#e53935;font-weight:600;font-size:0.85rem;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px;}
+.dropdown-logout:hover{background:#e53935;color:white;}
+.mobile-nav-icons{display:none;align-items:center;gap:14px;}
+.mobile-cart{position:relative;width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,0.04);display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.mobile-cart i{font-size:0.95rem;color:#1F1F1F;}
+.cart-badge{position:absolute;top:-2px;right:-2px;width:16px;height:16px;background:#C62828;color:white;font-size:0.6rem;font-weight:700;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.mobile-profile-btn{width:34px;height:34px;border-radius:50%;background:rgba(198,40,40,0.08);border:2px solid #C62828;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.mobile-profile-btn i{font-size:0.85rem;color:#C62828;}
+.menu-toggle{display:none;font-size:1.2rem;cursor:pointer;color:#1F1F1F;width:22px;height:22px;position:relative;}
+.menu-toggle .fa-bars,.menu-toggle .fa-xmark{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);transition:0.4s;}
+.menu-toggle .fa-xmark{opacity:0;transform:translate(-50%,-50%) rotate(-90deg);}
+.menu-toggle.active .fa-bars{opacity:0;transform:translate(-50%,-50%) rotate(90deg);}
+.menu-toggle.active .fa-xmark{opacity:1;transform:translate(-50%,-50%) rotate(0deg);}
+.mobile-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);z-index:2000;opacity:0;visibility:hidden;transition:0.4s;}
+.mobile-overlay.active{opacity:1;visibility:visible;}
+.mobile-drawer{position:fixed;top:0;right:-100%;width:75%;max-width:320px;height:100%;background:#FFF8F0;z-index:2001;padding:30px 24px;overflow-y:auto;transition:0.45s cubic-bezier(0.4,0,0.2,1);box-shadow:-10px 0 40px rgba(0,0,0,0.15);display:flex;flex-direction:column;}
+.mobile-drawer.active{right:0;}
+.drawer-close{position:absolute;top:22px;right:22px;font-size:1.3rem;cursor:pointer;color:#1F1F1F;width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(0,0,0,0.04);transition:0.3s;}
+.drawer-close:hover{color:#C62828;background:rgba(198,40,40,0.08);}
+.drawer-menu{list-style:none;padding:40px 0 16px;flex:1;}
+.drawer-menu li{opacity:0;transform:translateY(12px);transition:0.35s ease;}
+.mobile-drawer.active .drawer-menu li{opacity:1;transform:translateY(0);}
+.drawer-menu li:nth-child(1){transition-delay:.06s}.drawer-menu li:nth-child(2){transition-delay:.1s}.drawer-menu li:nth-child(3){transition-delay:.14s}.drawer-menu li:nth-child(4){transition-delay:.18s}.drawer-menu li:nth-child(5){transition-delay:.22s}.drawer-menu li:nth-child(6){transition-delay:.26s}.drawer-menu li:nth-child(7){transition-delay:.3s}.drawer-menu li:nth-child(8){transition-delay:.34s}.drawer-menu li:nth-child(9){transition-delay:.38s}
+.drawer-menu li a{display:flex;align-items:center;gap:14px;padding:13px 16px;text-decoration:none;color:#1F1F1F;font-weight:500;font-size:0.95rem;border-radius:14px;transition:0.3s;}
+.drawer-menu li a:hover{background:rgba(198,40,40,0.06);color:#C62828;}
+.drawer-menu li a i{font-size:1.1rem;width:22px;text-align:center;color:#C62828;}
+.drawer-divider{height:1px;background:rgba(0,0,0,0.06);margin:8px 16px;}
 
 .cart-container{flex:1;padding:30px 7%;max-width:800px;margin:0 auto;width:100%;}
 .cart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;}
@@ -59,15 +108,15 @@ html{scroll-behavior:smooth;}
 .checkout-btn:hover{background:#a51f1f;transform:translateY(-2px);box-shadow:0 8px 25px rgba(198,40,40,0.3);}
 
 @media(max-width:768px){
+.nav-center{display:none;}.desktop-icon{display:none;}.login-btn{display:none;}.desktop-profile{display:none !important;}.mobile-nav-icons{display:flex;}.menu-toggle{display:block;}
 .cart-container{padding:20px 5%;}
 .cart-header h1{font-size:1.4rem;}
 .cart-item{padding:14px 16px;gap:12px;}
-.logo-text{font-size:1.3rem;}
-.nav-right a{display:none;}
 }
 @media(max-width:520px){
 .logo-text{display:none;}
 .navbar{padding:14px 5%;}
+.back-arrow{width:30px;height:30px;font-size:0.8rem;}
 }
 ::-webkit-scrollbar{width:0;height:0;}
 </style>
@@ -76,14 +125,58 @@ html{scroll-behavior:smooth;}
 
 <nav class="navbar">
 <div class="nav-left">
-<a href="food-delivery.html" class="back-arrow"><i class="fa-solid fa-arrow-left"></i></a>
-<a href="Homepage.html" class="logo"><img src="assets/logo.svg" class="logo-icon"><span class="logo-text">QuickBite</span></a>
+<a href="Homepage.html" class="back-arrow"><i class="fa-solid fa-arrow-left"></i></a>
+<a href="Homepage.html" class="logo"><img src="assets/logo.svg" alt="QuickBite" class="logo-icon"><span class="logo-text">QuickBite</span></a>
+</div>
+<div class="nav-center">
+<a href="Homepage.html">Home</a>
+<a href="about.html">About Us</a>
+<a href="blog.html">Blog</a>
+<a href="contact.html">Contact</a>
+<a href="home2.html">Home 2</a>
 </div>
 <div class="nav-right">
-<a href="Homepage.html">Home</a>
-<a href="food-delivery.html">Order Food</a>
+<i class="fa-solid fa-cart-shopping desktop-icon" onclick="window.location.href='cart.html'" style="cursor:pointer;"></i>
+<button class="login-btn" id="desktopLoginBtn" onclick="window.location.href='login.html'">LOG IN</button>
+<div class="desktop-profile" id="desktopProfile">
+<div class="desktop-profile-icon" id="desktopProfileIcon"><i class="fa-solid fa-user"></i></div>
+<div class="desktop-dropdown" id="desktopDropdown">
+<div class="dropdown-header"><div class="dropdown-avatar"><i class="fa-solid fa-user"></i></div><div class="dropdown-info"><h4 id="desktopProfileName">User</h4><span id="desktopProfileEmail">user@quickbite.com</span></div></div>
+<div class="dropdown-divider"></div>
+<ul class="dropdown-menu">
+<li><a href="profile.html?tab=profile"><i class="fa-solid fa-user"></i>My Profile</a></li>
+<li><a href="profile.html?tab=orders"><i class="fa-solid fa-bag-shopping"></i>My Orders</a></li>
+<li><a href="profile.html?tab=addresses"><i class="fa-solid fa-location-dot"></i>Saved Addresses</a></li>
+<li><a href="profile.html?tab=favorites"><i class="fa-solid fa-heart"></i>Favorites</a></li>
+<li><a href="profile.html?tab=settings"><i class="fa-solid fa-gear"></i>Settings</a></li>
+</ul>
+<div class="dropdown-divider"></div>
+<button class="dropdown-logout" id="desktopLogout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
+</div>
+</div>
+<div class="mobile-nav-icons">
+<div class="mobile-cart" onclick="window.location.href='cart.html'"><i class="fa-solid fa-cart-shopping"></i><span class="cart-badge">0</span></div>
+<div class="mobile-profile-btn" id="mobileProfileBtn"><i class="fa-solid fa-user"></i></div>
+<div class="menu-toggle" id="menuToggle"><i class="fa-solid fa-bars"></i><i class="fa-solid fa-xmark"></i></div>
+</div>
 </div>
 </nav>
+<div class="mobile-overlay" id="mobileOverlay"></div>
+<div class="mobile-drawer" id="mobileDrawer">
+<div class="drawer-close" id="drawerClose"><i class="fa-solid fa-xmark"></i></div>
+<ul class="drawer-menu">
+<li><a href="Homepage.html"><i class="fa-solid fa-house"></i>Home</a></li>
+<li><a href="food-delivery.html"><i class="fa-solid fa-motorcycle"></i>Food Delivery</a></li>
+<li><a href="dineout.html"><i class="fa-solid fa-utensils"></i>Dine-Out</a></li>
+<li><a href="offers.html"><i class="fa-solid fa-tags"></i>Exclusive Offers</a></li>
+<li><div class="drawer-divider"></div></li>
+<li><a href="cart.html"><i class="fa-solid fa-cart-shopping"></i>Cart</a></li>
+<li><a href="about.html"><i class="fa-solid fa-circle-info"></i>About Us</a></li>
+<li><a href="blog.html"><i class="fa-solid fa-newspaper"></i>Blog</a></li>
+<li><a href="contact.html"><i class="fa-solid fa-headset"></i>Contact</a></li>
+<li><a href="home2.html"><i class="fa-solid fa-bullhorn"></i>Home 2</a></li>
+</ul>
+</div>
 
 <div class="cart-container">
 <div class="cart-header">
@@ -104,7 +197,7 @@ html{scroll-behavior:smooth;}
 <div class="cart-summary-row"><span>Delivery Fee</span><span id="deliveryFee">₹40</span></div>
 <div class="cart-summary-row"><span>Platform Fee</span><span>₹5</span></div>
 <div class="cart-summary-row total"><span>Total</span><span id="totalAmount">₹0</span></div>
-<button class="checkout-btn">Proceed to Checkout</button>
+<button class="checkout-btn" onclick="window.location.href='checkout.html'">Proceed to Checkout</button>
 </div>
 </div>
 
@@ -188,7 +281,7 @@ renderCart();
 </div>
 <div class="footer-col">
 <h3 style="margin-bottom:18px;">Support</h3>
-<a href="#" style="display:block;text-decoration:none;color:#ccc;margin-bottom:10px;transition:0.3s;">Help Center</a>
+<a href="contact.html" style="display:block;text-decoration:none;color:#ccc;margin-bottom:10px;transition:0.3s;">Help Center</a>
 <a href="terms.html" style="display:block;text-decoration:none;color:#ccc;margin-bottom:10px;transition:0.3s;">Terms & Conditions</a>
 <a href="privacy.html" style="display:block;text-decoration:none;color:#ccc;margin-bottom:10px;transition:0.3s;">Privacy Policy</a>
 </div>
@@ -203,6 +296,32 @@ renderCart();
 <p>&copy; 2026 QuickBite. All Rights Reserved.</p>
 </div>
 </footer>
+
+<script>
+(function(){
+const l=localStorage.getItem('quickbite_logged_in');
+const userName=localStorage.getItem('quickbite_user')||'User';
+const userEmail=localStorage.getItem('quickbite_email')||'user@email.com';
+if(l==='true'){
+if(document.getElementById('desktopLoginBtn'))document.getElementById('desktopLoginBtn').style.display='none';
+if(document.getElementById('desktopProfile')){document.getElementById('desktopProfile').classList.add('active');document.getElementById('desktopProfileName').textContent=userName;document.getElementById('desktopProfileEmail').textContent=userEmail;}
+}
+const dpi=document.getElementById('desktopProfileIcon');
+const dd=document.getElementById('desktopDropdown');
+if(dpi&&dd){dpi.addEventListener('click',(e)=>{e.stopPropagation();dd.classList.toggle('active');});document.addEventListener('click',(e)=>{if(!document.getElementById('desktopProfile').contains(e.target))dd.classList.remove('active');});}
+const dl=document.getElementById('desktopLogout');
+if(dl){dl.addEventListener('click',()=>{localStorage.removeItem('quickbite_logged_in');localStorage.removeItem('quickbite_user');localStorage.removeItem('quickbite_email');window.location.reload();});}
+const mt=document.getElementById('menuToggle');
+const mo=document.getElementById('mobileOverlay');
+const md=document.getElementById('mobileDrawer');
+const dc=document.getElementById('drawerClose');
+if(mt&&mo&&md&&dc){
+mt.addEventListener('click',()=>{md.classList.toggle('active');mo.classList.toggle('active');mt.classList.toggle('active');document.body.style.overflow=md.classList.contains('active')?'hidden':'';});
+mo.addEventListener('click',()=>{md.classList.remove('active');mo.classList.remove('active');mt.classList.remove('active');document.body.style.overflow='';});
+dc.addEventListener('click',()=>{md.classList.remove('active');mo.classList.remove('active');mt.classList.remove('active');document.body.style.overflow='';});
+}
+})();
+</script>
 
 </body>
 </html>

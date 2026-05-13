@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QuickBite - Blog Article</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:#FFF8F0;color:#1F1F1F;min-height:100vh;}
+html{scroll-behavior:smooth;}
+.navbar{display:flex;justify-content:space-between;align-items:center;padding:20px 7%;background:#FFF8F0;position:sticky;top:0;z-index:1000;box-shadow:0 3px 12px rgba(0,0,0,0.04);}
+.nav-left{display:flex;align-items:center;gap:12px;}
+.back-arrow{width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,0.04);display:flex;align-items:center;justify-content:center;text-decoration:none;color:#1F1F1F;transition:0.3s;font-size:0.85rem;}
+.back-arrow:hover{background:rgba(198,40,40,0.08);color:#C62828;}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.logo-icon{width:42px;height:42px;border-radius:50%;}
+.logo-text{font-size:1.6rem;font-weight:800;color:#C62828;}
+.nav-center{display:flex;align-items:center;gap:22px;position:absolute;left:50%;transform:translateX(-50%);}
+.nav-center a{text-decoration:none;color:#1F1F1F;font-weight:500;transition:0.3s;font-size:0.9rem;}
+.nav-center a:hover{color:#C62828;}
+.nav-right{display:flex;align-items:center;gap:20px;}
+.desktop-icon{font-size:1.1rem;cursor:pointer;transition:0.3s;color:#1F1F1F;}
+.desktop-icon:hover{color:#C62828;}
+.login-btn{padding:10px 22px;border:2px solid #C62828;border-radius:12px;background:none;color:#C62828;font-weight:600;font-size:0.85rem;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;}
+.login-btn:hover{background:#C62828;color:white;}
+.desktop-profile{position:relative;display:none;}
+.desktop-profile.active{display:block;}
+.desktop-profile-icon{width:36px;height:36px;border-radius:50%;background:rgba(198,40,40,0.08);border:2px solid #C62828;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:0.3s;}
+.desktop-profile-icon i{font-size:0.85rem;color:#C62828;}
+.desktop-profile-icon:hover{background:rgba(198,40,40,0.15);}
+.desktop-dropdown{position:absolute;top:calc(100% + 14px);right:0;width:280px;background:white;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,0.12);padding:20px;opacity:0;visibility:hidden;transform:translateY(-10px);transition:0.35s ease;z-index:3000;}
+.desktop-dropdown.active{opacity:1;visibility:visible;transform:translateY(0);}
+.dropdown-header{display:flex;align-items:center;gap:14px;padding-bottom:14px;}
+.dropdown-avatar{width:44px;height:44px;border-radius:50%;background:rgba(198,40,40,0.08);border:2px solid #C62828;display:flex;align-items:center;justify-content:center;}
+.dropdown-avatar i{font-size:1rem;color:#C62828;}
+.dropdown-info h4{font-size:0.9rem;font-weight:600;margin-bottom:2px;}
+.dropdown-info span{font-size:0.78rem;color:#888;}
+.dropdown-divider{height:1px;background:rgba(0,0,0,0.06);margin:4px 0;}
+.dropdown-menu{list-style:none;padding:8px 0;}
+.dropdown-menu li a{display:flex;align-items:center;gap:12px;padding:10px 14px;text-decoration:none;color:#1F1F1F;font-weight:500;font-size:0.88rem;border-radius:10px;transition:0.3s;}
+.dropdown-menu li a:hover{background:rgba(198,40,40,0.05);color:#C62828;}
+.dropdown-menu li a i{font-size:0.9rem;width:18px;text-align:center;color:#C62828;}
+.dropdown-logout{width:100%;padding:10px;border:2px solid #e53935;background:none;border-radius:10px;color:#e53935;font-weight:600;font-size:0.85rem;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px;}
+.dropdown-logout:hover{background:#e53935;color:white;}
+.mobile-nav-icons{display:none;align-items:center;gap:14px;}
+.mobile-cart{position:relative;width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,0.04);display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.mobile-cart i{font-size:0.95rem;color:#1F1F1F;}
+.cart-badge{position:absolute;top:-2px;right:-2px;width:16px;height:16px;background:#C62828;color:white;font-size:0.6rem;font-weight:700;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.mobile-profile-btn{width:34px;height:34px;border-radius:50%;background:rgba(198,40,40,0.08);border:2px solid #C62828;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.mobile-profile-btn i{font-size:0.85rem;color:#C62828;}
+.menu-toggle{display:none;font-size:1.2rem;cursor:pointer;color:#1F1F1F;width:22px;height:22px;position:relative;}
+.menu-toggle .fa-bars,.menu-toggle .fa-xmark{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);transition:0.4s;}
+.menu-toggle .fa-xmark{opacity:0;transform:translate(-50%,-50%) rotate(-90deg);}
+.menu-toggle.active .fa-bars{opacity:0;transform:translate(-50%,-50%) rotate(90deg);}
+.menu-toggle.active .fa-xmark{opacity:1;transform:translate(-50%,-50%) rotate(0deg);}
+.mobile-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);z-index:2000;opacity:0;visibility:hidden;transition:0.4s;}
+.mobile-overlay.active{opacity:1;visibility:visible;}
+.mobile-drawer{position:fixed;top:0;right:-100%;width:75%;max-width:320px;height:100%;background:#FFF8F0;z-index:2001;padding:30px 24px;overflow-y:auto;transition:0.45s cubic-bezier(0.4,0,0.2,1);box-shadow:-10px 0 40px rgba(0,0,0,0.15);display:flex;flex-direction:column;}
+.mobile-drawer.active{right:0;}
+.drawer-close{position:absolute;top:22px;right:22px;font-size:1.3rem;cursor:pointer;color:#1F1F1F;width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(0,0,0,0.04);transition:0.3s;}
+.drawer-close:hover{color:#C62828;background:rgba(198,40,40,0.08);}
+.drawer-menu{list-style:none;padding:40px 0 16px;flex:1;}
+.drawer-menu li{opacity:0;transform:translateY(12px);transition:0.35s ease;}
+.mobile-drawer.active .drawer-menu li{opacity:1;transform:translateY(0);}
+.drawer-menu li:nth-child(1){transition-delay:.06s}.drawer-menu li:nth-child(2){transition-delay:.1s}.drawer-menu li:nth-child(3){transition-delay:.14s}.drawer-menu li:nth-child(4){transition-delay:.18s}.drawer-menu li:nth-child(5){transition-delay:.22s}.drawer-menu li:nth-child(6){transition-delay:.26s}.drawer-menu li:nth-child(7){transition-delay:.3s}.drawer-menu li:nth-child(8){transition-delay:.34s}.drawer-menu li:nth-child(9){transition-delay:.38s}
+.drawer-menu li a{display:flex;align-items:center;gap:14px;padding:13px 16px;text-decoration:none;color:#1F1F1F;font-weight:500;font-size:0.95rem;border-radius:14px;transition:0.3s;}
+.drawer-menu li a:hover{background:rgba(198,40,40,0.06);color:#C62828;}
+.drawer-menu li a i{font-size:1.1rem;width:22px;text-align:center;color:#C62828;}
+.drawer-divider{height:1px;background:rgba(0,0,0,0.06);margin:8px 16px;}
+
+/* Article */
+.article-hero{width:100%;height:400px;object-fit:cover;display:block;}
+.article-container{max-width:760px;margin:-60px auto 0;padding:0 7% 60px;position:relative;z-index:2;}
+.article-card{background:white;border-radius:24px;padding:40px;box-shadow:0 10px 40px rgba(0,0,0,0.06);}
+.article-tag{display:inline-block;padding:5px 14px;background:rgba(198,40,40,0.08);color:#C62828;border-radius:8px;font-size:0.73rem;font-weight:600;margin-bottom:16px;text-transform:uppercase;letter-spacing:0.5px;}
+.article-card h1{font-size:2rem;font-weight:800;line-height:1.35;margin-bottom:18px;}
+.article-meta{display:flex;align-items:center;gap:14px;margin-bottom:28px;padding-bottom:20px;border-bottom:2px solid #f5f5f5;}
+.article-meta img{width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid rgba(198,40,40,0.2);}
+.meta-info .meta-author{font-size:0.9rem;font-weight:600;}
+.meta-info .meta-date{font-size:0.8rem;color:#888;}
+.meta-right{margin-left:auto;display:flex;align-items:center;gap:14px;}
+.meta-right span{font-size:0.8rem;color:#888;display:flex;align-items:center;gap:5px;}
+
+/* Content */
+.article-content{font-size:1rem;line-height:2;color:#444;}
+.article-content p{margin-bottom:20px;}
+.article-content h2{font-size:1.3rem;font-weight:700;color:#1F1F1F;margin:30px 0 14px;}
+.article-content h3{font-size:1.1rem;font-weight:600;color:#1F1F1F;margin:24px 0 10px;}
+.article-content ul,.article-content ol{margin:14px 0 20px 24px;}
+.article-content li{margin-bottom:8px;line-height:1.8;}
+.article-content blockquote{border-left:4px solid #C62828;padding:16px 20px;background:rgba(198,40,40,0.03);border-radius:0 12px 12px 0;margin:20px 0;font-style:italic;color:#555;}
+.article-content img{width:100%;border-radius:16px;margin:20px 0;}
+.article-content strong{color:#1F1F1F;}
+.highlight-box{background:linear-gradient(135deg,rgba(198,40,40,0.04),rgba(198,40,40,0.08));border-radius:16px;padding:22px;margin:24px 0;}
+.highlight-box h4{color:#C62828;font-size:0.9rem;margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+.highlight-box p{font-size:0.88rem;color:#555;margin:0;}
+
+/* Share & Actions */
+.article-actions{display:flex;justify-content:space-between;align-items:center;margin-top:30px;padding-top:24px;border-top:2px solid #f5f5f5;}
+.share-btns{display:flex;gap:10px;}
+.share-btn{width:40px;height:40px;border-radius:12px;border:none;display:flex;align-items:center;justify-content:center;font-size:1rem;cursor:pointer;transition:0.3s;}
+.share-btn.twitter{background:rgba(29,161,242,0.1);color:#1DA1F2;}
+.share-btn.facebook{background:rgba(24,119,242,0.1);color:#1877F2;}
+.share-btn.whatsapp{background:rgba(37,211,102,0.1);color:#25D366;}
+.share-btn.copy{background:rgba(0,0,0,0.04);color:#666;}
+.share-btn:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.1);}
+.like-btn{display:flex;align-items:center;gap:8px;padding:10px 20px;border:2px solid #f0f0f0;border-radius:12px;background:none;font-size:0.85rem;font-weight:600;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;color:#666;}
+.like-btn:hover,.like-btn.liked{border-color:#C62828;color:#C62828;background:rgba(198,40,40,0.04);}
+.like-btn i{font-size:1rem;}
+
+/* Related */
+.related-section{max-width:760px;margin:0 auto;padding:0 7% 60px;}
+.related-section h3{font-size:1.2rem;font-weight:700;margin-bottom:20px;}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.related-card{background:white;border-radius:18px;overflow:hidden;box-shadow:0 4px 18px rgba(0,0,0,0.04);transition:0.3s;cursor:pointer;}
+.related-card:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(0,0,0,0.07);}
+.related-card img{width:100%;height:140px;object-fit:cover;}
+.related-card-body{padding:16px;}
+.related-card-body h4{font-size:0.9rem;font-weight:600;margin-bottom:4px;line-height:1.4;}
+.related-card-body span{font-size:0.75rem;color:#888;}
+
+/* Footer */
+.footer{background:#1F1F1F;padding:60px 7% 30px;color:white;margin-top:40px;}
+.footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:30px;margin-bottom:40px;}
+.footer-col h3{margin-bottom:18px;}.footer-col p,.footer-col a{display:block;text-decoration:none;color:#ccc;margin-bottom:10px;line-height:1.8;transition:0.3s;}.footer-col a:hover{color:white;}
+.footer-brand{display:flex!important;align-items:center;gap:12px;text-decoration:none;margin-bottom:20px;}.footer-logo-icon{width:40px;height:40px;}.footer-logo-text{font-size:1.6rem;font-weight:800;color:#C62828;}
+.footer-social{display:flex;gap:14px;margin-top:16px;}.footer-social i{width:40px;height:40px;background:rgba(255,255,255,0.08);border-radius:12px;display:flex;justify-content:center;align-items:center;cursor:pointer;transition:0.3s;}.footer-social i:hover{background:#C62828;transform:translateY(-3px);}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:20px;text-align:center;color:#aaa;}
+
+@media(max-width:768px){
+.nav-center{display:none;}.desktop-icon{display:none;}.login-btn{display:none;}.desktop-profile{display:none !important;}.mobile-nav-icons{display:flex;}.menu-toggle{display:block;}
+.article-hero{height:250px;}
+.article-container{padding:0 5% 40px;margin-top:-40px;}
+.article-card{padding:24px;border-radius:18px;}
+.article-card h1{font-size:1.4rem;}
+.related-grid{grid-template-columns:1fr;}
+.related-section{padding:0 5% 40px;}
+}
+@media(max-width:520px){.logo-text{display:none;}.navbar{padding:14px 5%;}.back-arrow{width:30px;height:30px;font-size:0.8rem;}.article-card h1{font-size:1.2rem;}.article-content{font-size:0.92rem;}}
+::-webkit-scrollbar{width:0;height:0;}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+<div class="nav-left">
+<a href="Homepage.html" class="back-arrow"><i class="fa-solid fa-arrow-left"></i></a>
+<a href="Homepage.html" class="logo"><img src="assets/logo.svg" alt="QuickBite" class="logo-icon"><span class="logo-text">QuickBite</span></a>
+</div>
+<div class="nav-center">
+<a href="Homepage.html">Home</a>
+<a href="about.html">About Us</a>
+<a href="blog.html">Blog</a>
+<a href="contact.html">Contact</a>
+<a href="home2.html">Home 2</a>
+</div>
+<div class="nav-right">
+<i class="fa-solid fa-cart-shopping desktop-icon" onclick="window.location.href='cart.html'" style="cursor:pointer;"></i>
+<button class="login-btn" id="desktopLoginBtn" onclick="window.location.href='login.html'">LOG IN</button>
+<div class="desktop-profile" id="desktopProfile">
+<div class="desktop-profile-icon" id="desktopProfileIcon"><i class="fa-solid fa-user"></i></div>
+<div class="desktop-dropdown" id="desktopDropdown">
+<div class="dropdown-header"><div class="dropdown-avatar"><i class="fa-solid fa-user"></i></div><div class="dropdown-info"><h4 id="desktopProfileName">User</h4><span id="desktopProfileEmail">user@quickbite.com</span></div></div>
+<div class="dropdown-divider"></div>
+<ul class="dropdown-menu">
+<li><a href="profile.html?tab=profile"><i class="fa-solid fa-user"></i>My Profile</a></li>
+<li><a href="profile.html?tab=orders"><i class="fa-solid fa-bag-shopping"></i>My Orders</a></li>
+<li><a href="profile.html?tab=addresses"><i class="fa-solid fa-location-dot"></i>Saved Addresses</a></li>
+<li><a href="profile.html?tab=favorites"><i class="fa-solid fa-heart"></i>Favorites</a></li>
+<li><a href="profile.html?tab=settings"><i class="fa-solid fa-gear"></i>Settings</a></li>
+</ul>
+<div class="dropdown-divider"></div>
+<button class="dropdown-logout" id="desktopLogout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
+</div>
+</div>
+<div class="mobile-nav-icons">
+<div class="mobile-cart" onclick="window.location.href='cart.html'"><i class="fa-solid fa-cart-shopping"></i><span class="cart-badge">0</span></div>
+<div class="mobile-profile-btn" id="mobileProfileBtn"><i class="fa-solid fa-user"></i></div>
+<div class="menu-toggle" id="menuToggle"><i class="fa-solid fa-bars"></i><i class="fa-solid fa-xmark"></i></div>
+</div>
+</div>
+</nav>
+<div class="mobile-overlay" id="mobileOverlay"></div>
+<div class="mobile-drawer" id="mobileDrawer">
+<div class="drawer-close" id="drawerClose"><i class="fa-solid fa-xmark"></i></div>
+<ul class="drawer-menu">
+<li><a href="Homepage.html"><i class="fa-solid fa-house"></i>Home</a></li>
+<li><a href="food-delivery.html"><i class="fa-solid fa-motorcycle"></i>Food Delivery</a></li>
+<li><a href="dineout.html"><i class="fa-solid fa-utensils"></i>Dine-Out</a></li>
+<li><a href="offers.html"><i class="fa-solid fa-tags"></i>Exclusive Offers</a></li>
+<li><div class="drawer-divider"></div></li>
+<li><a href="cart.html"><i class="fa-solid fa-cart-shopping"></i>Cart</a></li>
+<li><a href="about.html"><i class="fa-solid fa-circle-info"></i>About Us</a></li>
+<li><a href="blog.html"><i class="fa-solid fa-newspaper"></i>Blog</a></li>
+<li><a href="contact.html"><i class="fa-solid fa-headset"></i>Contact</a></li>
+<li><a href="home2.html"><i class="fa-solid fa-bullhorn"></i>Home 2</a></li>
+</ul>
+</div>
+
+<img class="article-hero" id="heroImg" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1400&auto=format&fit=crop" alt="Article">
+
+<div class="article-container">
+<div class="article-card">
+<span class="article-tag" id="articleTag">Food Stories</span>
+<h1 id="articleTitle">The Ultimate Guide to South Indian Breakfast Across Chennai</h1>
+<div class="article-meta">
+<span style="width:44px;height:44px;border-radius:50%;background:rgba(198,40,40,0.08);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid rgba(198,40,40,0.2);"><i class="fa-solid fa-user" style="font-size:1rem;color:#C62828;"></i></span>
+<div class="meta-info">
+<div class="meta-author" id="articleAuthor">QuickBite Team</div>
+<div class="meta-date" id="articleDate">May 10, 2026</div>
+</div>
+<div class="meta-right">
+<span><i class="fa-regular fa-clock"></i> <span id="articleTime">5 min read</span></span>
+<span><i class="fa-regular fa-eye"></i> 2.4k views</span>
+</div>
+</div>
+
+<div class="article-content" id="articleContent">
+<p>Chennai's breakfast culture is legendary. From the sizzling sound of dosa batter hitting a hot tawa to the aroma of freshly brewed filter coffee, mornings in this city are a food lover's paradise.</p>
+
+<h2>1. Murugan Idli Shop — The Idli King</h2>
+<p>No South Indian breakfast list is complete without mentioning Murugan Idli Shop. Their soft, pillowy idlis served with an array of chutneys and sambar have earned them a cult following. The ghee pongal here is equally divine.</p>
+
+<div class="highlight-box">
+<h4><i class="fa-solid fa-lightbulb"></i> Pro Tip</h4>
+<p>Visit before 8 AM on weekends to avoid the rush. Their special butter idli is a must-try!</p>
+</div>
+
+<h2>2. Saravana Bhavan — The Global Icon</h2>
+<p>What started as a small restaurant in Chennai is now a global chain. Their masala dosa remains unbeatable — crispy on the outside, perfectly spiced potato filling inside, served with coconut chutney that's made fresh every hour.</p>
+
+<h2>3. Ratna Cafe — Heritage on a Plate</h2>
+<p>Operating since 1948, Ratna Cafe in Triplicane serves some of the most authentic sambar in the city. Their rava dosa and filter coffee combo is the perfect way to start your morning.</p>
+
+<blockquote>"A good South Indian breakfast isn't just a meal — it's a ritual that connects generations."</blockquote>
+
+<h2>4. Hotel Saravana Bhavan vs Murugan — The Great Debate</h2>
+<p>Ask any Chennaiite and they'll have a strong opinion. While Saravana Bhavan wins on variety and consistency, Murugan takes the crown for idlis specifically. Our verdict? Visit both!</p>
+
+<h3>What to Order at Each:</h3>
+<ul>
+<li><strong>Murugan:</strong> Ghee Pongal, Idli Set, Filter Coffee</li>
+<li><strong>Saravana Bhavan:</strong> Masala Dosa, Mini Tiffin, Badam Milk</li>
+<li><strong>Ratna Cafe:</strong> Rava Dosa, Sambar Vada, Strong Coffee</li>
+</ul>
+
+<h2>5. Adyar Ananda Bhavan (A2B)</h2>
+<p>A2B brings a modern touch to traditional breakfast. Their combo meals offer great value, and the sweets counter is impossible to resist. Try their special kanchipuram idli for something different.</p>
+
+<h2>Order on QuickBite</h2>
+<p>Can't make it to these restaurants? Order your favorite South Indian breakfast directly on QuickBite! We deliver from all these iconic spots right to your doorstep, hot and fresh.</p>
+</div>
+
+<div class="article-actions">
+<div class="share-btns">
+<button class="share-btn twitter" title="Share on Twitter"><i class="fa-brands fa-x-twitter"></i></button>
+<button class="share-btn facebook" title="Share on Facebook"><i class="fa-brands fa-facebook-f"></i></button>
+<button class="share-btn whatsapp" title="Share on WhatsApp"><i class="fa-brands fa-whatsapp"></i></button>
+<button class="share-btn copy" title="Copy link" onclick="navigator.clipboard.writeText(window.location.href);this.innerHTML='<i class=\'fa-solid fa-check\'></i>';setTimeout(()=>this.innerHTML='<i class=\'fa-solid fa-link\'></i>',2000)"><i class="fa-solid fa-link"></i></button>
+</div>
+<button class="like-btn" id="likeBtn"><i class="fa-regular fa-heart"></i> <span>Like</span></button>
+</div>
+</div>
+</div>
+
+<!-- Related -->
+<div class="related-section">
+<h3>Related Articles</h3>
+<div class="related-grid">
+<div class="related-card" onclick="window.location.href='blog-detail.html?id=2'">
+<img src="https://images.unsplash.com/photo-1701579231349-d7459c40919d?q=80&w=400&auto=format&fit=crop" alt="">
+<div class="related-card-body"><h4>10 Must-Try Biryani Spots in Mumbai</h4><span>May 8, 2026 &bull; 4 min read</span></div>
+</div>
+<div class="related-card" onclick="window.location.href='blog-detail.html?id=9'">
+<img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=400&auto=format&fit=crop" alt="">
+<div class="related-card-body"><h4>Chennai's Hidden Gem Restaurants</h4><span>Apr 18, 2026 &bull; 5 min read</span></div>
+</div>
+</div>
+</div>
+
+<footer class="footer">
+<div class="footer-grid">
+<div class="footer-col"><a href="Homepage.html" class="footer-brand"><img src="assets/logo.svg" alt="QuickBite" class="footer-logo-icon"><span class="footer-logo-text">QuickBite</span></a><p>Delivering happiness with delicious food and premium restaurant experiences.</p><div class="footer-social"><i class="fa-brands fa-instagram"></i><i class="fa-brands fa-facebook-f"></i><i class="fa-brands fa-x-twitter"></i></div></div>
+<div class="footer-col"><h3>Quick Links</h3><a href="Homepage.html">Home</a><a href="food-delivery.html">Food Delivery</a><a href="dineout.html">Dine Out</a><a href="about.html">About Us</a></div>
+<div class="footer-col"><h3>Support</h3><a href="contact.html">Help Center</a><a href="terms.html">Terms & Conditions</a><a href="privacy.html">Privacy Policy</a></div>
+<div class="footer-col"><h3>Contact</h3><p>support@quickbite.com</p><p>+91 98765 43210</p><p>Chennai, India</p></div>
+</div>
+<div class="footer-bottom"><p>&copy; 2026 QuickBite. All Rights Reserved.</p></div>
+</footer>
+
+<script>
+// Blog data with unique content for each article
+const blogData={
+1:{title:"The Ultimate Guide to South Indian Breakfast Across Chennai",tag:"Food Stories",author:"QuickBite Team",date:"May 10, 2026",time:"5 min read",img:"https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1400&auto=format&fit=crop",content:'<p>Chennai\'s breakfast culture is legendary. From the sizzling sound of dosa batter hitting a hot tawa to the aroma of freshly brewed filter coffee, mornings in this city are a food lover\'s paradise.</p><h2>1. Murugan Idli Shop — The Idli King</h2><p>No South Indian breakfast list is complete without mentioning Murugan Idli Shop. Their soft, pillowy idlis served with an array of chutneys and sambar have earned them a cult following.</p><div class="highlight-box"><h4><i class="fa-solid fa-lightbulb"></i> Pro Tip</h4><p>Visit before 8 AM on weekends to avoid the rush. Their special butter idli is a must-try!</p></div><h2>2. Saravana Bhavan — The Global Icon</h2><p>What started as a small restaurant in Chennai is now a global chain. Their masala dosa remains unbeatable — crispy on the outside, perfectly spiced potato filling inside.</p><h2>3. Ratna Cafe — Heritage on a Plate</h2><p>Operating since 1948, Ratna Cafe in Triplicane serves some of the most authentic sambar in the city. Their rava dosa and filter coffee combo is the perfect way to start your morning.</p><blockquote>"A good South Indian breakfast isn\'t just a meal — it\'s a ritual that connects generations."</blockquote><h2>4. Adyar Ananda Bhavan (A2B)</h2><p>A2B brings a modern touch to traditional breakfast. Their combo meals offer great value, and the sweets counter is impossible to resist.</p><h2>Order on QuickBite</h2><p>Can\'t make it to these restaurants? Order your favorite South Indian breakfast directly on QuickBite! We deliver from all these iconic spots right to your doorstep.</p>'},
+2:{title:"10 Must-Try Biryani Spots in Mumbai",tag:"Restaurant Guides",author:"Priya S",date:"May 8, 2026",time:"4 min read",img:"https://images.unsplash.com/photo-1701579231349-d7459c40919d?q=80&w=1400&auto=format&fit=crop",content:'<p>Mumbai\'s biryani scene is as diverse as the city itself. From Lucknowi to Hyderabadi, every lane has a hidden gem waiting to be discovered.</p><h2>1. Lucky Biryani — The Local Legend</h2><p>Tucked away in Bandra, Lucky Biryani has been serving aromatic, perfectly spiced biryani for over two decades. Their mutton biryani with raita is legendary among locals.</p><h2>2. Jaffer Bhai\'s Delhi Darbar</h2><p>Known for their generous portions and rich flavors, Jaffer Bhai\'s chicken biryani uses a secret spice blend that keeps customers coming back for more.</p><div class="highlight-box"><h4><i class="fa-solid fa-lightbulb"></i> Pro Tip</h4><p>Order the special Dum Biryani on Fridays — they make a limited batch with extra saffron!</p></div><h2>3. Behrouz Biryani</h2><p>For those who prefer ordering in, Behrouz offers royal-style biryani with premium packaging. Their Dum Gosht Biryani is worth every rupee.</p><h2>4. Biryani Blues</h2><p>A newer entrant that\'s quickly gained popularity for their Hyderabadi-style preparation with perfectly cooked basmati rice and tender meat.</p><h2>5. Persian Darbar</h2><p>This iconic restaurant in Byculla serves biryani that\'s been perfected over generations. The egg biryani here is surprisingly good.</p>'},
+3:{title:"5 Easy Healthy Meals You Can Order on QuickBite",tag:"Healthy Eating",author:"Dr. Meena",date:"May 6, 2026",time:"3 min read",img:"https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=1400&auto=format&fit=crop",content:'<p>Eating healthy doesn\'t mean sacrificing taste. Here are 5 nutritious meals you can order right now on QuickBite that are both delicious and good for you.</p><h2>1. Quinoa Salad Bowl</h2><p>Packed with protein, fiber, and fresh vegetables. Available from Salad Days in all three cities. Under 400 calories and incredibly filling.</p><h2>2. Grilled Chicken Wrap</h2><p>Lean protein wrapped in whole wheat with fresh veggies and a light yogurt dressing. Perfect for a quick, balanced lunch.</p><div class="highlight-box"><h4><i class="fa-solid fa-lightbulb"></i> Nutrition Tip</h4><p>Pair your healthy meal with a fresh lime soda instead of sugary drinks to keep your calorie count low.</p></div><h2>3. Oats Smoothie Bowl</h2><p>A breakfast option that\'s both Instagram-worthy and nutritious. Topped with fresh fruits, nuts, and seeds.</p><h2>4. Buddha Bowl</h2><p>A colorful mix of roasted vegetables, hummus, quinoa, and avocado. Vegan-friendly and packed with nutrients.</p><h2>5. Protein Bowl from EatFit</h2><p>Specifically designed for fitness enthusiasts — grilled paneer or chicken with brown rice and steamed vegetables.</p>'},
+4:{title:"How to Get the Best Deals on Food Delivery",tag:"Tips & Tricks",author:"QuickBite Team",date:"May 4, 2026",time:"3 min read",img:"https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1400&auto=format&fit=crop",content:'<p>Smart ordering can save you up to 40% on every food delivery order. Here are insider tips that regular users swear by.</p><h2>1. Time Your Orders Right</h2><p>Ordering during off-peak hours (2-5 PM) often unlocks special discounts that aren\'t available during lunch or dinner rush.</p><h2>2. Use Coupon Codes</h2><p>Always check the offers section before placing an order. Codes like QUICKBITE100 and WELCOME20 can save you significant amounts.</p><div class="highlight-box"><h4><i class="fa-solid fa-lightbulb"></i> Money Saver</h4><p>Orders above ₹499 get free delivery on QuickBite — add a drink or dessert to cross the threshold!</p></div><h2>3. Stack Offers with Wallet Cashback</h2><p>Pay with digital wallets that offer additional cashback on food orders. This stacks with QuickBite\'s own discounts.</p><h2>4. Subscribe to Notifications</h2><p>Flash sales and limited-time offers are sent via push notifications. Enable them to never miss a deal.</p><h2>5. Refer Friends</h2><p>Every successful referral earns you ₹100 in QuickBite credits. Share your code and eat for free!</p>'},
+5:{title:"Bangalore's Best Cafes for Remote Work",tag:"Restaurant Guides",author:"Arjun K",date:"May 2, 2026",time:"5 min read",img:"https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=1400&auto=format&fit=crop",content:'<p>Bangalore\'s cafe culture is perfect for remote workers. Great coffee, reliable WiFi, and inspiring ambiance — here are our top picks.</p><h2>1. Third Wave Coffee</h2><p>Multiple locations across the city, each with a modern aesthetic, fast WiFi, and excellent single-origin coffee. The Indiranagar branch is particularly spacious.</p><h2>2. Dyu Art Cafe</h2><p>A hidden gem in Koramangala with an artistic vibe, quiet corners, and their famous cheesecake. Perfect for creative work sessions.</p><div class="highlight-box"><h4><i class="fa-solid fa-lightbulb"></i> Work Tip</h4><p>Visit on weekday mornings for the quietest experience. Most cafes get crowded after 11 AM.</p></div><h2>3. Toit Brewpub</h2><p>While known for craft beer, Toit\'s daytime ambiance is surprisingly work-friendly. Great food menu to keep you fueled through long sessions.</p><h2>4. Brahmin\'s Coffee Bar</h2><p>For a quick traditional coffee break between work sessions. Their filter coffee is legendary — just don\'t expect WiFi here!</p><h2>5. Cafe Azzure</h2><p>Quiet, elegant, and with excellent tiramisu. A premium option for important video calls or focused deep work.</p>'},
+6:{title:"The Rise of Plant-Based Food in India",tag:"Healthy Eating",author:"Ravi M",date:"Apr 28, 2026",time:"6 min read",img:"https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=1400&auto=format&fit=crop",content:'<p>India is witnessing a plant-based revolution. From jackfruit biryani to soy kebabs, more people are choosing green alternatives without compromising on taste.</p><h2>Why the Shift?</h2><p>Health consciousness, environmental awareness, and animal welfare are driving millions of Indians toward plant-based eating. The market has grown 30% in just two years.</p><h2>Popular Plant-Based Dishes</h2><ul><li><strong>Jackfruit Biryani</strong> — Tastes remarkably like meat biryani</li><li><strong>Soy Chaap Tikka</strong> — A North Indian favorite</li><li><strong>Mushroom Galouti Kebab</strong> — Melt-in-mouth texture</li><li><strong>Oat Milk Coffee</strong> — The new cafe standard</li></ul><div class="highlight-box"><h4><i class="fa-solid fa-lightbulb"></i> Did You Know?</h4><p>India is the world\'s fastest-growing market for plant-based foods, expected to reach $1.5 billion by 2027.</p></div><h2>Where to Find Plant-Based Food</h2><p>On QuickBite, filter by "Veg" to discover hundreds of plant-based options from restaurants across Chennai, Mumbai, and Bangalore.</p>'},
+7:{title:"QuickBite's New Loyalty Program: Everything You Need to Know",tag:"Offers & Updates",author:"QuickBite Team",date:"Apr 25, 2026",time:"2 min read",img:"https://images.unsplash.com/photo-1556742393-d75f468bfcb0?q=80&w=1400&auto=format&fit=crop",content:'<p>We\'re excited to launch our new loyalty program! Earn points on every order and unlock exclusive rewards.</p><h2>How It Works</h2><p>Every ₹100 spent earns you 10 QuickBite Points. Accumulate points and redeem them for discounts, free deliveries, and exclusive menu items.</p><h2>Reward Tiers</h2><ul><li><strong>Bronze (0-500 pts)</strong> — 5% off on select restaurants</li><li><strong>Silver (500-2000 pts)</strong> — Free delivery + 10% off</li><li><strong>Gold (2000+ pts)</strong> — Priority delivery + 15% off + exclusive dishes</li></ul><div class="highlight-box"><h4><i class="fa-solid fa-lightbulb"></i> Bonus</h4><p>Sign up this week and get 100 bonus points instantly — that\'s ₹100 in credits!</p></div><h2>How to Join</h2><p>You\'re already enrolled! Every QuickBite account automatically earns points. Check your profile to see your current balance.</p>'},
+8:{title:"Street Food Safety: What to Look For",tag:"Tips & Tricks",author:"Dr. Meena",date:"Apr 22, 2026",time:"4 min read",img:"https://images.unsplash.com/photo-1601050690597-df0568f70950?q=80&w=1400&auto=format&fit=crop",content:'<p>Street food is one of India\'s greatest pleasures, but food safety matters. Here\'s how to enjoy chaat, rolls, and more without health risks.</p><h2>1. Check the Oil</h2><p>Fresh oil should be light-colored and not smoking excessively. Dark, thick oil that smells rancid is a red flag — move to the next stall.</p><h2>2. Watch the Water</h2><p>Pani puri water should be freshly made. If the stall uses sealed water bottles for preparation, that\'s a good sign.</p><div class="highlight-box"><h4><i class="fa-solid fa-lightbulb"></i> Safety Tip</h4><p>Busy stalls with high turnover are usually safer — food doesn\'t sit around long enough to go bad.</p></div><h2>3. Observe Hygiene Practices</h2><p>Does the vendor use gloves or tongs? Is there a separate area for raw and cooked food? These small details matter.</p><h2>4. Trust Your Instincts</h2><p>If something looks or smells off, skip it. There\'s always another stall around the corner.</p><h2>Order Street Food on QuickBite</h2><p>For guaranteed hygiene, order street food favorites from verified restaurants on QuickBite. Same taste, zero risk!</p>'},
+9:{title:"Chennai's Hidden Gem Restaurants You Haven't Tried",tag:"Food Stories",author:"Priya S",date:"Apr 18, 2026",time:"5 min read",img:"https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1400&auto=format&fit=crop",content:'<p>Beyond the popular chains and well-known names, Chennai has incredible hidden restaurants serving authentic food that most people don\'t know about.</p><h2>1. Amaravathi — Authentic Andhra</h2><p>Tucked in a bylane of T. Nagar, this tiny restaurant serves the spiciest, most authentic Andhra meals in the city. Their guntur chicken is fire.</p><h2>2. Kotas Kitchen — Home-Style Cooking</h2><p>A small family-run place in Mylapore that serves thalis just like grandma makes. Limited seats, unlimited love in every dish.</p><div class="highlight-box"><h4><i class="fa-solid fa-lightbulb"></i> Insider Tip</h4><p>These places don\'t advertise — ask auto drivers or local shopkeepers for the best hidden food spots!</p></div><h2>3. The Wok — Authentic Chinese</h2><p>Forget the Indianized Chinese you\'re used to. This small spot in Anna Nagar serves real Sichuan and Cantonese dishes.</p><h2>4. Cafe de Paris — French in Chennai</h2><p>A charming little cafe in Nungambakkam serving authentic croissants, quiche, and the best French onion soup in the city.</p><h2>5. Mylapore Street Food Circuit</h2><p>The streets around Kapaleeshwarar Temple hide some of the best sundal, bajji, and filter coffee you\'ll ever taste.</p>'}
+};
+
+// Load article based on URL param
+const params=new URLSearchParams(window.location.search);
+const id=params.get('id')||'1';
+const article=blogData[id]||blogData['1'];
+
+document.getElementById('heroImg').src=article.img;
+document.getElementById('articleTag').textContent=article.tag;
+document.getElementById('articleTitle').textContent=article.title;
+document.getElementById('articleAuthor').textContent=article.author;
+document.getElementById('articleDate').textContent=article.date;
+document.getElementById('articleTime').textContent=article.time;
+document.getElementById('articleContent').innerHTML=article.content;
+document.title='QuickBite - '+article.title;
+
+// Like button
+document.getElementById('likeBtn').addEventListener('click',function(){
+this.classList.toggle('liked');
+const icon=this.querySelector('i');
+if(this.classList.contains('liked')){icon.className='fa-solid fa-heart';this.querySelector('span').textContent='Liked';}
+else{icon.className='fa-regular fa-heart';this.querySelector('span').textContent='Like';}
+});
+</script>
+<script>
+(function(){
+const l=localStorage.getItem('quickbite_logged_in');
+const userName=localStorage.getItem('quickbite_user')||'User';
+const userEmail=localStorage.getItem('quickbite_email')||'user@email.com';
+if(l==='true'){
+if(document.getElementById('desktopLoginBtn'))document.getElementById('desktopLoginBtn').style.display='none';
+if(document.getElementById('desktopProfile')){document.getElementById('desktopProfile').classList.add('active');document.getElementById('desktopProfileName').textContent=userName;document.getElementById('desktopProfileEmail').textContent=userEmail;}
+}
+const dpi=document.getElementById('desktopProfileIcon');
+const dd=document.getElementById('desktopDropdown');
+if(dpi&&dd){dpi.addEventListener('click',(e)=>{e.stopPropagation();dd.classList.toggle('active');});document.addEventListener('click',(e)=>{if(!document.getElementById('desktopProfile').contains(e.target))dd.classList.remove('active');});}
+const dl=document.getElementById('desktopLogout');
+if(dl){dl.addEventListener('click',()=>{localStorage.removeItem('quickbite_logged_in');localStorage.removeItem('quickbite_user');localStorage.removeItem('quickbite_email');window.location.reload();});}
+const mt=document.getElementById('menuToggle');
+const mo=document.getElementById('mobileOverlay');
+const md=document.getElementById('mobileDrawer');
+const dc=document.getElementById('drawerClose');
+if(mt&&mo&&md&&dc){
+mt.addEventListener('click',()=>{md.classList.toggle('active');mo.classList.toggle('active');mt.classList.toggle('active');document.body.style.overflow=md.classList.contains('active')?'hidden':'';});
+mo.addEventListener('click',()=>{md.classList.remove('active');mo.classList.remove('active');mt.classList.remove('active');document.body.style.overflow='';});
+dc.addEventListener('click',()=>{md.classList.remove('active');mo.classList.remove('active');mt.classList.remove('active');document.body.style.overflow='';});
+}
+})();
+</script>
+</body>
+</html>

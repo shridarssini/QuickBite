@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -23,6 +23,9 @@ html{scroll-behavior:smooth;}
 .nav-right{display:flex;align-items:center;gap:22px;}
 .nav-right a{text-decoration:none;color:#1F1F1F;font-weight:500;transition:0.3s;}
 .nav-right a:hover{color:#C62828;}
+.nav-center{display:flex;align-items:center;gap:22px;position:absolute;left:50%;transform:translateX(-50%);}
+.nav-center a{text-decoration:none;color:#1F1F1F;font-weight:500;transition:0.3s;}
+.nav-center a:hover{color:#C62828;}
 .desktop-icon{font-size:1.1rem;cursor:pointer;transition:0.3s;color:#1F1F1F;}
 .desktop-icon:hover{color:#C62828;}
 
@@ -170,6 +173,7 @@ html{scroll-behavior:smooth;}
 .nav-right .login-btn{display:none;}
 .nav-right .desktop-icon{display:none;}
 .nav-right .profile-icon-desktop{display:none !important;}
+.nav-center{display:none;}
 .mobile-nav-icons{display:flex;}
 .menu-toggle{display:block;}
 .logo-text{font-size:1.3rem;}
@@ -205,9 +209,15 @@ html{scroll-behavior:smooth;}
 <span class="logo-text">QuickBite</span>
 </a>
 </div>
-<div class="nav-right">
+<div class="nav-center">
 <a href="Homepage.html">Home</a>
 <a href="about.html">About Us</a>
+<a href="blog.html">Blog</a>
+<a href="contact.html">Contact</a>
+<a href="home2.html">Home 2</a>
+</div>
+<div class="nav-right">
+
 <i class="fa-solid fa-cart-shopping desktop-icon" onclick="window.location.href='cart.html'" style="cursor:pointer;"></i>
 <button class="login-btn" id="desktopLoginBtn" onclick="window.location.href='login.html'">LOG IN</button>
 <div class="profile-icon-desktop" id="desktopProfileIcon"><i class="fa-solid fa-user"></i></div>
@@ -233,13 +243,12 @@ html{scroll-behavior:smooth;}
 </div>
 </div>
 <ul class="mpd-menu">
-<li><a href="#"><i class="fa-solid fa-bag-shopping"></i>My Orders</a></li>
-<li><a href="#"><i class="fa-solid fa-heart"></i>Favorites</a></li>
-<li><a href="#"><i class="fa-solid fa-location-dot"></i>Saved Addresses</a></li>
-<li><a href="#"><i class="fa-solid fa-credit-card"></i>Payment Methods</a></li>
-<li><a href="#"><i class="fa-solid fa-bell"></i>Notifications</a></li>
-<li><a href="#"><i class="fa-solid fa-gear"></i>Account Settings</a></li>
-<li><a href="#"><i class="fa-solid fa-headset"></i>Help & Support</a></li>
+<li><a href="profile.html?tab=orders"><i class="fa-solid fa-bag-shopping"></i>My Orders</a></li>
+<li><a href="profile.html?tab=favorites"><i class="fa-solid fa-heart"></i>Favorites</a></li>
+<li><a href="profile.html?tab=addresses"><i class="fa-solid fa-location-dot"></i>Saved Addresses</a></li>
+<li><a href="profile.html?tab=notifications"><i class="fa-solid fa-bell"></i>Notifications</a></li>
+<li><a href="profile.html?tab=settings"><i class="fa-solid fa-gear"></i>Account Settings</a></li>
+<li><a href="contact.html"><i class="fa-solid fa-headset"></i>Help & Support</a></li>
 </ul>
 <button class="mpd-logout" id="mpdLogout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
 </div>
@@ -263,12 +272,14 @@ html{scroll-behavior:smooth;}
 <ul class="drawer-menu">
 <li><a href="Homepage.html"><i class="fa-solid fa-house"></i>Home</a></li>
 <li><a href="food-delivery.html"><i class="fa-solid fa-motorcycle"></i>Food Delivery</a></li>
-<li><a href="dineout.html" class="active-link"><i class="fa-solid fa-utensils"></i>Dine-Out</a></li>
-<li><a href="#"><i class="fa-solid fa-tags"></i>Exclusive Offers</a></li>
+<li><a href="dineout.html"><i class="fa-solid fa-utensils"></i>Dine-Out</a></li>
+<li><a href="offers.html"><i class="fa-solid fa-tags"></i>Exclusive Offers</a></li>
 <li><div class="drawer-divider"></div></li>
 <li><a href="cart.html"><i class="fa-solid fa-cart-shopping"></i>Cart</a></li>
 <li><a href="about.html"><i class="fa-solid fa-circle-info"></i>About Us</a></li>
-<li><a href="#"><i class="fa-solid fa-headset"></i>Help Center</a></li>
+<li><a href="blog.html"><i class="fa-solid fa-newspaper"></i>Blog</a></li>
+<li><a href="contact.html"><i class="fa-solid fa-headset"></i>Contact</a></li>
+<li><a href="home2.html"><i class="fa-solid fa-bullhorn"></i>Home 2</a></li>
 </ul>
 </div>
 
@@ -339,11 +350,8 @@ html{scroll-behavior:smooth;}
 <a href="Homepage.html">Home</a>
 <a href="food-delivery.html">Food Delivery</a>
 <a href="dineout.html">Dine Out</a>
-<a href="about.html">About Us</a>
-</div>
-<div class="footer-col">
-<h3>Support</h3>
-<a href="#">Help Center</a>
+<a href="about.html">About Us</a><a href="blog.html">Blog</a><a href="contact.html">Contact</a></div><div class="footer-col"><h3>Support</h3>
+<a href="contact.html">Help Center</a>
 <a href="terms.html">Terms & Conditions</a>
 <a href="privacy.html">Privacy Policy</a>
 </div>
@@ -447,6 +455,21 @@ bangalore: [
 let currentCity = 'chennai';
 let currentFilter = 'all';
 let searchQuery = '';
+
+// Read URL params from homepage search
+(function(){
+const params=new URLSearchParams(window.location.search);
+const cityParam=params.get('city');
+const searchParam=params.get('search');
+if(cityParam && ['chennai','mumbai','bangalore'].includes(cityParam)){
+currentCity=cityParam;
+document.getElementById('citySelect').value=cityParam;
+}
+if(searchParam){
+searchQuery=searchParam;
+document.getElementById('searchInput').value=searchParam;
+}
+})();
 
 const grid = document.getElementById('restaurantGrid');
 const gridTitle = document.getElementById('gridTitle');

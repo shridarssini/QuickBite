@@ -108,6 +108,7 @@ display:flex;
 align-items:center;
 gap:10px;
 text-decoration:none;
+flex-shrink:0;
 }
 
 .logo-icon{
@@ -123,21 +124,30 @@ font-weight:800;
 color:#C62828;
 }
 
-.nav-right{
+.nav-center{
 display:flex;
 align-items:center;
 gap:26px;
+position:absolute;
+left:50%;
+transform:translateX(-50%);
 }
 
-.nav-right a{
+.nav-center a{
 text-decoration:none;
 color:#1F1F1F;
 font-weight:500;
 transition:0.3s;
 }
 
-.nav-right a:hover{
+.nav-center a:hover{
 color:#C62828;
+}
+
+.nav-right{
+display:flex;
+align-items:center;
+gap:20px;
 }
 
 .icon{
@@ -722,8 +732,8 @@ flex-wrap:wrap;
 }
 
 .service-card{
-width:300px;
-height:300px;
+width:420px;
+height:360px;
 
 border-radius:32px;
 overflow:hidden;
@@ -828,10 +838,10 @@ font-weight:700;
 width:100%;
 margin-top:12px;
 padding:8px 0;
-border:2px solid #C62828;
+border:none;
 border-radius:10px;
-background:none;
-color:#C62828;
+background:#C62828;
+color:white;
 font-weight:600;
 font-size:0.82rem;
 cursor:pointer;
@@ -840,8 +850,7 @@ font-family:'Poppins',sans-serif;
 }
 
 .add-cart-btn:hover{
-background:#C62828;
-color:white;
+background:#a51f1f;
 }
 
 .dish-cart-area{
@@ -1324,6 +1333,10 @@ font-size:4rem;
 
 @media(max-width:768px){
 
+.nav-center{
+display:none;
+}
+
 .nav-right a{
 display:none;
 }
@@ -1457,10 +1470,15 @@ height:0;
 <span class="logo-text">QuickBite</span>
 </a>
 
-<div class="nav-right">
-
-<a href="#">Home</a>
+<div class="nav-center">
+<a href="Homepage.html">Home</a>
 <a href="about.html">About Us</a>
+<a href="blog.html">Blog</a>
+<a href="contact.html">Contact</a>
+<a href="home2.html">Home 2</a>
+</div>
+
+<div class="nav-right">
 
 <i class="fa-solid fa-cart-shopping icon" onclick="window.location.href='cart.html'" style="cursor:pointer;"></i>
 
@@ -1485,13 +1503,13 @@ LOG IN
 </div>
 <div class="dropdown-divider"></div>
 <ul class="dropdown-menu">
-<li><a href="#"><i class="fa-solid fa-user"></i>My Profile</a></li>
-<li><a href="#"><i class="fa-solid fa-bag-shopping"></i>My Orders</a></li>
-<li><a href="#"><i class="fa-solid fa-location-dot"></i>Saved Addresses</a></li>
-<li><a href="#"><i class="fa-solid fa-heart"></i>Favorites</a></li>
-<li><a href="#"><i class="fa-solid fa-bell"></i>Notifications</a></li>
-<li><a href="#"><i class="fa-solid fa-gear"></i>Settings</a></li>
-<li><a href="#"><i class="fa-solid fa-headset"></i>Help & Support</a></li>
+<li><a href="profile.html?tab=profile"><i class="fa-solid fa-user"></i>My Profile</a></li>
+<li><a href="profile.html?tab=orders"><i class="fa-solid fa-bag-shopping"></i>My Orders</a></li>
+<li><a href="profile.html?tab=addresses"><i class="fa-solid fa-location-dot"></i>Saved Addresses</a></li>
+<li><a href="profile.html?tab=favorites"><i class="fa-solid fa-heart"></i>Favorites</a></li>
+<li><a href="profile.html?tab=notifications"><i class="fa-solid fa-bell"></i>Notifications</a></li>
+<li><a href="profile.html?tab=settings"><i class="fa-solid fa-gear"></i>Settings</a></li>
+<li><a href="contact.html"><i class="fa-solid fa-headset"></i>Help & Support</a></li>
 </ul>
 <div class="dropdown-divider"></div>
 <button class="dropdown-logout" id="desktopLogout">
@@ -1522,14 +1540,13 @@ Logout
 </div>
 </div>
 <ul class="mpd-menu">
-<li><a href="#"><i class="fa-solid fa-bag-shopping"></i>My Orders</a></li>
-<li><a href="#"><i class="fa-solid fa-heart"></i>Favorites</a></li>
-<li><a href="#"><i class="fa-solid fa-location-dot"></i>Saved Addresses</a></li>
-<li><a href="#"><i class="fa-solid fa-credit-card"></i>Payment Methods</a></li>
-<li><a href="#"><i class="fa-solid fa-bell"></i>Notifications</a></li>
-<li><a href="#"><i class="fa-solid fa-clock-rotate-left"></i>Order History</a></li>
-<li><a href="#"><i class="fa-solid fa-gear"></i>Account Settings</a></li>
-<li><a href="#"><i class="fa-solid fa-headset"></i>Help & Support</a></li>
+<li><a href="profile.html?tab=orders"><i class="fa-solid fa-bag-shopping"></i>My Orders</a></li>
+<li><a href="profile.html?tab=favorites"><i class="fa-solid fa-heart"></i>Favorites</a></li>
+<li><a href="profile.html?tab=addresses"><i class="fa-solid fa-location-dot"></i>Saved Addresses</a></li>
+<li><a href="profile.html?tab=notifications"><i class="fa-solid fa-bell"></i>Notifications</a></li>
+<li><a href="profile.html?tab=orders"><i class="fa-solid fa-clock-rotate-left"></i>Order History</a></li>
+<li><a href="profile.html?tab=settings"><i class="fa-solid fa-gear"></i>Account Settings</a></li>
+<li><a href="contact.html"><i class="fa-solid fa-headset"></i>Help & Support</a></li>
 </ul>
 <button class="mpd-logout" id="mpdLogout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
 </div>
@@ -1572,11 +1589,13 @@ Logout
 <li><a href="Homepage.html" class="active-link"><i class="fa-solid fa-house"></i>Home</a></li>
 <li><a href="food-delivery.html"><i class="fa-solid fa-motorcycle"></i>Food Delivery</a></li>
 <li><a href="dineout.html"><i class="fa-solid fa-utensils"></i>Dine-Out</a></li>
-<li><a href="#"><i class="fa-solid fa-tags"></i>Exclusive Offers</a></li>
+<li><a href="offers.html"><i class="fa-solid fa-tags"></i>Exclusive Offers</a></li>
 <li><div class="drawer-divider"></div></li>
 <li><a href="cart.html"><i class="fa-solid fa-cart-shopping"></i>Cart</a></li>
 <li><a href="about.html"><i class="fa-solid fa-circle-info"></i>About Us</a></li>
-<li><a href="#"><i class="fa-solid fa-headset"></i>Help Center</a></li>
+<li><a href="blog.html"><i class="fa-solid fa-newspaper"></i>Blog</a></li>
+<li><a href="contact.html"><i class="fa-solid fa-headset"></i>Contact</a></li>
+<li><a href="home2.html"><i class="fa-solid fa-bullhorn"></i>Home 2</a></li>
 </ul>
 
 <!-- Logged In Menu (same nav items) -->
@@ -1584,11 +1603,13 @@ Logout
 <li><a href="Homepage.html" class="active-link"><i class="fa-solid fa-house"></i>Home</a></li>
 <li><a href="food-delivery.html"><i class="fa-solid fa-motorcycle"></i>Food Delivery</a></li>
 <li><a href="dineout.html"><i class="fa-solid fa-utensils"></i>Dine-Out</a></li>
-<li><a href="#"><i class="fa-solid fa-tags"></i>Exclusive Offers</a></li>
+<li><a href="offers.html"><i class="fa-solid fa-tags"></i>Exclusive Offers</a></li>
 <li><div class="drawer-divider"></div></li>
 <li><a href="cart.html"><i class="fa-solid fa-cart-shopping"></i>Cart</a></li>
 <li><a href="about.html"><i class="fa-solid fa-circle-info"></i>About Us</a></li>
-<li><a href="#"><i class="fa-solid fa-headset"></i>Help Center</a></li>
+<li><a href="blog.html"><i class="fa-solid fa-newspaper"></i>Blog</a></li>
+<li><a href="contact.html"><i class="fa-solid fa-headset"></i>Contact</a></li>
+<li><a href="home2.html"><i class="fa-solid fa-bullhorn"></i>Home 2</a></li>
 </ul>
 
 <!-- Logout Button (visible when logged in) -->
@@ -1619,19 +1640,20 @@ fast delivery and the best restaurant experience.
 
 <div class="search-wrapper">
 
-<select class="search-location">
-<option>Select Location</option>
-<option>Chennai</option>
-<option>Bangalore</option>
-<option>Mumbai</option>
+<select class="search-location" id="heroLocation">
+<option value="">Select Location</option>
+<option value="chennai">Chennai</option>
+<option value="bangalore">Bangalore</option>
+<option value="mumbai">Mumbai</option>
 </select>
 
 <input
 type="text"
 placeholder="Search restaurants, dishes, cuisines..."
-class="search-input">
+class="search-input"
+id="heroSearch">
 
-<button class="search-btn">
+<button class="search-btn" id="heroSearchBtn">
 Search
 </button>
 
@@ -1754,6 +1776,8 @@ Book A Table
 <div class="section-header">
 
 <h2>Exclusive Offers</h2>
+
+<a href="offers.html" class="see-all" style="text-decoration:none;">See all</a>
 
 </div>
 
@@ -2044,6 +2068,32 @@ the clock to provide fast assistance and ensure smooth experiences.
 
 </div>
 
+<div class="why-card">
+
+<i class="fa-solid fa-shield-halved"></i>
+
+<h3>Safe & Secure Payments</h3>
+
+<p>
+All transactions are protected with industry-standard encryption. Pay with
+UPI, cards, wallets or cash on delivery with complete peace of mind.
+</p>
+
+</div>
+
+<div class="why-card">
+
+<i class="fa-solid fa-clock-rotate-left"></i>
+
+<h3>Real-Time Order Tracking</h3>
+
+<p>
+Track your food from kitchen to doorstep with live updates. Know exactly
+when your meal is being prepared, picked up and arriving at your location.
+</p>
+
+</div>
+
 </div>
 
 </section>
@@ -2194,15 +2244,9 @@ Delivering happiness with delicious food and premium restaurant experiences.
 <a href="Homepage.html">Home</a>
 <a href="food-delivery.html">Food Delivery</a>
 <a href="dineout.html">Dine Out</a>
-<a href="about.html">About Us</a>
+<a href="about.html">About Us</a><a href="blog.html">Blog</a><a href="contact.html">Contact</a></div><div class="footer-col"><h3>Support</h3>
 
-</div>
-
-<div class="footer-col">
-
-<h3>Support</h3>
-
-<a href="#">Help Center</a>
+<a href="contact.html">Help Center</a>
 <a href="terms.html">Terms & Conditions</a>
 <a href="privacy.html">Privacy Policy</a>
 
@@ -2279,6 +2323,47 @@ function renderDishButtons() {
 // Init
 updateHomeBadge();
 renderDishButtons();
+
+// Hero Search functionality
+document.getElementById('heroSearchBtn').addEventListener('click', function(){
+  const city = document.getElementById('heroLocation').value;
+  const query = document.getElementById('heroSearch').value.trim();
+  if(!query && !city) { window.location.href = 'food-delivery.html'; return; }
+  
+  // Restaurant names from dine-out data
+  const dineOutRestaurants = ['dakshin','peshawri','copper chimney','amethyst cafe','bombay brasserie','sandy\'s chocolate lab','rajdhani','above sea level','murugan idli shop','the park','writer\'s cafe','cream centre','bay 146','roof garden','benjarong','ciclo cafe','azzuri bay','saravana bhavan','absolute barbecues','illusions','chamiers cafe','jonah\'s bistro','madras pavilion','flying elephant','kefi','trishna','leopold cafe','bastian','cafe mondegar','barbeque nation','aer lounge','shree thaker','masala library','prithvi cafe','khyber','soda bottle opener','asilo','karavalli','vidyarthi bhavan','toit','corner house','meghana foods','nagarjuna','empire','truffles','mtr','brahmin\'s coffee bar'];
+  
+  // Food/dish keywords
+  const foodKeywords = ['biryani','pizza','burger','noodles','dosa','idli','chicken','mutton','paneer','naan','rice','pasta','sandwich','roll','cake','ice cream','coffee','tea','lassi','juice','fry','curry','thali','samosa','momos','wrap','salad','brownie','dessert','soup','kebab','tikka','manchurian','fried','grilled','butter','cheese','egg','prawn','fish','crab','lobster','veg','nonveg','non-veg','healthy','snack','drink'];
+  
+  const queryLower = query.toLowerCase();
+  
+  // Check if it matches a restaurant name
+  const isRestaurant = dineOutRestaurants.some(r => queryLower.includes(r) || r.includes(queryLower));
+  
+  // Check if it matches food keywords
+  const isFood = foodKeywords.some(f => queryLower.includes(f));
+  
+  let url;
+  const params = [];
+  if(city) params.push('city=' + city);
+  if(query) params.push('search=' + encodeURIComponent(query));
+  
+  if(isRestaurant && !isFood) {
+    url = 'dineout.html';
+  } else {
+    url = 'food-delivery.html';
+  }
+  
+  if(params.length > 0) url += '?' + params.join('&');
+  window.location.href = url;
+});
+
+document.getElementById('heroSearch').addEventListener('keypress', function(e){
+  if(e.key === 'Enter'){
+    document.getElementById('heroSearchBtn').click();
+  }
+});
 </script>
 
 <!-- OFFER SLIDER -->
