@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
-body{background:#FFF8F0;color:#1F1F1F;min-height:100vh;}
+body{background:#f5f0eb;color:#1F1F1F;min-height:100vh;}
 html{scroll-behavior:smooth;}
 .navbar{display:flex;justify-content:space-between;align-items:center;padding:20px 7%;background:#FFF8F0;position:sticky;top:0;z-index:1000;box-shadow:0 3px 12px rgba(0,0,0,0.04);}
 .nav-left{display:flex;align-items:center;gap:12px;}
@@ -72,9 +72,27 @@ html{scroll-behavior:smooth;}
 .drawer-divider{height:1px;background:rgba(0,0,0,0.06);margin:8px 16px;}
 
 /* Article */
-.article-hero{width:100%;height:400px;object-fit:cover;display:block;}
-.article-container{max-width:760px;margin:-60px auto 0;padding:0 7% 60px;position:relative;z-index:2;}
-.article-card{background:white;border-radius:24px;padding:40px;box-shadow:0 10px 40px rgba(0,0,0,0.06);}
+.article-hero{width:100%;height:420px;object-fit:cover;display:block;}
+.article-container{max-width:1400px;margin:-60px auto 0;padding:0 4% 60px;position:relative;z-index:2;display:grid;grid-template-columns:1fr 300px;gap:30px;}
+.article-card{background:white;border-radius:24px;padding:44px;box-shadow:0 10px 40px rgba(0,0,0,0.06);}
+.article-sidebar{position:sticky;top:90px;height:fit-content;display:flex;flex-direction:column;gap:20px;}
+.sidebar-box{background:white;border-radius:20px;padding:24px;box-shadow:0 6px 25px rgba(0,0,0,0.04);position:relative;overflow:hidden;}
+.sidebar-box::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#C62828,#e53935,#ff6659);}
+.sidebar-box h4{font-size:0.95rem;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.sidebar-box h4 i{color:#C62828;}
+.sidebar-link{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #f5f5f5;cursor:pointer;transition:0.3s;text-decoration:none;color:#1F1F1F;}
+.sidebar-link:last-child{border:none;}
+.sidebar-link:hover{opacity:0.8;}
+.sidebar-link img{width:55px;height:55px;border-radius:12px;object-fit:cover;flex-shrink:0;}
+.sidebar-link-info h5{font-size:0.8rem;font-weight:600;line-height:1.4;margin-bottom:3px;}
+.sidebar-link-info span{font-size:0.7rem;color:#aaa;}
+.sidebar-tags{display:flex;flex-wrap:wrap;gap:8px;}
+.sidebar-tag{padding:6px 14px;border:1.5px solid #eee;border-radius:20px;font-size:0.73rem;font-weight:500;color:#666;transition:0.3s;cursor:pointer;}
+.sidebar-tag:hover{border-color:#C62828;color:#C62828;background:rgba(198,40,40,0.04);}
+.sidebar-cta{text-align:center;padding:20px;background:linear-gradient(135deg,rgba(198,40,40,0.04),rgba(198,40,40,0.08));border-radius:16px;margin-top:10px;}
+.sidebar-cta p{font-size:0.82rem;color:#666;margin-bottom:12px;line-height:1.5;}
+.sidebar-cta a{display:inline-block;padding:10px 22px;background:#C62828;color:white;border-radius:10px;font-size:0.82rem;font-weight:600;text-decoration:none;transition:0.3s;}
+.sidebar-cta a:hover{background:#a51f1f;}
 .article-tag{display:inline-block;padding:5px 14px;background:rgba(198,40,40,0.08);color:#C62828;border-radius:8px;font-size:0.73rem;font-weight:600;margin-bottom:16px;text-transform:uppercase;letter-spacing:0.5px;}
 .article-card h1{font-size:2rem;font-weight:800;line-height:1.35;margin-bottom:18px;}
 .article-meta{display:flex;align-items:center;gap:14px;margin-bottom:28px;padding-bottom:20px;border-bottom:2px solid #f5f5f5;}
@@ -112,9 +130,9 @@ html{scroll-behavior:smooth;}
 .like-btn i{font-size:1rem;}
 
 /* Related */
-.related-section{max-width:760px;margin:0 auto;padding:0 7% 60px;}
+.related-section{max-width:1400px;margin:0 auto;padding:0 4% 60px;}
 .related-section h3{font-size:1.2rem;font-weight:700;margin-bottom:20px;}
-.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
 .related-card{background:white;border-radius:18px;overflow:hidden;box-shadow:0 4px 18px rgba(0,0,0,0.04);transition:0.3s;cursor:pointer;}
 .related-card:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(0,0,0,0.07);}
 .related-card img{width:100%;height:140px;object-fit:cover;}
@@ -133,9 +151,10 @@ html{scroll-behavior:smooth;}
 @media(max-width:768px){
 .nav-center{display:none;}.desktop-icon{display:none;}.login-btn{display:none;}.desktop-profile{display:none !important;}.mobile-nav-icons{display:flex;}.menu-toggle{display:block;}
 .article-hero{height:250px;}
-.article-container{padding:0 5% 40px;margin-top:-40px;}
+.article-container{padding:0 5% 40px;margin-top:-40px;grid-template-columns:1fr;gap:20px;}
 .article-card{padding:24px;border-radius:18px;}
 .article-card h1{font-size:1.4rem;}
+.article-sidebar{position:static;}
 .related-grid{grid-template-columns:1fr;}
 .related-section{padding:0 5% 40px;}
 }
@@ -264,6 +283,49 @@ html{scroll-behavior:smooth;}
 <button class="like-btn" id="likeBtn"><i class="fa-regular fa-heart"></i> <span>Like</span></button>
 </div>
 </div>
+
+<!-- Sidebar -->
+<aside class="article-sidebar">
+<div class="sidebar-box">
+<h4><i class="fa-solid fa-fire"></i> Popular Articles</h4>
+<a class="sidebar-link" href="blog-detail.html?id=2">
+<img src="https://images.unsplash.com/photo-1701579231349-d7459c40919d?q=80&w=200&auto=format&fit=crop" alt="">
+<div class="sidebar-link-info"><h5>10 Must-Try Biryani Spots in Mumbai</h5><span>4 min read</span></div>
+</a>
+<a class="sidebar-link" href="blog-detail.html?id=5">
+<img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=200&auto=format&fit=crop" alt="">
+<div class="sidebar-link-info"><h5>Bangalore's Best Cafes for Remote Work</h5><span>5 min read</span></div>
+</a>
+<a class="sidebar-link" href="blog-detail.html?id=3">
+<img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=200&auto=format&fit=crop" alt="">
+<div class="sidebar-link-info"><h5>5 Easy Healthy Meals You Can Order</h5><span>3 min read</span></div>
+</a>
+<a class="sidebar-link" href="blog-detail.html?id=9">
+<img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=200&auto=format&fit=crop" alt="">
+<div class="sidebar-link-info"><h5>Chennai's Hidden Gem Restaurants</h5><span>5 min read</span></div>
+</a>
+</div>
+<div class="sidebar-box">
+<h4><i class="fa-solid fa-tags"></i> Topics</h4>
+<div class="sidebar-tags">
+<span class="sidebar-tag">Biryani</span>
+<span class="sidebar-tag">Pizza</span>
+<span class="sidebar-tag">Healthy</span>
+<span class="sidebar-tag">Cafes</span>
+<span class="sidebar-tag">Street Food</span>
+<span class="sidebar-tag">Desserts</span>
+<span class="sidebar-tag">Tips</span>
+<span class="sidebar-tag">Offers</span>
+</div>
+</div>
+<div class="sidebar-box">
+<div class="sidebar-cta">
+<p>Hungry? Order your favorite food now with exclusive discounts!</p>
+<a href="food-delivery.html">Order Food</a>
+</div>
+</div>
+</aside>
+
 </div>
 
 <!-- Related -->
@@ -277,6 +339,10 @@ html{scroll-behavior:smooth;}
 <div class="related-card" onclick="window.location.href='blog-detail.html?id=9'">
 <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=400&auto=format&fit=crop" alt="">
 <div class="related-card-body"><h4>Chennai's Hidden Gem Restaurants</h4><span>Apr 18, 2026 &bull; 5 min read</span></div>
+</div>
+<div class="related-card" onclick="window.location.href='blog-detail.html?id=6'">
+<img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=400&auto=format&fit=crop" alt="">
+<div class="related-card-body"><h4>The Rise of Plant-Based Food in India</h4><span>Apr 28, 2026 &bull; 6 min read</span></div>
 </div>
 </div>
 </div>

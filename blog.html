@@ -9,8 +9,12 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
-body{background:#FFF8F0;color:#1F1F1F;min-height:100vh;}
+body{background:#FFF8F0;color:#1F1F1F;min-height:100vh;position:relative;}
+body::before{content:'';position:fixed;top:0;left:0;width:250px;height:100%;background:linear-gradient(180deg,rgba(198,40,40,0.02),rgba(198,40,40,0.04),rgba(198,40,40,0.02));pointer-events:none;z-index:0;}
+body::after{content:'';position:fixed;top:0;right:0;width:250px;height:100%;background:linear-gradient(180deg,rgba(198,40,40,0.02),rgba(198,40,40,0.04),rgba(198,40,40,0.02));pointer-events:none;z-index:0;}
 html{scroll-behavior:smooth;}
+
+/* Navbar */
 .navbar{display:flex;justify-content:space-between;align-items:center;padding:20px 7%;background:#FFF8F0;position:sticky;top:0;z-index:1000;box-shadow:0 3px 12px rgba(0,0,0,0.04);}
 .nav-left{display:flex;align-items:center;gap:12px;}
 .back-arrow{width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,0.04);display:flex;align-items:center;justify-content:center;text-decoration:none;color:#1F1F1F;transition:0.3s;font-size:0.85rem;}
@@ -18,21 +22,17 @@ html{scroll-behavior:smooth;}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
 .logo-icon{width:42px;height:42px;border-radius:50%;}
 .logo-text{font-size:1.6rem;font-weight:800;color:#C62828;}
-.nav-right{display:flex;align-items:center;gap:26px;}
-.nav-right a{text-decoration:none;color:#1F1F1F;font-weight:500;transition:0.3s;}
-.nav-right a:hover{color:#C62828;}
 .nav-center{display:flex;align-items:center;gap:22px;position:absolute;left:50%;transform:translateX(-50%);}
-.nav-center a{text-decoration:none;color:#1F1F1F;font-weight:500;transition:0.3s;}
+.nav-center a{text-decoration:none;color:#1F1F1F;font-weight:500;transition:0.3s;font-size:0.9rem;}
 .nav-center a:hover{color:#C62828;}
-.nav-icon{font-size:1.1rem;color:#1F1F1F;transition:0.3s;cursor:pointer;}
-.nav-icon:hover{color:#C62828;}
+.nav-right{display:flex;align-items:center;gap:20px;}
+.desktop-icon{font-size:1.1rem;cursor:pointer;transition:0.3s;color:#1F1F1F;}
+.desktop-icon:hover{color:#C62828;}
 .login-btn{padding:10px 22px;border:2px solid #C62828;border-radius:12px;background:none;color:#C62828;font-weight:600;font-size:0.85rem;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;}
 .login-btn:hover{background:#C62828;color:white;}
-.desktop-profile{position:relative;display:none;}
-.desktop-profile.active{display:block;}
+.desktop-profile{position:relative;display:none;}.desktop-profile.active{display:block;}
 .desktop-profile-icon{width:36px;height:36px;border-radius:50%;background:rgba(198,40,40,0.08);border:2px solid #C62828;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:0.3s;}
 .desktop-profile-icon i{font-size:0.85rem;color:#C62828;}
-.desktop-profile-icon:hover{background:rgba(198,40,40,0.15);}
 .desktop-dropdown{position:absolute;top:calc(100% + 14px);right:0;width:280px;background:white;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,0.12);padding:20px;opacity:0;visibility:hidden;transform:translateY(-10px);transition:0.35s ease;z-index:3000;}
 .desktop-dropdown.active{opacity:1;visibility:visible;transform:translateY(0);}
 .dropdown-header{display:flex;align-items:center;gap:14px;padding-bottom:14px;}
@@ -47,12 +47,13 @@ html{scroll-behavior:smooth;}
 .dropdown-menu li a i{font-size:0.9rem;width:18px;text-align:center;color:#C62828;}
 .dropdown-logout{width:100%;padding:10px;border:2px solid #e53935;background:none;border-radius:10px;color:#e53935;font-weight:600;font-size:0.85rem;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px;}
 .dropdown-logout:hover{background:#e53935;color:white;}
+.mobile-nav-icons{display:none;align-items:center;gap:14px;}
+.mobile-cart{position:relative;width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,0.04);display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.mobile-cart i{font-size:0.95rem;color:#1F1F1F;}
+.cart-badge{position:absolute;top:-2px;right:-2px;width:16px;height:16px;background:#C62828;color:white;font-size:0.6rem;font-weight:700;border-radius:50%;display:flex;align-items:center;justify-content:center;}
 .mobile-profile-btn{width:34px;height:34px;border-radius:50%;background:rgba(198,40,40,0.08);border:2px solid #C62828;display:flex;align-items:center;justify-content:center;cursor:pointer;}
 .mobile-profile-btn i{font-size:0.85rem;color:#C62828;}
-.mobile-nav-icons{display:none;align-items:center;gap:14px;}
-.mobile-cart{width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,0.04);display:flex;align-items:center;justify-content:center;cursor:pointer;}
-.mobile-cart i{font-size:0.95rem;color:#1F1F1F;}
-.menu-toggle{display:none;font-size:1.2rem;cursor:pointer;color:#1F1F1F;width:24px;height:24px;position:relative;}
+.menu-toggle{display:none;font-size:1.2rem;cursor:pointer;color:#1F1F1F;width:22px;height:22px;position:relative;}
 .menu-toggle .fa-bars,.menu-toggle .fa-xmark{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);transition:0.4s;}
 .menu-toggle .fa-xmark{opacity:0;transform:translate(-50%,-50%) rotate(-90deg);}
 .menu-toggle.active .fa-bars{opacity:0;transform:translate(-50%,-50%) rotate(90deg);}
@@ -66,79 +67,11 @@ html{scroll-behavior:smooth;}
 .drawer-menu{list-style:none;padding:40px 0 16px;flex:1;}
 .drawer-menu li{opacity:0;transform:translateY(12px);transition:0.35s ease;}
 .mobile-drawer.active .drawer-menu li{opacity:1;transform:translateY(0);}
-.drawer-menu li:nth-child(1){transition-delay:.06s}.drawer-menu li:nth-child(2){transition-delay:.1s}.drawer-menu li:nth-child(3){transition-delay:.14s}.drawer-menu li:nth-child(4){transition-delay:.18s}.drawer-menu li:nth-child(5){transition-delay:.22s}.drawer-menu li:nth-child(6){transition-delay:.26s}.drawer-menu li:nth-child(7){transition-delay:.3s}.drawer-menu li:nth-child(8){transition-delay:.34s}
+.drawer-menu li:nth-child(1){transition-delay:.06s}.drawer-menu li:nth-child(2){transition-delay:.1s}.drawer-menu li:nth-child(3){transition-delay:.14s}.drawer-menu li:nth-child(4){transition-delay:.18s}.drawer-menu li:nth-child(5){transition-delay:.22s}.drawer-menu li:nth-child(6){transition-delay:.26s}.drawer-menu li:nth-child(7){transition-delay:.3s}.drawer-menu li:nth-child(8){transition-delay:.34s}.drawer-menu li:nth-child(9){transition-delay:.38s}.drawer-menu li:nth-child(10){transition-delay:.42s}
 .drawer-menu li a{display:flex;align-items:center;gap:14px;padding:13px 16px;text-decoration:none;color:#1F1F1F;font-weight:500;font-size:0.95rem;border-radius:14px;transition:0.3s;}
-.drawer-menu li a:hover,.drawer-menu li a.active-link{background:rgba(198,40,40,0.06);color:#C62828;}
+.drawer-menu li a:hover{background:rgba(198,40,40,0.06);color:#C62828;}
 .drawer-menu li a i{font-size:1.1rem;width:22px;text-align:center;color:#C62828;}
 .drawer-divider{height:1px;background:rgba(0,0,0,0.06);margin:8px 16px;}
-
-/* Hero */
-.blog-hero{background:linear-gradient(135deg,#C62828,#e53935,#ff6659);padding:55px 7% 75px;text-align:center;position:relative;overflow:hidden;}
-.blog-hero::before{content:'';position:absolute;top:-40%;right:-8%;width:380px;height:380px;border-radius:50%;background:rgba(255,255,255,0.04);}
-.blog-hero h1{font-size:2.5rem;font-weight:800;color:white;margin-bottom:10px;position:relative;z-index:2;}
-.blog-hero p{font-size:1rem;color:rgba(255,255,255,0.85);max-width:520px;margin:0 auto;line-height:1.7;position:relative;z-index:2;}
-
-/* Main */
-.blog-main{max-width:1100px;margin:-40px auto 0;padding:0 7% 60px;position:relative;z-index:3;}
-
-/* Filter Tabs */
-.blog-filters{display:flex;gap:8px;margin-bottom:30px;overflow-x:auto;padding:4px 2px;justify-content:center;flex-wrap:wrap;}
-.filter-pill{padding:10px 22px;border:2px solid #eee;border-radius:30px;background:white;font-family:'Poppins',sans-serif;font-weight:500;font-size:0.85rem;cursor:pointer;transition:0.3s;color:#666;white-space:nowrap;flex-shrink:0;}
-.filter-pill:hover{border-color:#C62828;color:#C62828;}
-.filter-pill.active{background:#C62828;color:white;border-color:#C62828;}
-
-/* Featured Post */
-.featured{background:white;border-radius:24px;overflow:hidden;box-shadow:0 10px 35px rgba(0,0,0,0.06);margin-bottom:36px;display:grid;grid-template-columns:1fr 1fr;transition:0.4s;}
-.featured:hover{transform:translateY(-4px);box-shadow:0 16px 45px rgba(0,0,0,0.09);}
-.featured img{width:100%;height:100%;object-fit:cover;min-height:320px;}
-.featured-body{padding:36px;display:flex;flex-direction:column;justify-content:center;}
-.featured-tag{display:inline-block;padding:5px 14px;background:rgba(198,40,40,0.08);color:#C62828;border-radius:8px;font-size:0.73rem;font-weight:600;margin-bottom:14px;width:fit-content;text-transform:uppercase;letter-spacing:0.5px;}
-.featured-body h2{font-size:1.5rem;font-weight:700;margin-bottom:12px;line-height:1.4;}
-.featured-body p{font-size:0.9rem;color:#666;line-height:1.8;margin-bottom:18px;}
-.featured-meta{display:flex;align-items:center;gap:12px;font-size:0.8rem;color:#aaa;}
-.featured-meta img{width:32px;height:32px;border-radius:50%;object-fit:cover;}
-.featured-meta span{font-weight:500;color:#666;}
-.read-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border:none;border-radius:12px;background:linear-gradient(135deg,#C62828,#e53935);color:white;font-weight:600;font-size:0.85rem;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;width:fit-content;text-decoration:none;margin-top:auto;}
-.read-btn:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(198,40,40,0.3);}
-
-/* Blog Grid */
-.blog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px;}
-.blog-card{background:white;border-radius:22px;overflow:hidden;box-shadow:0 6px 25px rgba(0,0,0,0.04);transition:0.4s;cursor:pointer;border:2px solid transparent;}
-.blog-card:hover{transform:translateY(-5px);box-shadow:0 14px 40px rgba(0,0,0,0.08);border-color:rgba(198,40,40,0.08);}
-.blog-card img{width:100%;height:200px;object-fit:cover;}
-.blog-card-body{padding:22px;}
-.blog-card-tag{display:inline-block;padding:4px 12px;background:rgba(198,40,40,0.06);color:#C62828;border-radius:6px;font-size:0.7rem;font-weight:600;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.3px;}
-.blog-card-body h3{font-size:1.05rem;font-weight:700;margin-bottom:8px;line-height:1.4;}
-.blog-card-body p{font-size:0.83rem;color:#888;line-height:1.7;margin-bottom:14px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
-.blog-card-meta{display:flex;justify-content:space-between;align-items:center;font-size:0.78rem;color:#aaa;}
-.blog-card-meta .author{display:flex;align-items:center;gap:8px;font-weight:500;color:#666;}
-.blog-card-meta .author img{width:26px;height:26px;border-radius:50%;object-fit:cover;}
-.blog-card-meta .read-time{display:flex;align-items:center;gap:4px;}
-
-/* Footer */
-.footer{background:#1F1F1F;padding:60px 7% 30px;color:white;margin-top:40px;}
-.footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:30px;margin-bottom:40px;}
-.footer-col h3{margin-bottom:18px;}
-.footer-col p,.footer-col a{display:block;text-decoration:none;color:#ccc;margin-bottom:10px;line-height:1.8;transition:0.3s;}
-.footer-col a:hover{color:white;}
-.footer-brand{display:flex!important;align-items:center;gap:12px;text-decoration:none;margin-bottom:20px;}
-.footer-logo-icon{width:40px;height:40px;}
-.footer-logo-text{font-size:1.6rem;font-weight:800;color:#C62828;}
-.footer-social{display:flex;gap:14px;margin-top:16px;}
-.footer-social i{width:40px;height:40px;background:rgba(255,255,255,0.08);border-radius:12px;display:flex;justify-content:center;align-items:center;cursor:pointer;transition:0.3s;}
-.footer-social i:hover{background:#C62828;transform:translateY(-3px);}
-.footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:20px;text-align:center;color:#aaa;}
-
-@media(max-width:768px){
-.nav-right a,.nav-icon{display:none;}.nav-center{display:none;}.login-btn{display:none;}.desktop-profile{display:none !important;}.mobile-nav-icons{display:flex;}.menu-toggle{display:block;}
-.blog-hero{padding:35px 5% 55px;}.blog-hero h1{font-size:1.8rem;}
-.blog-main{padding:0 5% 40px;margin-top:-30px;}
-.featured{grid-template-columns:1fr;}.featured img{min-height:200px;height:200px;}
-.featured-body{padding:24px;}
-.blog-grid{grid-template-columns:1fr;}
-}
-@media(max-width:520px){.logo-text{display:none;}.navbar{padding:14px 5%;}.blog-hero h1{font-size:1.5rem;}.featured-body h2{font-size:1.2rem;}}
-::-webkit-scrollbar{width:0;height:0;}
 </style>
 </head>
 <body>
@@ -148,37 +81,12 @@ html{scroll-behavior:smooth;}
 <a href="Homepage.html" class="back-arrow"><i class="fa-solid fa-arrow-left"></i></a>
 <a href="Homepage.html" class="logo"><img src="assets/logo.svg" alt="QuickBite" class="logo-icon"><span class="logo-text">QuickBite</span></a>
 </div>
-<div class="nav-center">
-<a href="Homepage.html">Home</a>
-<a href="about.html">About Us</a>
-<a href="blog.html">Blog</a>
-<a href="contact.html">Contact</a>
-<a href="home2.html">Home 2</a>
-</div>
+<div class="nav-center"><a href="Homepage.html">Home</a><a href="about.html">About Us</a><a href="blog.html">Blog</a><a href="contact.html">Contact</a><a href="home2.html">Home 2</a></div>
 <div class="nav-right">
-<i class="fa-solid fa-cart-shopping nav-icon" onclick="window.location.href='cart.html'"></i>
+<i class="fa-solid fa-cart-shopping desktop-icon" onclick="window.location.href='cart.html'" style="cursor:pointer;"></i>
 <button class="login-btn" id="desktopLoginBtn" onclick="window.location.href='login.html'">LOG IN</button>
-<div class="desktop-profile" id="desktopProfile">
-<div class="desktop-profile-icon" id="desktopProfileIcon"><i class="fa-solid fa-user"></i></div>
-<div class="desktop-dropdown" id="desktopDropdown">
-<div class="dropdown-header"><div class="dropdown-avatar"><i class="fa-solid fa-user"></i></div><div class="dropdown-info"><h4 id="desktopProfileName">User</h4><span id="desktopProfileEmail">user@quickbite.com</span></div></div>
-<div class="dropdown-divider"></div>
-<ul class="dropdown-menu">
-<li><a href="profile.html?tab=profile"><i class="fa-solid fa-user"></i>My Profile</a></li>
-<li><a href="profile.html?tab=orders"><i class="fa-solid fa-bag-shopping"></i>My Orders</a></li>
-<li><a href="profile.html?tab=addresses"><i class="fa-solid fa-location-dot"></i>Saved Addresses</a></li>
-<li><a href="profile.html?tab=favorites"><i class="fa-solid fa-heart"></i>Favorites</a></li>
-<li><a href="profile.html?tab=settings"><i class="fa-solid fa-gear"></i>Settings</a></li>
-</ul>
-<div class="dropdown-divider"></div>
-<button class="dropdown-logout" id="desktopLogout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
-</div>
-</div>
-<div class="mobile-nav-icons">
-<div class="mobile-cart" onclick="window.location.href='cart.html'"><i class="fa-solid fa-cart-shopping"></i></div>
-<div class="mobile-profile-btn" id="mobileProfileBtn"><i class="fa-solid fa-user"></i></div>
-<div class="menu-toggle" id="menuToggle"><i class="fa-solid fa-bars"></i><i class="fa-solid fa-xmark"></i></div>
-</div>
+<div class="desktop-profile" id="desktopProfile"><div class="desktop-profile-icon" id="desktopProfileIcon"><i class="fa-solid fa-user"></i></div><div class="desktop-dropdown" id="desktopDropdown"><div class="dropdown-header"><div class="dropdown-avatar"><i class="fa-solid fa-user"></i></div><div class="dropdown-info"><h4 id="desktopProfileName">User</h4><span id="desktopProfileEmail">user@quickbite.com</span></div></div><div class="dropdown-divider"></div><ul class="dropdown-menu"><li><a href="profile.html?tab=profile"><i class="fa-solid fa-user"></i>My Profile</a></li><li><a href="profile.html?tab=orders"><i class="fa-solid fa-bag-shopping"></i>My Orders</a></li><li><a href="profile.html?tab=favorites"><i class="fa-solid fa-heart"></i>Favorites</a></li><li><a href="profile.html?tab=settings"><i class="fa-solid fa-gear"></i>Settings</a></li></ul><div class="dropdown-divider"></div><button class="dropdown-logout" id="desktopLogout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button></div></div>
+<div class="mobile-nav-icons"><div class="mobile-cart" onclick="window.location.href='cart.html'"><i class="fa-solid fa-cart-shopping"></i><span class="cart-badge">0</span></div><div class="mobile-profile-btn"><i class="fa-solid fa-user"></i></div><div class="menu-toggle" id="menuToggle"><i class="fa-solid fa-bars"></i><i class="fa-solid fa-xmark"></i></div></div>
 </div>
 </nav>
 <div class="mobile-overlay" id="mobileOverlay"></div>
@@ -198,14 +106,127 @@ html{scroll-behavior:smooth;}
 </ul>
 </div>
 
+<div id="blogApp"></div>
+</body>
+</html>
+
+<style>
+/* Hero - Full width with background image */
+.blog-hero{position:relative;height:420px;background:url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1800&auto=format&fit=crop') center/cover;display:flex;align-items:center;justify-content:center;text-align:center;margin-bottom:0;}
+.blog-hero::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.3),rgba(0,0,0,0.6));}
+.blog-hero-content{position:relative;z-index:2;max-width:600px;padding:0 20px;}
+.blog-hero-content h1{font-size:3rem;font-weight:800;color:white;margin-bottom:12px;line-height:1.2;}
+.blog-hero-content p{font-size:1.05rem;color:rgba(255,255,255,0.85);line-height:1.7;margin-bottom:28px;}
+
+/* Search Bar - Floating below hero */
+.search-float{max-width:650px;margin:-30px auto 0;position:relative;z-index:10;padding:0 5%;}
+.search-bar{display:flex;align-items:center;background:white;border-radius:50px;padding:6px 6px 6px 28px;box-shadow:0 12px 40px rgba(0,0,0,0.1);border:2px solid rgba(198,40,40,0.08);}
+.search-bar input{flex:1;border:none;outline:none;font-size:0.95rem;font-family:'Poppins',sans-serif;color:#1F1F1F;background:none;}
+.search-bar input::placeholder{color:#aaa;}
+.search-bar button{padding:14px 28px;border:none;border-radius:50px;background:#C62828;color:white;font-weight:600;font-size:0.85rem;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;display:flex;align-items:center;gap:8px;}
+.search-bar button:hover{background:#a51f1f;box-shadow:0 4px 15px rgba(198,40,40,0.3);}
+
+/* Welcome Section */
+.welcome-section{padding:80px 4%;display:flex;align-items:center;gap:50px;max-width:100%;margin:0 auto;}
+.welcome-img{width:380px;height:280px;border-radius:24px;object-fit:cover;box-shadow:0 20px 50px rgba(0,0,0,0.08);flex-shrink:0;position:relative;}
+.welcome-badge{position:absolute;top:-14px;left:-14px;width:56px;height:56px;border-radius:50%;background:#C62828;display:flex;align-items:center;justify-content:center;color:white;font-size:1.2rem;box-shadow:0 6px 18px rgba(198,40,40,0.3);}
+.welcome-text h2{font-size:2rem;font-weight:800;margin-bottom:12px;line-height:1.3;}
+.welcome-text h2 span{color:#C62828;}
+.welcome-text p{font-size:0.95rem;color:#666;line-height:1.9;margin-bottom:22px;}
+.welcome-btns{display:flex;gap:12px;}
+.btn-red{padding:13px 28px;border:none;border-radius:14px;background:#C62828;color:white;font-weight:600;font-size:0.88rem;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;text-decoration:none;display:inline-flex;align-items:center;gap:8px;}
+.btn-red:hover{background:#a51f1f;transform:translateY(-2px);box-shadow:0 8px 20px rgba(198,40,40,0.25);}
+.btn-ghost{padding:13px 28px;border:2px solid #1F1F1F;border-radius:14px;background:none;color:#1F1F1F;font-weight:600;font-size:0.88rem;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;text-decoration:none;}
+.btn-ghost:hover{border-color:#C62828;color:#C62828;}
+
+/* Section Headers */
+.section-head{text-align:center;padding:60px 4% 36px;max-width:100%;margin:0 auto;}
+.section-head h2{font-size:2rem;font-weight:800;margin-bottom:8px;}
+.section-head h2 span{color:#C62828;}
+.section-head p{font-size:0.92rem;color:#888;max-width:500px;margin:0 auto;}
+
+/* Blog Cards Grid */
+.blog-grid-section{padding:0 4% 80px;max-width:100%;margin:0 auto;}
+.filter-row{display:flex;gap:10px;margin-bottom:32px;justify-content:center;flex-wrap:wrap;}
+.filter-pill{padding:11px 24px;border:2px solid #eee;border-radius:50px;background:white;font-family:'Poppins',sans-serif;font-weight:500;font-size:0.85rem;cursor:pointer;transition:0.3s;color:#666;}
+.filter-pill:hover{border-color:#C62828;color:#C62828;transform:translateY(-2px);}
+.filter-pill.active{background:#C62828;color:white;border-color:#C62828;box-shadow:0 4px 15px rgba(198,40,40,0.25);}
+.blog-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+.blog-card{background:white;border-radius:24px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,0.04);transition:0.4s;cursor:pointer;border:2px solid transparent;}
+.blog-card:hover{transform:translateY(-6px);box-shadow:0 18px 50px rgba(0,0,0,0.09);border-color:rgba(198,40,40,0.06);}
+.blog-card-img{position:relative;overflow:hidden;}
+.blog-card-img img{width:100%;height:210px;object-fit:cover;transition:0.5s;}
+.blog-card:hover .blog-card-img img{transform:scale(1.05);}
+.blog-card-tag{position:absolute;top:14px;left:14px;padding:5px 14px;background:rgba(198,40,40,0.9);color:white;border-radius:8px;font-size:0.7rem;font-weight:600;text-transform:uppercase;letter-spacing:0.3px;}
+.blog-card-body{padding:24px;}
+.blog-card-body h3{font-size:1.05rem;font-weight:700;margin-bottom:8px;line-height:1.4;}
+.blog-card-body p{font-size:0.83rem;color:#888;line-height:1.7;margin-bottom:16px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.blog-card-footer{display:flex;justify-content:space-between;align-items:center;}
+.blog-card-author{display:flex;align-items:center;gap:8px;}
+.author-avatar{width:28px;height:28px;border-radius:50%;background:rgba(198,40,40,0.08);display:flex;align-items:center;justify-content:center;}
+.author-avatar i{font-size:0.6rem;color:#C62828;}
+.blog-card-author span{font-size:0.78rem;font-weight:500;color:#666;}
+.blog-card-time{font-size:0.75rem;color:#aaa;display:flex;align-items:center;gap:4px;}
+.read-more-link{display:inline-flex;align-items:center;gap:6px;color:#C62828;font-weight:600;font-size:0.82rem;text-decoration:none;margin-top:10px;transition:0.3s;}
+.read-more-link:hover{gap:10px;}
+
+/* Newsletter Banner */
+.newsletter-banner{margin:0 4% 80px;background:linear-gradient(135deg,#C62828,#e53935);border-radius:28px;padding:50px 60px;display:flex;align-items:center;justify-content:space-between;gap:30px;position:relative;overflow:hidden;}
+.newsletter-banner::before{content:'';position:absolute;top:-40%;right:-10%;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,0.05);}
+.newsletter-banner h3{font-size:1.6rem;font-weight:700;color:white;margin-bottom:6px;}
+.newsletter-banner p{font-size:0.9rem;color:rgba(255,255,255,0.8);}
+.newsletter-form{display:flex;gap:10px;position:relative;z-index:2;}
+.newsletter-form input{padding:14px 22px;border:none;border-radius:14px;font-size:0.9rem;font-family:'Poppins',sans-serif;outline:none;width:280px;}
+.newsletter-form button{padding:14px 28px;border:none;border-radius:14px;background:white;color:#C62828;font-weight:700;font-size:0.88rem;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;}
+.newsletter-form button:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,0.15);}
+
+/* Footer */
+.footer{background:#1F1F1F;padding:60px 7% 30px;color:white;}
+.footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:30px;margin-bottom:40px;}
+.footer-col h3{margin-bottom:18px;}.footer-col p,.footer-col a{display:block;text-decoration:none;color:#ccc;margin-bottom:10px;line-height:1.8;transition:0.3s;}.footer-col a:hover{color:white;}
+.footer-brand{display:flex!important;align-items:center;gap:12px;text-decoration:none;margin-bottom:20px;}.footer-logo-icon{width:40px;height:40px;}.footer-logo-text{font-size:1.6rem;font-weight:800;color:#C62828;}
+.footer-social{display:flex;gap:14px;margin-top:16px;}.footer-social i{width:40px;height:40px;background:rgba(255,255,255,0.08);border-radius:12px;display:flex;justify-content:center;align-items:center;cursor:pointer;transition:0.3s;}.footer-social i:hover{background:#C62828;transform:translateY(-3px);}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:20px;text-align:center;color:#aaa;}
+
+/* Responsive */
+@media(max-width:992px){.blog-grid{grid-template-columns:repeat(2,1fr);}.welcome-section{flex-direction:column;text-align:center;}.welcome-img{width:100%;max-width:400px;}.welcome-btns{justify-content:center;}.newsletter-banner{flex-direction:column;text-align:center;padding:40px 30px;}.newsletter-form{flex-direction:column;width:100%;}.newsletter-form input{width:100%;}}
+@media(max-width:768px){.nav-center{display:none;}.desktop-icon{display:none;}.login-btn{display:none;}.desktop-profile{display:none!important;}.mobile-nav-icons{display:flex;}.menu-toggle{display:block;}.blog-hero{height:320px;}.blog-hero-content h1{font-size:2rem;}.blog-grid{grid-template-columns:1fr;}.section-head h2{font-size:1.5rem;}.welcome-section{padding:50px 5%;}}
+@media(max-width:520px){.logo-text{display:none;}.navbar{padding:14px 5%;}.blog-hero{height:280px;}.blog-hero-content h1{font-size:1.6rem;}.search-bar{flex-direction:column;border-radius:18px;padding:14px;gap:10px;}.search-bar button{width:100%;justify-content:center;border-radius:12px;}}
+::-webkit-scrollbar{width:0;height:0;}
+</style>
+
+<!-- Hero -->
 <section class="blog-hero">
-<h1>QuickBite Blog</h1>
-<p>Food stories, restaurant guides, healthy tips, and everything delicious.</p>
+<div class="blog-hero-content">
+<h1>Stories, Tips & Food Guides</h1>
+<p>Discover the best restaurants, healthy recipes, and insider food tips from across India.</p>
+</div>
 </section>
 
-<div class="blog-main">
+<!-- Welcome -->
+<div class="welcome-section">
+<div style="position:relative;">
+<img class="welcome-img" src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=800&auto=format&fit=crop" alt="Restaurant">
+<div class="welcome-badge"><i class="fa-solid fa-utensils"></i></div>
+</div>
+<div class="welcome-text">
+<h2>Welcome to <span>QuickBite Blog</span></h2>
+<p>Explore curated food stories, discover hidden gem restaurants, learn healthy eating habits, and stay updated with the latest offers. Our team of food enthusiasts brings you fresh content every week.</p>
+<div class="welcome-btns">
+<a href="#articles" class="btn-red"><i class="fa-solid fa-book-open"></i> Read Articles</a>
+<a href="food-delivery.html" class="btn-ghost">Order Food</a>
+</div>
+</div>
+</div>
 
-<div class="blog-filters">
+<!-- Articles Section -->
+<div class="section-head" id="articles">
+<h2>Latest <span>Articles</span></h2>
+<p>Handpicked stories and guides for every food lover</p>
+</div>
+
+<div class="blog-grid-section">
+<div class="filter-row">
 <button class="filter-pill active" data-cat="all">All</button>
 <button class="filter-pill" data-cat="food-stories">Food Stories</button>
 <button class="filter-pill" data-cat="healthy">Healthy Eating</button>
@@ -213,26 +234,22 @@ html{scroll-behavior:smooth;}
 <button class="filter-pill" data-cat="tips">Tips & Tricks</button>
 <button class="filter-pill" data-cat="offers">Offers & Updates</button>
 </div>
-
-<!-- Featured -->
-<div class="featured" onclick="window.location.href='blog-detail.html?id=1'">
-<img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop" alt="Featured">
-<div class="featured-body">
-<span class="featured-tag">Food Stories</span>
-<h2>The Ultimate Guide to South Indian Breakfast Across Chennai</h2>
-<p>From crispy dosas at Murugan Idli Shop to fluffy idlis at Saravana Bhavan, we explore the best spots for an authentic South Indian breakfast experience in Chennai.</p>
-<div class="featured-meta">
-<span style="width:32px;height:32px;border-radius:50%;background:rgba(198,40,40,0.1);display:inline-flex;align-items:center;justify-content:center;"><i class="fa-solid fa-user" style="font-size:0.7rem;color:#C62828;"></i></span>
-<span>QuickBite Team</span> &bull; <span>May 10, 2026</span> &bull; <span>5 min read</span>
-</div>
-<a href="blog-detail.html?id=1" class="read-btn"><i class="fa-solid fa-book-open"></i> Read Article</a>
-</div>
-</div>
-
-<!-- Blog Grid -->
 <div class="blog-grid" id="blogGrid"></div>
 </div>
 
+<!-- Newsletter -->
+<div class="newsletter-banner">
+<div>
+<h3>Stay in the Loop</h3>
+<p>Get weekly food stories and exclusive offers in your inbox.</p>
+</div>
+<div class="newsletter-form">
+<input type="email" placeholder="Your email address">
+<button onclick="this.textContent='Subscribed!';this.style.background='#43A047';this.style.color='white';">Subscribe</button>
+</div>
+</div>
+
+<!-- Footer -->
 <footer class="footer">
 <div class="footer-grid">
 <div class="footer-col"><a href="Homepage.html" class="footer-brand"><img src="assets/logo.svg" alt="QuickBite" class="footer-logo-icon"><span class="footer-logo-text">QuickBite</span></a><p>Delivering happiness with delicious food and premium restaurant experiences.</p><div class="footer-social"><i class="fa-brands fa-instagram"></i><i class="fa-brands fa-facebook-f"></i><i class="fa-brands fa-x-twitter"></i></div></div>
@@ -245,46 +262,51 @@ html{scroll-behavior:smooth;}
 
 <script>
 const blogs=[
-{id:2,title:"10 Must-Try Biryani Spots in Mumbai",desc:"From Lucknowi to Hyderabadi, Mumbai's biryani scene is unmatched. Here are the top 10 places every biryani lover must visit.",cat:"restaurant",img:"https://images.unsplash.com/photo-1701579231349-d7459c40919d?q=80&w=600&auto=format&fit=crop",author:"Priya S",date:"May 8, 2026",time:"4 min"},
-{id:3,title:"5 Easy Healthy Meals You Can Order on QuickBite",desc:"Eating healthy doesn't mean boring food. Discover 5 delicious and nutritious meals available for delivery right now.",cat:"healthy",img:"https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=600&auto=format&fit=crop",author:"Dr. Meena",date:"May 6, 2026",time:"3 min"},
-{id:4,title:"How to Get the Best Deals on Food Delivery",desc:"Coupon stacking, timing your orders, and loyalty rewards — here's how smart users save up to 40% on every order.",cat:"tips",img:"https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=600&auto=format&fit=crop",author:"QuickBite Team",date:"May 4, 2026",time:"3 min"},
-{id:5,title:"Bangalore's Best Cafes for Remote Work",desc:"Looking for the perfect cafe to work from? These Bangalore spots offer great coffee, WiFi, and ambiance for productive days.",cat:"restaurant",img:"https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=600&auto=format&fit=crop",author:"Arjun K",date:"May 2, 2026",time:"5 min"},
-{id:6,title:"The Rise of Plant-Based Food in India",desc:"From jackfruit biryani to soy kebabs, plant-based eating is booming. We explore why more Indians are going green.",cat:"healthy",img:"https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=600&auto=format&fit=crop",author:"Ravi M",date:"Apr 28, 2026",time:"6 min"},
-{id:7,title:"QuickBite's New Loyalty Program: Everything You Need to Know",desc:"Earn points on every order, unlock exclusive discounts, and get free deliveries. Here's how our new rewards system works.",cat:"offers",img:"https://images.unsplash.com/photo-1556742393-d75f468bfcb0?q=80&w=600&auto=format&fit=crop",author:"QuickBite Team",date:"Apr 25, 2026",time:"2 min"},
-{id:8,title:"Street Food Safety: What to Look For",desc:"Love street food but worried about hygiene? Here are expert tips to enjoy chaat, rolls, and more without any health risks.",cat:"tips",img:"https://images.unsplash.com/photo-1601050690597-df0568f70950?q=80&w=600&auto=format&fit=crop",author:"Dr. Meena",date:"Apr 22, 2026",time:"4 min"},
-{id:9,title:"Chennai's Hidden Gem Restaurants You Haven't Tried",desc:"Beyond the popular chains, Chennai has incredible hidden restaurants serving authentic food. Here are our top picks.",cat:"food-stories",img:"https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=600&auto=format&fit=crop",author:"Priya S",date:"Apr 18, 2026",time:"5 min"}
+{id:1,title:"The Ultimate Guide to South Indian Breakfast",desc:"From crispy dosas to fluffy idlis, explore the best spots for authentic South Indian breakfast in Chennai.",cat:"food-stories",img:"https://images.unsplash.com/photo-1630383249896-424e482df921?q=80&w=600&auto=format&fit=crop",author:"QuickBite Team",date:"May 10, 2026",time:"5 min"},
+{id:2,title:"10 Must-Try Biryani Spots in Mumbai",desc:"From Lucknowi to Hyderabadi, Mumbai's biryani scene is unmatched. Here are the top 10 places.",cat:"restaurant",img:"https://images.unsplash.com/photo-1701579231349-d7459c40919d?q=80&w=600&auto=format&fit=crop",author:"Priya S",date:"May 8, 2026",time:"4 min"},
+{id:3,title:"5 Easy Healthy Meals You Can Order",desc:"Eating healthy doesn't mean boring food. Discover 5 delicious and nutritious meals available now.",cat:"healthy",img:"https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=600&auto=format&fit=crop",author:"Dr. Meena",date:"May 6, 2026",time:"3 min"},
+{id:4,title:"How to Get the Best Deals on Delivery",desc:"Coupon stacking, timing your orders, and loyalty rewards — save up to 40% on every order.",cat:"tips",img:"https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=600&auto=format&fit=crop",author:"QuickBite Team",date:"May 4, 2026",time:"3 min"},
+{id:5,title:"Bangalore's Best Cafes for Remote Work",desc:"Great coffee, reliable WiFi, and inspiring ambiance — these Bangalore spots are perfect.",cat:"restaurant",img:"https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=600&auto=format&fit=crop",author:"Arjun K",date:"May 2, 2026",time:"5 min"},
+{id:6,title:"The Rise of Plant-Based Food in India",desc:"From jackfruit biryani to soy kebabs, plant-based eating is booming across India.",cat:"healthy",img:"https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=600&auto=format&fit=crop",author:"Ravi M",date:"Apr 28, 2026",time:"6 min"},
+{id:7,title:"QuickBite's New Loyalty Program",desc:"Earn points on every order, unlock exclusive discounts, and get free deliveries.",cat:"offers",img:"https://images.unsplash.com/photo-1556742393-d75f468bfcb0?q=80&w=600&auto=format&fit=crop",author:"QuickBite Team",date:"Apr 25, 2026",time:"2 min"},
+{id:8,title:"Street Food Safety: What to Look For",desc:"Love street food but worried about hygiene? Here are expert tips to enjoy safely.",cat:"tips",img:"https://images.unsplash.com/photo-1601050690597-df0568f70950?q=80&w=600&auto=format&fit=crop",author:"Dr. Meena",date:"Apr 22, 2026",time:"4 min"},
+{id:9,title:"Chennai's Hidden Gem Restaurants",desc:"Beyond the popular chains, Chennai has incredible hidden restaurants serving authentic food.",cat:"food-stories",img:"https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=600&auto=format&fit=crop",author:"Priya S",date:"Apr 18, 2026",time:"5 min"}
 ];
 
 let currentCat='all';
-function renderBlogs(){
-const filtered=currentCat==='all'?blogs:blogs.filter(b=>b.cat===currentCat);
-document.getElementById('blogGrid').innerHTML=filtered.map(b=>'<div class="blog-card" onclick="window.location.href=\'blog-detail.html?id='+b.id+'\'"><img src="'+b.img+'" alt="'+b.title+'"><div class="blog-card-body"><span class="blog-card-tag">'+b.cat.replace('-',' ')+'</span><h3>'+b.title+'</h3><p>'+b.desc+'</p><div class="blog-card-meta"><div class="author"><span style="width:26px;height:26px;border-radius:50%;background:rgba(198,40,40,0.1);display:inline-flex;align-items:center;justify-content:center;"><i class="fa-solid fa-user" style="font-size:0.55rem;color:#C62828;"></i></span>'+b.author+'</div><div class="read-time"><i class="fa-regular fa-clock"></i> '+b.time+'</div></div></div></div>').join('');
+function renderBlogs(data){
+const list=data||((currentCat==='all')?blogs:blogs.filter(b=>b.cat===currentCat));
+document.getElementById('blogGrid').innerHTML=list.length?list.map(b=>`
+<div class="blog-card" onclick="window.location.href='blog-detail.html?id=${b.id}'">
+<div class="blog-card-img"><img src="${b.img}" alt="${b.title}"><span class="blog-card-tag">${b.cat.replace('-',' ')}</span></div>
+<div class="blog-card-body">
+<h3>${b.title}</h3>
+<p>${b.desc}</p>
+<div class="blog-card-footer">
+<div class="blog-card-author"><div class="author-avatar"><i class="fa-solid fa-user"></i></div><span>${b.author}</span></div>
+<span class="blog-card-time"><i class="fa-regular fa-clock"></i> ${b.time}</span>
+</div>
+<a href="blog-detail.html?id=${b.id}" class="read-more-link">Read More <i class="fa-solid fa-arrow-right"></i></a>
+</div>
+</div>`).join(''):'<div style="grid-column:1/-1;text-align:center;padding:60px;"><i class="fa-solid fa-search" style="font-size:2.5rem;color:#ddd;margin-bottom:14px;display:block;"></i><h3 style="color:#888;">No articles found</h3></div>';
 }
 document.querySelectorAll('.filter-pill').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('.filter-pill').forEach(b=>b.classList.remove('active'));btn.classList.add('active');currentCat=btn.dataset.cat;renderBlogs();});});
 renderBlogs();
 
-// Drawer
-const menuToggle=document.getElementById('menuToggle'),mobileOverlay=document.getElementById('mobileOverlay'),mobileDrawer=document.getElementById('mobileDrawer'),drawerClose=document.getElementById('drawerClose');
-menuToggle.addEventListener('click',()=>{mobileDrawer.classList.toggle('active');mobileOverlay.classList.toggle('active');menuToggle.classList.toggle('active');document.body.style.overflow=mobileDrawer.classList.contains('active')?'hidden':'';});
-mobileOverlay.addEventListener('click',()=>{mobileDrawer.classList.remove('active');mobileOverlay.classList.remove('active');menuToggle.classList.remove('active');document.body.style.overflow='';});
-drawerClose.addEventListener('click',()=>{mobileDrawer.classList.remove('active');mobileOverlay.classList.remove('active');menuToggle.classList.remove('active');document.body.style.overflow='';});
-
-// Login state & Profile
-(function(){
-const l=localStorage.getItem('quickbite_logged_in');
-const userName=localStorage.getItem('quickbite_user')||'User';
-const userEmail=localStorage.getItem('quickbite_email')||'user@email.com';
-if(l==='true'){
-document.getElementById('desktopLoginBtn').style.display='none';
-document.getElementById('desktopProfile').classList.add('active');
-document.getElementById('desktopProfileName').textContent=userName;
-document.getElementById('desktopProfileEmail').textContent=userEmail;
+function filterBySearch(q){
+if(!q.trim()){renderBlogs();return;}
+const query=q.toLowerCase();
+renderBlogs(blogs.filter(b=>b.title.toLowerCase().includes(query)||b.desc.toLowerCase().includes(query)||b.cat.includes(query)||b.author.toLowerCase().includes(query)));
 }
+
+// Navbar JS
+(function(){
+const l=localStorage.getItem('quickbite_logged_in');const userName=localStorage.getItem('quickbite_user')||'User';const userEmail=localStorage.getItem('quickbite_email')||'user@email.com';
+if(l==='true'){document.getElementById('desktopLoginBtn').style.display='none';document.getElementById('desktopProfile').classList.add('active');document.getElementById('desktopProfileName').textContent=userName;document.getElementById('desktopProfileEmail').textContent=userEmail;}
 const dpi=document.getElementById('desktopProfileIcon'),dd=document.getElementById('desktopDropdown');
 if(dpi&&dd){dpi.addEventListener('click',(e)=>{e.stopPropagation();dd.classList.toggle('active');});document.addEventListener('click',(e)=>{if(!document.getElementById('desktopProfile').contains(e.target))dd.classList.remove('active');});}
-const dl=document.getElementById('desktopLogout');
-if(dl){dl.addEventListener('click',()=>{localStorage.removeItem('quickbite_logged_in');localStorage.removeItem('quickbite_user');localStorage.removeItem('quickbite_email');window.location.reload();});}
+const dl=document.getElementById('desktopLogout');if(dl){dl.addEventListener('click',()=>{localStorage.removeItem('quickbite_logged_in');localStorage.removeItem('quickbite_user');localStorage.removeItem('quickbite_email');window.location.reload();});}
+const mt=document.getElementById('menuToggle'),mo=document.getElementById('mobileOverlay'),md=document.getElementById('mobileDrawer'),dc=document.getElementById('drawerClose');
+if(mt&&mo&&md&&dc){mt.addEventListener('click',()=>{md.classList.toggle('active');mo.classList.toggle('active');mt.classList.toggle('active');document.body.style.overflow=md.classList.contains('active')?'hidden':'';});mo.addEventListener('click',()=>{md.classList.remove('active');mo.classList.remove('active');mt.classList.remove('active');document.body.style.overflow='';});dc.addEventListener('click',()=>{md.classList.remove('active');mo.classList.remove('active');mt.classList.remove('active');document.body.style.overflow='';});}
 })();
 </script>
-</body>
-</html>

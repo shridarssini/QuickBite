@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QuickBite - Page Not Found</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:#FFF8F0;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;position:relative;color:#1F1F1F;}
+
+/* Animated Background */
+body::before{content:'';position:absolute;top:-10%;left:-5%;width:400px;height:400px;border-radius:50%;background:rgba(198,40,40,0.05);animation:drift1 12s ease-in-out infinite;}
+body::after{content:'';position:absolute;bottom:-10%;right:-5%;width:350px;height:350px;border-radius:50%;background:rgba(198,40,40,0.04);animation:drift2 15s ease-in-out infinite;}
+@keyframes drift1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(40px,-30px) scale(1.1)}}
+@keyframes drift2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-30px,40px) scale(1.05)}}
+
+.error-page{text-align:center;position:relative;z-index:2;padding:40px 20px;}
+
+/* 404 Number */
+.error-number{font-size:10rem;font-weight:900;line-height:1;color:transparent;-webkit-text-stroke:3px #C62828;position:relative;margin-bottom:10px;letter-spacing:-5px;}
+.error-number span{position:relative;display:inline-block;animation:bounce 2s ease-in-out infinite;}
+.error-number span:nth-child(1){animation-delay:0s;}
+.error-number span:nth-child(2){animation-delay:0.2s;-webkit-text-stroke:none;color:#C62828;}
+.error-number span:nth-child(3){animation-delay:0.4s;}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
+
+/* Plate illustration */
+.plate{width:120px;height:120px;border-radius:50%;background:linear-gradient(135deg,#f5f5f5,#eee);margin:-20px auto 30px;position:relative;box-shadow:0 10px 30px rgba(0,0,0,0.06),inset 0 -4px 8px rgba(0,0,0,0.04);display:flex;align-items:center;justify-content:center;}
+.plate::before{content:'';position:absolute;width:90px;height:90px;border-radius:50%;border:2px dashed rgba(198,40,40,0.15);}
+.plate i{font-size:2.5rem;color:#C62828;opacity:0.6;}
+.plate .crumbs{position:absolute;font-size:0.6rem;color:rgba(198,40,40,0.3);}
+.plate .crumbs.c1{top:15px;right:20px;}.plate .crumbs.c2{bottom:20px;left:18px;}.plate .crumbs.c3{top:25px;left:25px;}
+
+/* Text */
+.error-page h2{font-size:1.8rem;font-weight:700;margin-bottom:12px;}
+.error-page h2 span{color:#C62828;}
+.error-page p{font-size:1rem;color:#888;max-width:420px;margin:0 auto 32px;line-height:1.8;}
+
+/* Buttons */
+.error-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:40px;}
+.btn-home{padding:14px 32px;border:none;border-radius:14px;background:linear-gradient(135deg,#C62828,#e53935);color:white;font-weight:600;font-size:0.9rem;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;text-decoration:none;display:inline-flex;align-items:center;gap:8px;box-shadow:0 6px 20px rgba(198,40,40,0.2);}
+.btn-home:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(198,40,40,0.3);}
+.btn-back{padding:14px 32px;border:2px solid #1F1F1F;border-radius:14px;background:none;color:#1F1F1F;font-weight:600;font-size:0.9rem;cursor:pointer;transition:0.3s;font-family:'Poppins',sans-serif;text-decoration:none;display:inline-flex;align-items:center;gap:8px;}
+.btn-back:hover{border-color:#C62828;color:#C62828;}
+
+/* Suggestions */
+.suggestions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+.suggest-card{background:white;border:1.5px solid #f0f0f0;border-radius:14px;padding:16px 22px;display:flex;align-items:center;gap:12px;text-decoration:none;color:#1F1F1F;transition:0.3s;font-size:0.85rem;font-weight:500;}
+.suggest-card:hover{border-color:#C62828;transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,0.04);}
+.suggest-card i{width:36px;height:36px;border-radius:10px;background:rgba(198,40,40,0.06);display:flex;align-items:center;justify-content:center;color:#C62828;font-size:0.9rem;flex-shrink:0;}
+
+/* Floating food */
+.float-food{position:absolute;font-size:2.2rem;opacity:0.12;animation:floatFood 5s ease-in-out infinite;}
+.ff1{top:12%;left:10%;animation-delay:0s;}
+.ff2{top:8%;right:12%;animation-delay:1s;}
+.ff3{bottom:12%;left:8%;animation-delay:2s;}
+.ff4{bottom:8%;right:10%;animation-delay:3s;}
+.ff5{top:45%;left:5%;animation-delay:1.5s;}
+.ff6{top:40%;right:5%;animation-delay:2.5s;}
+@keyframes floatFood{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-12px) rotate(8deg)}}
+
+/* Logo */
+.logo-404{display:flex;align-items:center;gap:10px;justify-content:center;position:absolute;top:30px;left:50%;transform:translateX(-50%);}
+.logo-404 img{width:38px;height:38px;border-radius:50%;}
+.logo-404 span{font-size:1.4rem;font-weight:800;color:#C62828;}
+
+@media(max-width:520px){
+.error-number{font-size:6rem;}
+.error-page h2{font-size:1.4rem;}
+.suggestions{flex-direction:column;align-items:center;}
+.plate{width:90px;height:90px;}
+.plate::before{width:70px;height:70px;}
+.plate i{font-size:1.8rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- Floating Food -->
+<div class="float-food ff1">🍕</div>
+<div class="float-food ff2">🍔</div>
+<div class="float-food ff3">🍜</div>
+<div class="float-food ff4">🍰</div>
+<div class="float-food ff5">🌮</div>
+<div class="float-food ff6">🍣</div>
+
+<!-- Logo -->
+<div class="logo-404">
+<img src="assets/logo.svg" alt="QuickBite">
+<span>QuickBite</span>
+</div>
+
+<div class="error-page">
+
+<!-- 404 -->
+<div class="error-number">
+<span>4</span><span>0</span><span>4</span>
+</div>
+
+<!-- Empty Plate -->
+<div class="plate">
+<i class="fa-solid fa-utensils"></i>
+<span class="crumbs c1">•</span>
+<span class="crumbs c2">•</span>
+<span class="crumbs c3">•</span>
+</div>
+
+<!-- Text -->
+<h2>Oops! This page was <span>eaten</span></h2>
+<p>Looks like someone got too hungry and devoured this page. Don't worry — there's plenty more to explore!</p>
+
+<!-- Buttons -->
+<div class="error-btns">
+<a href="Homepage.html" class="btn-home"><i class="fa-solid fa-house"></i> Go Home</a>
+<a href="javascript:history.back()" class="btn-back"><i class="fa-solid fa-arrow-left"></i> Go Back</a>
+</div>
+
+<!-- Suggestions -->
+<div class="suggestions">
+<a href="food-delivery.html" class="suggest-card"><i class="fa-solid fa-motorcycle"></i> Order Food</a>
+<a href="dineout.html" class="suggest-card"><i class="fa-solid fa-utensils"></i> Dine Out</a>
+<a href="offers.html" class="suggest-card"><i class="fa-solid fa-tags"></i> View Offers</a>
+<a href="blog.html" class="suggest-card"><i class="fa-solid fa-newspaper"></i> Read Blog</a>
+</div>
+
+</div>
+
+</body>
+</html>
