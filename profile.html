@@ -264,7 +264,7 @@ body{background:#FFF8F0;color:#1F1F1F;min-height:100vh;background-image:url("dat
 <li><a href="profile.html?tab=profile"><i class="fa-solid fa-user"></i>My Profile</a></li>
 <li><a href="profile.html?tab=orders"><i class="fa-solid fa-bag-shopping"></i>My Orders</a></li>
 <li><a href="profile.html?tab=addresses"><i class="fa-solid fa-location-dot"></i>Saved Addresses</a></li>
-
+<li><a href="profile.html?tab=favorites"><i class="fa-solid fa-heart"></i>Favorites</a></li>
 <li><a href="profile.html?tab=settings"><i class="fa-solid fa-gear"></i>Settings</a></li>
 </ul>
 <div class="dropdown-divider"></div>
@@ -538,16 +538,5 @@ const dl=document.getElementById('desktopLogout');
 if(dl){dl.addEventListener('click',()=>{localStorage.removeItem('quickbite_logged_in');localStorage.removeItem('quickbite_user');localStorage.removeItem('quickbite_email');window.location.reload();});}
 })();
 </script>
-
-<footer style="background:#1F1F1F;padding:60px 7% 30px;color:white;margin-top:40px;">
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:30px;margin-bottom:40px;">
-<div><a href="Homepage.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;margin-bottom:20px;"><img src="assets/logo.svg" alt="QuickBite" style="width:40px;height:40px;"><span style="font-size:1.6rem;font-weight:800;color:#C62828;">QuickBite</span></a><p style="color:#ccc;line-height:1.8;">Delivering happiness with delicious food and premium restaurant experiences.</p></div>
-<div><h3 style="margin-bottom:18px;">Quick Links</h3><a href="Homepage.html" style="display:block;text-decoration:none;color:#ccc;margin-bottom:10px;">Home</a><a href="food-delivery.html" style="display:block;text-decoration:none;color:#ccc;margin-bottom:10px;">Food Delivery</a><a href="dineout.html" style="display:block;text-decoration:none;color:#ccc;margin-bottom:10px;">Dine Out</a><a href="about.html" style="display:block;text-decoration:none;color:#ccc;margin-bottom:10px;">About Us</a><a href="blog.html" style="display:block;text-decoration:none;color:#ccc;margin-bottom:10px;">Blog</a><a href="contact.html" style="display:block;text-decoration:none;color:#ccc;margin-bottom:10px;">Contact</a></div>
-<div><h3 style="margin-bottom:18px;">Support</h3><a href="contact.html" style="display:block;text-decoration:none;color:#ccc;margin-bottom:10px;">Help Center</a><a href="terms.html" style="display:block;text-decoration:none;color:#ccc;margin-bottom:10px;">Terms & Conditions</a><a href="privacy.html" style="display:block;text-decoration:none;color:#ccc;margin-bottom:10px;">Privacy Policy</a><a href="faq.html" style="display:block;text-decoration:none;color:#ccc;margin-bottom:10px;">FAQ</a></div>
-<div><h3 style="margin-bottom:18px;">Contact</h3><p style="color:#ccc;margin-bottom:10px;line-height:1.8;">support@quickbite.com</p><p style="color:#ccc;margin-bottom:10px;line-height:1.8;">+91 98765 43210</p><p style="color:#ccc;margin-bottom:10px;line-height:1.8;">Chennai, India</p></div>
-</div>
-<div style="border-top:1px solid rgba(255,255,255,0.1);padding-top:20px;text-align:center;color:#aaa;"><p>&copy; 2026 QuickBite. All Rights Reserved.</p></div>
-</footer>
-
 </body>
 </html>
