@@ -83,7 +83,8 @@ chennai: [
 {name:"Kulfi",restaurant:"Naturals",type:"icecream",price:79,rating:4.7,diet:"veg",img:"https://images.unsplash.com/photo-1576506295286-5cda18df43e7?q=80&w=600&auto=format&fit=crop"},
 {name:"Banana Split",restaurant:"Baskin Robbins",type:"icecream",price:229,rating:4.5,diet:"veg",img:"https://images.unsplash.com/photo-1563805042-7684c019e1cb?q=80&w=600&auto=format&fit=crop"},
 {name:"Cheesecake Slice",restaurant:"Amethyst Cafe",type:"cake",price:279,rating:4.8,diet:"veg",img:"https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?q=80&w=600&auto=format&fit=crop"},
-{name:"Onion Bhaji",restaurant:"Saravana Bhavan",type:"snacks",price:49,rating:4.4,diet:"veg",img:"https://images.unsplash.com/photo-1606491956689-2ea866880c84?q=80&w=600&auto=format&fit=crop"}
+{name:"Onion Bhaji",restaurant:"Saravana Bhavan",type:"snacks",price:49,rating:4.4,diet:"veg",img:"https://images.unsplash.com/photo-1606491956689-2ea866880c84?q=80&w=600&auto=format&fit=crop"},
+{name:"Chicken Shawarma",restaurant:"Al Bek",type:"rolls",price:149,rating:4.7,diet:"nonveg",img:"https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?q=80&w=600&auto=format&fit=crop"}
 ],
 mumbai: [
 {name:"Chicken Biryani",restaurant:"Lucky Biryani",type:"biryani",price:279,rating:4.7,diet:"nonveg",img:"https://images.unsplash.com/photo-1701579231349-d7459c40919d?q=80&w=600&auto=format&fit=crop"},
