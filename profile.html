@@ -87,7 +87,7 @@ body{background:#FFF8F0;color:#1F1F1F;min-height:100vh;background-image:url("dat
 .hero-info p{font-size:0.88rem;color:rgba(255,255,255,0.8);}
 
 /* Main Container */
-.profile-main{max-width:1300px;margin:-40px auto 0;padding:0 5% 60px;position:relative;z-index:3;}
+.profile-main{max-width:1300px;margin:0 auto;padding:30px 5% 60px;position:relative;z-index:3;}
 
 /* Stats Row */
 .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:28px;}
@@ -209,7 +209,7 @@ body{background:#FFF8F0;color:#1F1F1F;min-height:100vh;background-image:url("dat
 .hero-avatar{width:70px;height:70px;}
 .hero-avatar i{font-size:1.7rem;}
 .hero-info h1{font-size:1.3rem;}
-.profile-main{padding:0 5% 40px;margin-top:-30px;}
+.profile-main{padding:0 5% 40px;margin-top:20px;}
 .stats-row{grid-template-columns:repeat(2,1fr);gap:10px;}
 .stat-card{padding:16px;}
 .stat-num{font-size:1.2rem;}
@@ -260,13 +260,7 @@ body{background:#FFF8F0;color:#1F1F1F;min-height:100vh;background-image:url("dat
 <div class="desktop-dropdown" id="desktopDropdown">
 <div class="dropdown-header"><div class="dropdown-avatar"><i class="fa-solid fa-user"></i></div><div class="dropdown-info"><h4 id="desktopProfileName">User</h4><span id="desktopProfileEmail">user@quickbite.com</span></div></div>
 <div class="dropdown-divider"></div>
-<ul class="dropdown-menu">
-<li><a href="profile.html?tab=profile"><i class="fa-solid fa-user"></i>My Profile</a></li>
-<li><a href="profile.html?tab=orders"><i class="fa-solid fa-bag-shopping"></i>My Orders</a></li>
-<li><a href="profile.html?tab=addresses"><i class="fa-solid fa-location-dot"></i>Saved Addresses</a></li>
-<li><a href="profile.html?tab=favorites"><i class="fa-solid fa-heart"></i>Favorites</a></li>
-<li><a href="profile.html?tab=settings"><i class="fa-solid fa-gear"></i>Settings</a></li>
-</ul>
+<ul class="dropdown-menu"><li><a href="profile.html?tab=profile"><i class="fa-solid fa-user"></i>My Profile</a></li><li><a href="profile.html?tab=orders"><i class="fa-solid fa-bag-shopping"></i>My Orders</a></li><li><a href="profile.html?tab=addresses"><i class="fa-solid fa-location-dot"></i>Saved Addresses</a></li><li><a href="profile.html?tab=notifications"><i class="fa-solid fa-bell"></i>Notifications</a></li><li><a href="profile.html?tab=settings"><i class="fa-solid fa-gear"></i>Settings</a></li></ul>
 <div class="dropdown-divider"></div>
 <button class="dropdown-logout" id="desktopLogout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
 </div>
@@ -324,7 +318,7 @@ body{background:#FFF8F0;color:#1F1F1F;min-height:100vh;background-image:url("dat
 <button class="tab-btn active" data-tab="profile"><i class="fa-solid fa-user"></i><span>Profile</span></button>
 <button class="tab-btn" data-tab="orders"><i class="fa-solid fa-bag-shopping"></i><span>Orders</span></button>
 <button class="tab-btn" data-tab="addresses"><i class="fa-solid fa-location-dot"></i><span>Addresses</span></button>
-<button class="tab-btn" data-tab="favorites"><i class="fa-solid fa-heart"></i><span>Favorites</span></button>
+
 <button class="tab-btn" data-tab="notifications"><i class="fa-solid fa-bell"></i><span>Notifications</span></button>
 <button class="tab-btn" data-tab="settings"><i class="fa-solid fa-gear"></i><span>Settings</span></button>
 </div>
@@ -356,8 +350,7 @@ body{background:#FFF8F0;color:#1F1F1F;min-height:100vh;background-image:url("dat
 </div>
 
 <!-- Favorites Tab -->
-<div class="tab-panel" id="panel-favorites">
-<div class="card"><h3><i class="fa-solid fa-heart"></i> My Favorites</h3><div class="fav-grid" id="favGrid"></div></div>
+
 </div>
 
 <!-- Notifications Tab -->
@@ -471,12 +464,15 @@ function removeFav(i){const favs=JSON.parse(localStorage.getItem('quickbite_favo
 // Notifications
 function renderNotifs(){
 const notifs=[
-{icon:'fa-solid fa-circle-check',title:'Order Delivered',text:'Your order has been delivered. Enjoy your meal!',time:'Just now'},
+{icon:'fa-solid fa-circle-check',title:'Order Delivered',text:'Your order #QB84521 has been delivered successfully. Enjoy your meal!',time:'Just now'},
 {icon:'fa-solid fa-percent',title:'Weekend Special: 40% OFF',text:'Use code WEEKEND40 on orders above \u20b9399. Valid this weekend only.',time:'2 hours ago'},
-{icon:'fa-solid fa-motorcycle',title:'Your Food is On the Way',text:'Delivery partner picked up your order and is heading to you.',time:'5 hours ago'},
-{icon:'fa-solid fa-gift',title:'You Earned \u20b9100 Credits!',text:'Congratulations! Use your credits on your next order.',time:'1 day ago'},
-{icon:'fa-solid fa-star',title:'Rate Your Last Order',text:'How was your experience with Meghana Foods? Share your feedback.',time:'2 days ago'},
-{icon:'fa-solid fa-user-plus',title:'Welcome to QuickBite!',text:'Thanks for joining. Explore restaurants and start ordering.',time:'3 days ago'}
+{icon:'fa-solid fa-motorcycle',title:'Your Food is On the Way',text:'Delivery partner Rajesh picked up your order and is heading to you.',time:'5 hours ago'},
+{icon:'fa-solid fa-gift',title:'You Earned \u20b9100 Credits!',text:'Congratulations! Use your credits on your next order. No minimum required.',time:'1 day ago'},
+{icon:'fa-solid fa-star',title:'Rate Your Last Order',text:'How was your experience with Meghana Foods? Share your feedback and earn 10 points.',time:'2 days ago'},
+{icon:'fa-solid fa-tags',title:'Flash Sale: 50% OFF Biryani',text:'For the next 2 hours, get 50% off on all biryani orders. Don\'t miss out!',time:'2 days ago'},
+{icon:'fa-solid fa-location-dot',title:'New Restaurant Near You',text:'Truffles just joined QuickBite in your area. Check out their menu!',time:'3 days ago'},
+{icon:'fa-solid fa-credit-card',title:'Payment Successful',text:'Your payment of \u20b9549 for order #QB84320 was processed successfully.',time:'4 days ago'},
+{icon:'fa-solid fa-user-plus',title:'Welcome to QuickBite!',text:'Thanks for joining. Explore 500+ restaurants and start ordering today.',time:'5 days ago'}
 ];
 document.getElementById('notifBox').innerHTML=notifs.map(n=>'<div class="notif-item"><div class="notif-dot"><i class="'+n.icon+'"></i></div><div class="notif-body"><h4>'+n.title+'</h4><p>'+n.text+'</p><div class="notif-time"><i class="fa-regular fa-clock"></i> '+n.time+'</div></div></div>').join('');
 }
